@@ -1,0 +1,10 @@
+[
+  {
+    "id": "example-node",
+    "name": "Example VPS",
+    "region": "Example region",
+    "sshAlias": "example-node",
+    "expectedHostname": "example-host",
+    "units": ["example-vpn.service"]
+  }
+]

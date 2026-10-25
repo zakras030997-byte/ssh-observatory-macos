@@ -1,0 +1,7 @@
+# Merge with your own existing SSH configuration; replace example values.
+Host example-node
+    HostName example.invalid
+    User telemetry
+    IdentityFile ~/.ssh/id_ed25519
+    StrictHostKeyChecking yes
+    ForwardAgent no
