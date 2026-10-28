@@ -7,7 +7,7 @@ let package = Package(
     products: [.executable(name: "SSHObservatory", targets: ["SSHObservatory"])],
     targets: [
         .target(name: "TelemetryCore", linkerSettings: [.linkedLibrary("sqlite3")]),
-        .executableTarget(name: "SSHObservatory", dependencies: ["TelemetryCore"], resources: [.copy("Resources/collector.py")]),
+        .executableTarget(name: "SSHObservatory", dependencies: ["TelemetryCore"], resources: [.copy("Resources/collector.py"), .copy("Resources/AppIcon.icns")]),
         .testTarget(name: "TelemetryCoreTests", dependencies: ["TelemetryCore"])
     ],
     swiftLanguageModes: [.v5]

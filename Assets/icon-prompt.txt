@@ -1,0 +1,3 @@
+Generated using the built-in imagegen tool. Use case: logo-brand.
+Production macOS icon for SSH Observatory: one centered rounded-square midnight navy and graphite glass tile with transparent margins. Bold cyan radar circle, sparse concentric rings, a sweep towards the upper right and a telemetry pulse line across the center. A warm amber node at the sweep tip. Crisp, straight-on native Mac utility aesthetic, readable at small sizes. No text, letters, shield, lock, watermark or mockup.
+AppIcon-master.png is the original generated asset; AppIcon.png is its 1024px packaging version. Regenerate the macOS ICNS with: bash scripts/build-icon.sh

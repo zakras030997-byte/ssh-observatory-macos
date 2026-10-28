@@ -1,0 +1,5094 @@
+{
+  "contract_sha256": "074e4712be5d2a6332f2ae2dd6884978f247a6c53212020251b3922205dda525",
+  "source": "actual server-candidate, local mTLS, disposable synthetic DBs",
+  "records": [
+    {
+      "name": "capabilities",
+      "kind": "Capabilities",
+      "value": {
+        "api_version": 2,
+        "contract": "anodhas.owner-control.r2",
+        "contract_revision": 3,
+        "features": [
+          "requests_read",
+          "clients_read",
+          "keys_read",
+          "referrals_read",
+          "attention_read",
+          "durable_preview_confirm_status"
+        ],
+        "actions": [
+          {
+            "action": "client_trial_gift",
+            "enabled": false,
+            "reason_code": "CLIENT_ISSUANCE_E2E_GATE"
+          },
+          {
+            "action": "key_expiry_at",
+            "enabled": true,
+            "reason_code": null
+          },
+          {
+            "action": "key_extend_days",
+            "enabled": true,
+            "reason_code": null
+          },
+          {
+            "action": "key_grant_periods",
+            "enabled": true,
+            "reason_code": null
+          },
+          {
+            "action": "key_grant_traffic",
+            "enabled": true,
+            "reason_code": null
+          },
+          {
+            "action": "key_resume",
+            "enabled": true,
+            "reason_code": null
+          },
+          {
+            "action": "key_revoke",
+            "enabled": true,
+            "reason_code": null
+          },
+          {
+            "action": "key_suspend",
+            "enabled": true,
+            "reason_code": null
+          },
+          {
+            "action": "key_time_unlimited",
+            "enabled": true,
+            "reason_code": null
+          },
+          {
+            "action": "key_traffic_unlimited_off",
+            "enabled": true,
+            "reason_code": null
+          },
+          {
+            "action": "key_traffic_unlimited_on",
+            "enabled": true,
+            "reason_code": null
+          },
+          {
+            "action": "order_full_refund",
+            "enabled": true,
+            "reason_code": null
+          },
+          {
+            "action": "owner_subscription_resend",
+            "enabled": true,
+            "reason_code": null
+          },
+          {
+            "action": "referral_approve",
+            "enabled": true,
+            "reason_code": null
+          },
+          {
+            "action": "referral_reject",
+            "enabled": true,
+            "reason_code": null
+          },
+          {
+            "action": "referrals_reconcile",
+            "enabled": true,
+            "reason_code": null
+          },
+          {
+            "action": "request_decline",
+            "enabled": true,
+            "reason_code": null
+          },
+          {
+            "action": "request_free",
+            "enabled": false,
+            "reason_code": "CLIENT_ISSUANCE_E2E_GATE"
+          },
+          {
+            "action": "request_gift",
+            "enabled": false,
+            "reason_code": "CLIENT_ISSUANCE_E2E_GATE"
+          },
+          {
+            "action": "request_invoice",
+            "enabled": false,
+            "reason_code": "CLIENT_ISSUANCE_E2E_GATE"
+          }
+        ]
+      }
+    },
+    {
+      "name": "request",
+      "kind": "AccessRequestView",
+      "value": {
+        "request_id": "f7dbe763-352f-424e-b7da-47983b2fd87b",
+        "telegram_user_id": 910002,
+        "username": "fiction_910002",
+        "display_name": "Вымышленный 910002",
+        "device_count": 1,
+        "period_count": 1,
+        "total_xtr": 100,
+        "status": "pending",
+        "request_kind": "paid",
+        "stage": null,
+        "identity_conflict": false,
+        "replace_invoice_available": false,
+        "gift_order_id": null,
+        "revision": "7a90f32eba8ab856f890e92e72e222e903bac4ce257726b89795162ba9689f4f",
+        "allowed_actions": [
+          {
+            "action": "request_invoice",
+            "enabled": false,
+            "reason_code": "CLIENT_ISSUANCE_E2E_GATE"
+          },
+          {
+            "action": "request_free",
+            "enabled": false,
+            "reason_code": "CLIENT_ISSUANCE_E2E_GATE"
+          },
+          {
+            "action": "request_decline",
+            "enabled": true,
+            "reason_code": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "client",
+      "kind": "UserOverview",
+      "value": {
+        "telegram_user_id": 910002,
+        "display_name": "Вымышленный 910002",
+        "username": "fiction_910002",
+        "slots_used": 1,
+        "slots_limit": 5,
+        "active_keys": 0,
+        "suspended_keys": 1,
+        "status": "new",
+        "expired_keys": 0,
+        "pending_keys": 0,
+        "identity_conflict": false,
+        "revision": "664bff69434ac99d09c4f0a07d3e2ff7acf3085de9a01f51fb32ab8ff684648d",
+        "allowed_actions": [
+          {
+            "action": "client_trial_gift",
+            "enabled": false,
+            "reason_code": "CLIENT_ISSUANCE_E2E_GATE"
+          }
+        ]
+      }
+    },
+    {
+      "name": "key",
+      "kind": "DeviceView",
+      "value": {
+        "key_id": "580fcaf2-ef34-4bf7-b4d2-cc48df799ff9",
+        "name": "Вымышленное устройство",
+        "protocol": "hysteria2",
+        "state": "suspended",
+        "expires_at": "2026-11-25T16:35:03Z",
+        "period_ends_at": "2026-11-24T16:35:03Z",
+        "used_bytes": null,
+        "limit_bytes": 500000000000,
+        "last_activity_at": null,
+        "time_unlimited": false,
+        "traffic_unlimited": false,
+        "traffic_available": false,
+        "traffic_updated_at": null,
+        "traffic_oldest_at": null,
+        "traffic_loss_unknown": false,
+        "traffic_partial_stale": false,
+        "traffic_scope": "за текущий период",
+        "remaining_bytes": null,
+        "access_kind": "paid",
+        "telegram_user_id": 910002,
+        "username": "fiction_910002",
+        "display_name": "Вымышленный 910002",
+        "revision": "ed275a1640c1e95db1b620eba6dd0d294e01ff553396f9cdda91c0794c274f4a",
+        "allowed_actions": [
+          {
+            "action": "key_suspend",
+            "enabled": true,
+            "reason_code": null
+          },
+          {
+            "action": "key_resume",
+            "enabled": false,
+            "reason_code": "CORE_PRECONDITION_REJECTED"
+          },
+          {
+            "action": "key_revoke",
+            "enabled": true,
+            "reason_code": null
+          },
+          {
+            "action": "key_extend_days",
+            "enabled": true,
+            "reason_code": null
+          },
+          {
+            "action": "key_expiry_at",
+            "enabled": true,
+            "reason_code": null
+          },
+          {
+            "action": "key_grant_periods",
+            "enabled": true,
+            "reason_code": null
+          },
+          {
+            "action": "key_time_unlimited",
+            "enabled": true,
+            "reason_code": null
+          },
+          {
+            "action": "key_grant_traffic",
+            "enabled": true,
+            "reason_code": null
+          },
+          {
+            "action": "key_traffic_unlimited_on",
+            "enabled": true,
+            "reason_code": null
+          },
+          {
+            "action": "key_traffic_unlimited_off",
+            "enabled": false,
+            "reason_code": "CORE_PRECONDITION_REJECTED"
+          }
+        ]
+      }
+    },
+    {
+      "name": "client_order",
+      "kind": "RefundOrderView",
+      "value": {
+        "order_id": "3b69787d-43c8-410d-8c76-48ae7e6affe1",
+        "telegram_user_id": 910002,
+        "amount_xtr": 100,
+        "order_type": "new_keys",
+        "devices_count": 1,
+        "periods_count": 1,
+        "paid_at": "2026-10-26T16:35:03Z",
+        "payment_status": "succeeded",
+        "refundable": true,
+        "username": "fiction_910002",
+        "display_name": "Вымышленный 910002",
+        "revision": "4957dc7342fbca3c89615128003b13d2913e6b30538ba2e608954a97fefbcd2c",
+        "allowed_actions": [
+          {
+            "action": "order_full_refund",
+            "enabled": true,
+            "reason_code": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "referral",
+      "kind": "ReferralView",
+      "value": {
+        "reward_id": "0dd3220b-f41c-4dbd-a9c3-fd9920d3dc9f",
+        "attribution_id": "0dd3220b-f41c-4dbd-a9c3-fd9920d3dc9f",
+        "status": "review",
+        "reason": "Вымышленная проверка",
+        "reviewable": true,
+        "earned_at": null,
+        "starts_at": null,
+        "ends_at": null,
+        "device_slot_id": null,
+        "order_id": null,
+        "bound_at": "2026-10-26T16:35:03Z",
+        "inviter_telegram_user_id": 910002,
+        "inviter_username": "fiction_910002",
+        "inviter_display_name": "Вымышленный 910002",
+        "invitee_telegram_user_id": 910003,
+        "invitee_username": "fiction_910003",
+        "invitee_display_name": "Вымышленный 910003",
+        "gift_created": false,
+        "gift_fulfilled": false,
+        "delivery_confirmed": false,
+        "revision": "03bb0e9ff8c38138ecd26ce912787fbac2aa3e8ae824765c8648dc32ccf60852",
+        "allowed_actions": [
+          {
+            "action": "referral_approve",
+            "enabled": true,
+            "reason_code": null
+          },
+          {
+            "action": "referral_reject",
+            "enabled": true,
+            "reason_code": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "history_event",
+      "kind": "AdminHistoryView",
+      "value": {
+        "event_id": "71cc84e5-c44e-47b9-acc8-c61e90396d6b",
+        "created_at": "2026-10-26T16:35:03Z",
+        "actor": "@fiction_910001 · ID: 910001",
+        "action": "extend_days",
+        "target": "device_slot:580fcaf2-ef34-4bf7-b4d2-cc48df799ff9",
+        "result": "success",
+        "reason": "Вымышленная запись истории",
+        "before": {
+          "term_end": "2026-11-24T16:35:03.215032+00:00"
+        },
+        "after": {
+          "term_end": "2026-11-25T16:35:03.215032+00:00"
+        },
+        "telegram_user_id": 910002,
+        "username": "fiction_910002",
+        "display_name": "Вымышленный 910002",
+        "revision": "943c99b8bc8ba7a1a6f9659d6326f7a070f5b41e08a7081e0c963f86641c9b86",
+        "allowed_actions": []
+      }
+    },
+    {
+      "name": "attention_item",
+      "kind": "AdminProblemView",
+      "value": {
+        "problem_id": "operation:owner-fulfill:faa72416-dbc8-4ab4-b59e-11075da86990",
+        "kind": "issuance",
+        "status": "attention",
+        "object_id": "faa72416-dbc8-4ab4-b59e-11075da86990",
+        "stage": "queued",
+        "reason": "Операция ещё не подтверждена; результат провайдера требует сверки.",
+        "first_event_at": "2026-10-26T16:35:03Z",
+        "last_event_at": "2026-10-26T16:35:03Z",
+        "attempts": 0,
+        "telegram_user_id": 910001,
+        "username": "fiction_910001",
+        "display_name": "Вымышленный 910001",
+        "next_step": "Сверьте сохранённый результат и состояние провайдера; автоматический повтор недоступен.",
+        "responsible": null,
+        "chain": [
+          {
+            "stage": "Заявка",
+            "status": "Без заявки"
+          },
+          {
+            "stage": "Заказ",
+            "status": "fulfilled"
+          },
+          {
+            "stage": "Очередь",
+            "status": "completed, pending, queued"
+          },
+          {
+            "stage": "Провайдер",
+            "status": "ready"
+          },
+          {
+            "stage": "Доставка",
+            "status": "Нет подтверждения"
+          },
+          {
+            "stage": "Активация",
+            "status": "Не подтверждена"
+          }
+        ],
+        "revision": "c149db747880c4cc83fb9f47405487be0934d1dc3c870110d4c120f562b74daa",
+        "allowed_actions": []
+      }
+    }
+  ],
+  "pages": [
+    {
+      "name": "requests",
+      "path": "/v2/requests",
+      "kind": "AccessRequestView",
+      "query": [
+        {
+          "name": "status",
+          "value": "all"
+        }
+      ],
+      "value": {
+        "items": [
+          {
+            "request_id": "f7dbe763-352f-424e-b7da-47983b2fd87b",
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "device_count": 1,
+            "period_count": 1,
+            "total_xtr": 100,
+            "status": "pending",
+            "request_kind": "paid",
+            "stage": null,
+            "identity_conflict": false,
+            "replace_invoice_available": false,
+            "gift_order_id": null,
+            "revision": "7a90f32eba8ab856f890e92e72e222e903bac4ce257726b89795162ba9689f4f",
+            "allowed_actions": [
+              {
+                "action": "request_invoice",
+                "enabled": false,
+                "reason_code": "CLIENT_ISSUANCE_E2E_GATE"
+              },
+              {
+                "action": "request_free",
+                "enabled": false,
+                "reason_code": "CLIENT_ISSUANCE_E2E_GATE"
+              },
+              {
+                "action": "request_decline",
+                "enabled": true,
+                "reason_code": null
+              }
+            ]
+          }
+        ],
+        "total": 1,
+        "page": 0,
+        "page_size": 20,
+        "has_more": false
+      }
+    },
+    {
+      "name": "clients",
+      "path": "/v2/clients",
+      "kind": "UserOverview",
+      "query": [],
+      "value": {
+        "items": [
+          {
+            "telegram_user_id": 910003,
+            "display_name": "Вымышленный 910003",
+            "username": "fiction_910003",
+            "slots_used": 0,
+            "slots_limit": 5,
+            "active_keys": 0,
+            "suspended_keys": 0,
+            "status": "new",
+            "expired_keys": 0,
+            "pending_keys": 0,
+            "identity_conflict": false,
+            "revision": "738095bd192657ba028f83680ebb13f448c4a899e09d861471bd5b5f2ae236e9",
+            "allowed_actions": [
+              {
+                "action": "client_trial_gift",
+                "enabled": false,
+                "reason_code": "CLIENT_ISSUANCE_E2E_GATE"
+              }
+            ]
+          },
+          {
+            "telegram_user_id": 910002,
+            "display_name": "Вымышленный 910002",
+            "username": "fiction_910002",
+            "slots_used": 1,
+            "slots_limit": 5,
+            "active_keys": 0,
+            "suspended_keys": 1,
+            "status": "new",
+            "expired_keys": 0,
+            "pending_keys": 0,
+            "identity_conflict": false,
+            "revision": "664bff69434ac99d09c4f0a07d3e2ff7acf3085de9a01f51fb32ab8ff684648d",
+            "allowed_actions": [
+              {
+                "action": "client_trial_gift",
+                "enabled": false,
+                "reason_code": "CLIENT_ISSUANCE_E2E_GATE"
+              }
+            ]
+          }
+        ],
+        "total": 2,
+        "page": 0,
+        "page_size": 20,
+        "has_more": false
+      }
+    },
+    {
+      "name": "client_keys",
+      "path": "/v2/clients/910002/keys",
+      "kind": "DeviceView",
+      "query": [],
+      "value": {
+        "items": [
+          {
+            "key_id": "580fcaf2-ef34-4bf7-b4d2-cc48df799ff9",
+            "name": "Вымышленное устройство",
+            "protocol": "hysteria2",
+            "state": "suspended",
+            "expires_at": "2026-11-25T16:35:03Z",
+            "period_ends_at": "2026-11-24T16:35:03Z",
+            "used_bytes": null,
+            "limit_bytes": 500000000000,
+            "last_activity_at": null,
+            "time_unlimited": false,
+            "traffic_unlimited": false,
+            "traffic_available": false,
+            "traffic_updated_at": null,
+            "traffic_oldest_at": null,
+            "traffic_loss_unknown": false,
+            "traffic_partial_stale": false,
+            "traffic_scope": "за текущий период",
+            "remaining_bytes": null,
+            "access_kind": "paid",
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "revision": "ed275a1640c1e95db1b620eba6dd0d294e01ff553396f9cdda91c0794c274f4a",
+            "allowed_actions": [
+              {
+                "action": "key_suspend",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_resume",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "key_revoke",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_extend_days",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_expiry_at",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_periods",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_time_unlimited",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_traffic",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_on",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_off",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              }
+            ]
+          }
+        ],
+        "total": 1,
+        "page": 0,
+        "page_size": 20,
+        "has_more": false
+      }
+    },
+    {
+      "name": "client_history",
+      "path": "/v2/clients/910002/history",
+      "kind": "AdminHistoryView",
+      "query": [],
+      "value": {
+        "items": [
+          {
+            "event_id": "71cc84e5-c44e-47b9-acc8-c61e90396d6b",
+            "created_at": "2026-10-26T16:35:03Z",
+            "actor": "@fiction_910001 · ID: 910001",
+            "action": "extend_days",
+            "target": "device_slot:580fcaf2-ef34-4bf7-b4d2-cc48df799ff9",
+            "result": "success",
+            "reason": "Вымышленная запись истории",
+            "before": {
+              "term_end": "2026-11-24T16:35:03.215032+00:00"
+            },
+            "after": {
+              "term_end": "2026-11-25T16:35:03.215032+00:00"
+            },
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "revision": "943c99b8bc8ba7a1a6f9659d6326f7a070f5b41e08a7081e0c963f86641c9b86",
+            "allowed_actions": []
+          }
+        ],
+        "total": 1,
+        "page": 0,
+        "page_size": 20,
+        "has_more": false
+      }
+    },
+    {
+      "name": "client_payments",
+      "path": "/v2/clients/910002/payments",
+      "kind": "RefundOrderView",
+      "query": [],
+      "value": {
+        "items": [
+          {
+            "order_id": "3b69787d-43c8-410d-8c76-48ae7e6affe1",
+            "telegram_user_id": 910002,
+            "amount_xtr": 100,
+            "order_type": "new_keys",
+            "devices_count": 1,
+            "periods_count": 1,
+            "paid_at": "2026-10-26T16:35:03Z",
+            "payment_status": "succeeded",
+            "refundable": true,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "revision": "4957dc7342fbca3c89615128003b13d2913e6b30538ba2e608954a97fefbcd2c",
+            "allowed_actions": [
+              {
+                "action": "order_full_refund",
+                "enabled": true,
+                "reason_code": null
+              }
+            ]
+          }
+        ],
+        "total": 1,
+        "page": 0,
+        "page_size": 20,
+        "has_more": false
+      }
+    },
+    {
+      "name": "referrals",
+      "path": "/v2/referrals",
+      "kind": "ReferralView",
+      "query": [],
+      "value": {
+        "items": [
+          {
+            "reward_id": "0dd3220b-f41c-4dbd-a9c3-fd9920d3dc9f",
+            "attribution_id": "0dd3220b-f41c-4dbd-a9c3-fd9920d3dc9f",
+            "status": "review",
+            "reason": "Вымышленная проверка",
+            "reviewable": true,
+            "earned_at": null,
+            "starts_at": null,
+            "ends_at": null,
+            "device_slot_id": null,
+            "order_id": null,
+            "bound_at": "2026-10-26T16:35:03Z",
+            "inviter_telegram_user_id": 910002,
+            "inviter_username": "fiction_910002",
+            "inviter_display_name": "Вымышленный 910002",
+            "invitee_telegram_user_id": 910003,
+            "invitee_username": "fiction_910003",
+            "invitee_display_name": "Вымышленный 910003",
+            "gift_created": false,
+            "gift_fulfilled": false,
+            "delivery_confirmed": false,
+            "revision": "03bb0e9ff8c38138ecd26ce912787fbac2aa3e8ae824765c8648dc32ccf60852",
+            "allowed_actions": [
+              {
+                "action": "referral_approve",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "referral_reject",
+                "enabled": true,
+                "reason_code": null
+              }
+            ]
+          }
+        ],
+        "total": 1,
+        "page": 0,
+        "page_size": 20,
+        "has_more": false
+      }
+    },
+    {
+      "name": "attention",
+      "path": "/v2/attention",
+      "kind": "AdminProblemView",
+      "query": [],
+      "value": {
+        "items": [
+          {
+            "problem_id": "operation:owner-fulfill:faa72416-dbc8-4ab4-b59e-11075da86990",
+            "kind": "issuance",
+            "status": "attention",
+            "object_id": "faa72416-dbc8-4ab4-b59e-11075da86990",
+            "stage": "queued",
+            "reason": "Операция ещё не подтверждена; результат провайдера требует сверки.",
+            "first_event_at": "2026-10-26T16:35:03Z",
+            "last_event_at": "2026-10-26T16:35:03Z",
+            "attempts": 0,
+            "telegram_user_id": 910001,
+            "username": "fiction_910001",
+            "display_name": "Вымышленный 910001",
+            "next_step": "Сверьте сохранённый результат и состояние провайдера; автоматический повтор недоступен.",
+            "responsible": null,
+            "chain": [
+              {
+                "stage": "Заявка",
+                "status": "Без заявки"
+              },
+              {
+                "stage": "Заказ",
+                "status": "fulfilled"
+              },
+              {
+                "stage": "Очередь",
+                "status": "completed, pending, queued"
+              },
+              {
+                "stage": "Провайдер",
+                "status": "ready"
+              },
+              {
+                "stage": "Доставка",
+                "status": "Нет подтверждения"
+              },
+              {
+                "stage": "Активация",
+                "status": "Не подтверждена"
+              }
+            ],
+            "revision": "c149db747880c4cc83fb9f47405487be0934d1dc3c870110d4c120f562b74daa",
+            "allowed_actions": []
+          },
+          {
+            "problem_id": "operation:fixture-control-unknown",
+            "kind": "control",
+            "status": "attention",
+            "object_id": "580fcaf2-ef34-4bf7-b4d2-cc48df799ff9",
+            "stage": "unknown",
+            "reason": "Операция ещё не подтверждена; результат провайдера требует сверки.",
+            "first_event_at": "2026-10-26T16:35:03Z",
+            "last_event_at": "2026-10-26T16:35:03Z",
+            "attempts": 0,
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "next_step": "Сверьте сохранённый результат и состояние провайдера; автоматический повтор недоступен.",
+            "responsible": null,
+            "chain": [],
+            "revision": "6da64ceb188ef883e0db7f6fec344a217aa1b04cb8b54911c2fa6c5843921ad8",
+            "allowed_actions": []
+          }
+        ],
+        "total": 2,
+        "page": 0,
+        "page_size": 20,
+        "has_more": false
+      }
+    }
+  ],
+  "operations": [
+    {
+      "name": "client_trial_gift.gated",
+      "request": {
+        "operation_id": "816c47bbd6c240d6bbd27aafccab7678",
+        "action": "client_trial_gift",
+        "target": {
+          "kind": "client",
+          "id": "910002"
+        },
+        "parameters": {}
+      },
+      "value": {
+        "error": {
+          "code": "CLIENT_ISSUANCE_E2E_GATE",
+          "message": "Действие пока недоступно в ядре.",
+          "retryable": false
+        }
+      },
+      "post_preview": true,
+      "http_status": 409
+    },
+    {
+      "name": "key_expiry_at.preview",
+      "request": {
+        "operation_id": "caac4d0a81af4369a83f43332f27d082",
+        "action": "key_expiry_at",
+        "target": {
+          "kind": "key",
+          "id": "fddf4a4b-5c4d-4f69-a0ff-d2485aed7c35",
+          "client_id": 910002
+        },
+        "parameters": {
+          "expires_at": "2027-01-24T16:35:02.310012+00:00"
+        }
+      },
+      "value": {
+        "operation_id": "caac4d0a81af4369a83f43332f27d082",
+        "action": "key_expiry_at",
+        "state": "prepared",
+        "summary": "Срок: 24.01.2027 19:35 МСК; трафик без изменений",
+        "expires_at": "2026-10-26T16:37:04Z",
+        "target": {
+          "kind": "key",
+          "id": "fddf4a4b-5c4d-4f69-a0ff-d2485aed7c35",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "key",
+          "before": {
+            "key_id": "fddf4a4b-5c4d-4f69-a0ff-d2485aed7c35",
+            "name": "Вымышленное устройство",
+            "protocol": "hysteria2",
+            "state": "suspended",
+            "expires_at": "2026-11-24T16:35:04Z",
+            "period_ends_at": "2026-11-24T16:35:04Z",
+            "used_bytes": null,
+            "limit_bytes": 500000000000,
+            "last_activity_at": null,
+            "time_unlimited": false,
+            "traffic_unlimited": false,
+            "traffic_available": false,
+            "traffic_updated_at": null,
+            "traffic_oldest_at": null,
+            "traffic_loss_unknown": false,
+            "traffic_partial_stale": false,
+            "traffic_scope": "за текущий период",
+            "remaining_bytes": null,
+            "access_kind": "paid",
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "revision": "f4219face2f61c228b5d64585592d864445126c9516ea6865124ba72ffa45af3",
+            "allowed_actions": [
+              {
+                "action": "key_suspend",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_resume",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "key_revoke",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_extend_days",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_expiry_at",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_periods",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_time_unlimited",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_traffic",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_on",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_off",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              }
+            ]
+          },
+          "after": {
+            "summary": "Срок: 24.01.2027 19:35 МСК; трафик без изменений",
+            "parameters": {
+              "expires_at": "2027-01-24T16:35:02.310012Z"
+            },
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "none",
+            "adds_quota": false,
+            "changes_term": true
+          },
+          "expected_version": "f4219face2f61c228b5d64585592d864445126c9516ea6865124ba72ffa45af3",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": false,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "none",
+          "order_id": null,
+          "key_id": null,
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null,
+        "confirmation_token": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "post_preview": true,
+      "http_status": 200
+    },
+    {
+      "name": "key_expiry_at.status",
+      "request": {
+        "operation_id": "caac4d0a81af4369a83f43332f27d082",
+        "action": "key_expiry_at",
+        "target": {
+          "kind": "key",
+          "id": "fddf4a4b-5c4d-4f69-a0ff-d2485aed7c35",
+          "client_id": 910002
+        },
+        "parameters": {
+          "expires_at": "2027-01-24T16:35:02.310012+00:00"
+        }
+      },
+      "value": {
+        "operation_id": "caac4d0a81af4369a83f43332f27d082",
+        "action": "key_expiry_at",
+        "state": "succeeded",
+        "summary": "Срок: 24.01.2027 19:35 МСК; трафик без изменений",
+        "expires_at": null,
+        "target": {
+          "kind": "key",
+          "id": "fddf4a4b-5c4d-4f69-a0ff-d2485aed7c35",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "key",
+          "before": {
+            "key_id": "fddf4a4b-5c4d-4f69-a0ff-d2485aed7c35",
+            "name": "Вымышленное устройство",
+            "protocol": "hysteria2",
+            "state": "suspended",
+            "expires_at": "2026-11-24T16:35:04Z",
+            "period_ends_at": "2026-11-24T16:35:04Z",
+            "used_bytes": null,
+            "limit_bytes": 500000000000,
+            "last_activity_at": null,
+            "time_unlimited": false,
+            "traffic_unlimited": false,
+            "traffic_available": false,
+            "traffic_updated_at": null,
+            "traffic_oldest_at": null,
+            "traffic_loss_unknown": false,
+            "traffic_partial_stale": false,
+            "traffic_scope": "за текущий период",
+            "remaining_bytes": null,
+            "access_kind": "paid",
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "revision": "f4219face2f61c228b5d64585592d864445126c9516ea6865124ba72ffa45af3",
+            "allowed_actions": [
+              {
+                "action": "key_suspend",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_resume",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "key_revoke",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_extend_days",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_expiry_at",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_periods",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_time_unlimited",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_traffic",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_on",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_off",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              }
+            ]
+          },
+          "after": {
+            "summary": "Срок: 24.01.2027 19:35 МСК; трафик без изменений",
+            "parameters": {
+              "expires_at": "2027-01-24T16:35:02.310012Z"
+            },
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "none",
+            "adds_quota": false,
+            "changes_term": true
+          },
+          "expected_version": "f4219face2f61c228b5d64585592d864445126c9516ea6865124ba72ffa45af3",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": true,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "confirmed",
+          "order_id": null,
+          "key_id": "fddf4a4b-5c4d-4f69-a0ff-d2485aed7c35",
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null
+      },
+      "post_preview": false,
+      "http_status": 200
+    },
+    {
+      "name": "key_extend_days.preview",
+      "request": {
+        "operation_id": "e989ae3eb5a54fba8b24a773e90eaa14",
+        "action": "key_extend_days",
+        "target": {
+          "kind": "key",
+          "id": "6e68f2f8-ea22-4dca-85d3-2d1cf18850de",
+          "client_id": 910002
+        },
+        "parameters": {
+          "days": 2
+        }
+      },
+      "value": {
+        "operation_id": "e989ae3eb5a54fba8b24a773e90eaa14",
+        "action": "key_extend_days",
+        "state": "prepared",
+        "summary": "Срок: 26.11.2026 19:35 МСК; трафик без изменений",
+        "expires_at": "2026-10-26T16:37:05Z",
+        "target": {
+          "kind": "key",
+          "id": "6e68f2f8-ea22-4dca-85d3-2d1cf18850de",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "key",
+          "before": {
+            "key_id": "6e68f2f8-ea22-4dca-85d3-2d1cf18850de",
+            "name": "Вымышленное устройство",
+            "protocol": "hysteria2",
+            "state": "suspended",
+            "expires_at": "2026-11-24T16:35:05Z",
+            "period_ends_at": "2026-11-24T16:35:05Z",
+            "used_bytes": null,
+            "limit_bytes": 500000000000,
+            "last_activity_at": null,
+            "time_unlimited": false,
+            "traffic_unlimited": false,
+            "traffic_available": false,
+            "traffic_updated_at": null,
+            "traffic_oldest_at": null,
+            "traffic_loss_unknown": false,
+            "traffic_partial_stale": false,
+            "traffic_scope": "за текущий период",
+            "remaining_bytes": null,
+            "access_kind": "paid",
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "revision": "80128a090e0d2f964c5e356990900f6950f1d7138c729f204d4331332fe42210",
+            "allowed_actions": [
+              {
+                "action": "key_suspend",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_resume",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "key_revoke",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_extend_days",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_expiry_at",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_periods",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_time_unlimited",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_traffic",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_on",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_off",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              }
+            ]
+          },
+          "after": {
+            "summary": "Срок: 26.11.2026 19:35 МСК; трафик без изменений",
+            "parameters": {
+              "days": 2
+            },
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "none",
+            "adds_quota": false,
+            "changes_term": true
+          },
+          "expected_version": "80128a090e0d2f964c5e356990900f6950f1d7138c729f204d4331332fe42210",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": false,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "none",
+          "order_id": null,
+          "key_id": null,
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null,
+        "confirmation_token": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "post_preview": true,
+      "http_status": 200
+    },
+    {
+      "name": "key_extend_days.status",
+      "request": {
+        "operation_id": "e989ae3eb5a54fba8b24a773e90eaa14",
+        "action": "key_extend_days",
+        "target": {
+          "kind": "key",
+          "id": "6e68f2f8-ea22-4dca-85d3-2d1cf18850de",
+          "client_id": 910002
+        },
+        "parameters": {
+          "days": 2
+        }
+      },
+      "value": {
+        "operation_id": "e989ae3eb5a54fba8b24a773e90eaa14",
+        "action": "key_extend_days",
+        "state": "succeeded",
+        "summary": "Срок: 26.11.2026 19:35 МСК; трафик без изменений",
+        "expires_at": null,
+        "target": {
+          "kind": "key",
+          "id": "6e68f2f8-ea22-4dca-85d3-2d1cf18850de",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "key",
+          "before": {
+            "key_id": "6e68f2f8-ea22-4dca-85d3-2d1cf18850de",
+            "name": "Вымышленное устройство",
+            "protocol": "hysteria2",
+            "state": "suspended",
+            "expires_at": "2026-11-24T16:35:05Z",
+            "period_ends_at": "2026-11-24T16:35:05Z",
+            "used_bytes": null,
+            "limit_bytes": 500000000000,
+            "last_activity_at": null,
+            "time_unlimited": false,
+            "traffic_unlimited": false,
+            "traffic_available": false,
+            "traffic_updated_at": null,
+            "traffic_oldest_at": null,
+            "traffic_loss_unknown": false,
+            "traffic_partial_stale": false,
+            "traffic_scope": "за текущий период",
+            "remaining_bytes": null,
+            "access_kind": "paid",
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "revision": "80128a090e0d2f964c5e356990900f6950f1d7138c729f204d4331332fe42210",
+            "allowed_actions": [
+              {
+                "action": "key_suspend",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_resume",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "key_revoke",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_extend_days",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_expiry_at",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_periods",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_time_unlimited",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_traffic",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_on",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_off",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              }
+            ]
+          },
+          "after": {
+            "summary": "Срок: 26.11.2026 19:35 МСК; трафик без изменений",
+            "parameters": {
+              "days": 2
+            },
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "none",
+            "adds_quota": false,
+            "changes_term": true
+          },
+          "expected_version": "80128a090e0d2f964c5e356990900f6950f1d7138c729f204d4331332fe42210",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": true,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "confirmed",
+          "order_id": null,
+          "key_id": "6e68f2f8-ea22-4dca-85d3-2d1cf18850de",
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null
+      },
+      "post_preview": false,
+      "http_status": 200
+    },
+    {
+      "name": "key_grant_periods.preview",
+      "request": {
+        "operation_id": "87a5f129b833492689d1849e221254ae",
+        "action": "key_grant_periods",
+        "target": {
+          "kind": "key",
+          "id": "98606496-b4e8-45f2-b7e6-e48d7f32863d",
+          "client_id": 910002
+        },
+        "parameters": {
+          "periods": 1
+        }
+      },
+      "value": {
+        "operation_id": "87a5f129b833492689d1849e221254ae",
+        "action": "key_grant_periods",
+        "state": "prepared",
+        "summary": "Срок: 24.12.2026 19:35 МСК; +1×30 дней и +1×500 ГБ",
+        "expires_at": "2026-10-26T16:37:06Z",
+        "target": {
+          "kind": "key",
+          "id": "98606496-b4e8-45f2-b7e6-e48d7f32863d",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "key",
+          "before": {
+            "key_id": "98606496-b4e8-45f2-b7e6-e48d7f32863d",
+            "name": "Вымышленное устройство",
+            "protocol": "hysteria2",
+            "state": "suspended",
+            "expires_at": "2026-11-24T16:35:06Z",
+            "period_ends_at": "2026-11-24T16:35:06Z",
+            "used_bytes": null,
+            "limit_bytes": 500000000000,
+            "last_activity_at": null,
+            "time_unlimited": false,
+            "traffic_unlimited": false,
+            "traffic_available": false,
+            "traffic_updated_at": null,
+            "traffic_oldest_at": null,
+            "traffic_loss_unknown": false,
+            "traffic_partial_stale": false,
+            "traffic_scope": "за текущий период",
+            "remaining_bytes": null,
+            "access_kind": "paid",
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "revision": "d2a9cda738ba6a84b04f3d165f8e2a66102d4f87308387586c114b5a40d6ef7b",
+            "allowed_actions": [
+              {
+                "action": "key_suspend",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_resume",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "key_revoke",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_extend_days",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_expiry_at",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_periods",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_time_unlimited",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_traffic",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_on",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_off",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              }
+            ]
+          },
+          "after": {
+            "summary": "Срок: 24.12.2026 19:35 МСК; +1×30 дней и +1×500 ГБ",
+            "parameters": {
+              "periods": 1
+            },
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "none",
+            "adds_quota": true,
+            "changes_term": true
+          },
+          "expected_version": "d2a9cda738ba6a84b04f3d165f8e2a66102d4f87308387586c114b5a40d6ef7b",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": false,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "none",
+          "order_id": null,
+          "key_id": null,
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null,
+        "confirmation_token": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "post_preview": true,
+      "http_status": 200
+    },
+    {
+      "name": "key_grant_periods.status",
+      "request": {
+        "operation_id": "87a5f129b833492689d1849e221254ae",
+        "action": "key_grant_periods",
+        "target": {
+          "kind": "key",
+          "id": "98606496-b4e8-45f2-b7e6-e48d7f32863d",
+          "client_id": 910002
+        },
+        "parameters": {
+          "periods": 1
+        }
+      },
+      "value": {
+        "operation_id": "87a5f129b833492689d1849e221254ae",
+        "action": "key_grant_periods",
+        "state": "succeeded",
+        "summary": "Срок: 24.12.2026 19:35 МСК; +1×30 дней и +1×500 ГБ",
+        "expires_at": null,
+        "target": {
+          "kind": "key",
+          "id": "98606496-b4e8-45f2-b7e6-e48d7f32863d",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "key",
+          "before": {
+            "key_id": "98606496-b4e8-45f2-b7e6-e48d7f32863d",
+            "name": "Вымышленное устройство",
+            "protocol": "hysteria2",
+            "state": "suspended",
+            "expires_at": "2026-11-24T16:35:06Z",
+            "period_ends_at": "2026-11-24T16:35:06Z",
+            "used_bytes": null,
+            "limit_bytes": 500000000000,
+            "last_activity_at": null,
+            "time_unlimited": false,
+            "traffic_unlimited": false,
+            "traffic_available": false,
+            "traffic_updated_at": null,
+            "traffic_oldest_at": null,
+            "traffic_loss_unknown": false,
+            "traffic_partial_stale": false,
+            "traffic_scope": "за текущий период",
+            "remaining_bytes": null,
+            "access_kind": "paid",
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "revision": "d2a9cda738ba6a84b04f3d165f8e2a66102d4f87308387586c114b5a40d6ef7b",
+            "allowed_actions": [
+              {
+                "action": "key_suspend",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_resume",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "key_revoke",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_extend_days",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_expiry_at",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_periods",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_time_unlimited",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_traffic",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_on",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_off",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              }
+            ]
+          },
+          "after": {
+            "summary": "Срок: 24.12.2026 19:35 МСК; +1×30 дней и +1×500 ГБ",
+            "parameters": {
+              "periods": 1
+            },
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "none",
+            "adds_quota": true,
+            "changes_term": true
+          },
+          "expected_version": "d2a9cda738ba6a84b04f3d165f8e2a66102d4f87308387586c114b5a40d6ef7b",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": true,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "confirmed",
+          "order_id": null,
+          "key_id": "98606496-b4e8-45f2-b7e6-e48d7f32863d",
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null
+      },
+      "post_preview": false,
+      "http_status": 200
+    },
+    {
+      "name": "key_grant_traffic.preview",
+      "request": {
+        "operation_id": "26d4d1ce492d4f59942ea08a3a55da7f",
+        "action": "key_grant_traffic",
+        "target": {
+          "kind": "key",
+          "id": "ec929295-387f-441d-a651-3178fe6de164",
+          "client_id": 910002
+        },
+        "parameters": {
+          "traffic_gb": 12
+        }
+      },
+      "value": {
+        "operation_id": "26d4d1ce492d4f59942ea08a3a55da7f",
+        "action": "key_grant_traffic",
+        "state": "prepared",
+        "summary": "Лимит: 512.0 ГБ",
+        "expires_at": "2026-10-26T16:37:07Z",
+        "target": {
+          "kind": "key",
+          "id": "ec929295-387f-441d-a651-3178fe6de164",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "key",
+          "before": {
+            "key_id": "ec929295-387f-441d-a651-3178fe6de164",
+            "name": "Вымышленное устройство",
+            "protocol": "hysteria2",
+            "state": "suspended",
+            "expires_at": "2026-11-24T16:35:07Z",
+            "period_ends_at": "2026-11-24T16:35:07Z",
+            "used_bytes": null,
+            "limit_bytes": 500000000000,
+            "last_activity_at": null,
+            "time_unlimited": false,
+            "traffic_unlimited": false,
+            "traffic_available": false,
+            "traffic_updated_at": null,
+            "traffic_oldest_at": null,
+            "traffic_loss_unknown": false,
+            "traffic_partial_stale": false,
+            "traffic_scope": "за текущий период",
+            "remaining_bytes": null,
+            "access_kind": "paid",
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "revision": "073b8cfe4ff3ea3faafc27ad2cadaa5e6e7db913c988fe7c0d44019e45100a1a",
+            "allowed_actions": [
+              {
+                "action": "key_suspend",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_resume",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "key_revoke",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_extend_days",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_expiry_at",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_periods",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_time_unlimited",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_traffic",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_on",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_off",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              }
+            ]
+          },
+          "after": {
+            "summary": "Лимит: 512.0 ГБ",
+            "parameters": {
+              "traffic_gb": 12
+            },
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "none",
+            "adds_quota": true,
+            "changes_term": false
+          },
+          "expected_version": "073b8cfe4ff3ea3faafc27ad2cadaa5e6e7db913c988fe7c0d44019e45100a1a",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": false,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "none",
+          "order_id": null,
+          "key_id": null,
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null,
+        "confirmation_token": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "post_preview": true,
+      "http_status": 200
+    },
+    {
+      "name": "key_grant_traffic.status",
+      "request": {
+        "operation_id": "26d4d1ce492d4f59942ea08a3a55da7f",
+        "action": "key_grant_traffic",
+        "target": {
+          "kind": "key",
+          "id": "ec929295-387f-441d-a651-3178fe6de164",
+          "client_id": 910002
+        },
+        "parameters": {
+          "traffic_gb": 12
+        }
+      },
+      "value": {
+        "operation_id": "26d4d1ce492d4f59942ea08a3a55da7f",
+        "action": "key_grant_traffic",
+        "state": "succeeded",
+        "summary": "Лимит: 512.0 ГБ",
+        "expires_at": null,
+        "target": {
+          "kind": "key",
+          "id": "ec929295-387f-441d-a651-3178fe6de164",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "key",
+          "before": {
+            "key_id": "ec929295-387f-441d-a651-3178fe6de164",
+            "name": "Вымышленное устройство",
+            "protocol": "hysteria2",
+            "state": "suspended",
+            "expires_at": "2026-11-24T16:35:07Z",
+            "period_ends_at": "2026-11-24T16:35:07Z",
+            "used_bytes": null,
+            "limit_bytes": 500000000000,
+            "last_activity_at": null,
+            "time_unlimited": false,
+            "traffic_unlimited": false,
+            "traffic_available": false,
+            "traffic_updated_at": null,
+            "traffic_oldest_at": null,
+            "traffic_loss_unknown": false,
+            "traffic_partial_stale": false,
+            "traffic_scope": "за текущий период",
+            "remaining_bytes": null,
+            "access_kind": "paid",
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "revision": "073b8cfe4ff3ea3faafc27ad2cadaa5e6e7db913c988fe7c0d44019e45100a1a",
+            "allowed_actions": [
+              {
+                "action": "key_suspend",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_resume",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "key_revoke",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_extend_days",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_expiry_at",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_periods",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_time_unlimited",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_traffic",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_on",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_off",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              }
+            ]
+          },
+          "after": {
+            "summary": "Лимит: 512.0 ГБ",
+            "parameters": {
+              "traffic_gb": 12
+            },
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "none",
+            "adds_quota": true,
+            "changes_term": false
+          },
+          "expected_version": "073b8cfe4ff3ea3faafc27ad2cadaa5e6e7db913c988fe7c0d44019e45100a1a",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": true,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "confirmed",
+          "order_id": null,
+          "key_id": "ec929295-387f-441d-a651-3178fe6de164",
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null
+      },
+      "post_preview": false,
+      "http_status": 200
+    },
+    {
+      "name": "key_resume.preview",
+      "request": {
+        "operation_id": "4f829157402c4d25804ed19d141dc2d3",
+        "action": "key_resume",
+        "target": {
+          "kind": "key",
+          "id": "00d8718b-3df5-469b-ba35-a5b6b05a82f2",
+          "client_id": 910002
+        },
+        "parameters": {}
+      },
+      "value": {
+        "operation_id": "4f829157402c4d25804ed19d141dc2d3",
+        "action": "key_resume",
+        "state": "prepared",
+        "summary": "Статус: пересчёт срока и квоты",
+        "expires_at": "2026-10-26T16:37:07Z",
+        "target": {
+          "kind": "key",
+          "id": "00d8718b-3df5-469b-ba35-a5b6b05a82f2",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "key",
+          "before": {
+            "key_id": "00d8718b-3df5-469b-ba35-a5b6b05a82f2",
+            "name": "Вымышленное устройство",
+            "protocol": "hysteria2",
+            "state": "admin_suspended",
+            "expires_at": "2026-11-24T16:35:07Z",
+            "period_ends_at": "2026-11-24T16:35:07Z",
+            "used_bytes": null,
+            "limit_bytes": 500000000000,
+            "last_activity_at": null,
+            "time_unlimited": false,
+            "traffic_unlimited": false,
+            "traffic_available": false,
+            "traffic_updated_at": null,
+            "traffic_oldest_at": null,
+            "traffic_loss_unknown": false,
+            "traffic_partial_stale": false,
+            "traffic_scope": "за текущий период",
+            "remaining_bytes": null,
+            "access_kind": "paid",
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "revision": "6d093cf6374fec949ff52b27b7e4869d422a0722b46f001f4fb1eb907499b84c",
+            "allowed_actions": [
+              {
+                "action": "key_suspend",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "key_resume",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_revoke",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_extend_days",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_expiry_at",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_periods",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_time_unlimited",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_traffic",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_on",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_off",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              }
+            ]
+          },
+          "after": {
+            "summary": "Статус: пересчёт срока и квоты",
+            "parameters": {},
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "none",
+            "adds_quota": false,
+            "changes_term": false
+          },
+          "expected_version": "6d093cf6374fec949ff52b27b7e4869d422a0722b46f001f4fb1eb907499b84c",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": false,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "none",
+          "order_id": null,
+          "key_id": null,
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null,
+        "confirmation_token": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "post_preview": true,
+      "http_status": 200
+    },
+    {
+      "name": "key_resume.status",
+      "request": {
+        "operation_id": "4f829157402c4d25804ed19d141dc2d3",
+        "action": "key_resume",
+        "target": {
+          "kind": "key",
+          "id": "00d8718b-3df5-469b-ba35-a5b6b05a82f2",
+          "client_id": 910002
+        },
+        "parameters": {}
+      },
+      "value": {
+        "operation_id": "4f829157402c4d25804ed19d141dc2d3",
+        "action": "key_resume",
+        "state": "succeeded",
+        "summary": "Статус: пересчёт срока и квоты",
+        "expires_at": null,
+        "target": {
+          "kind": "key",
+          "id": "00d8718b-3df5-469b-ba35-a5b6b05a82f2",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "key",
+          "before": {
+            "key_id": "00d8718b-3df5-469b-ba35-a5b6b05a82f2",
+            "name": "Вымышленное устройство",
+            "protocol": "hysteria2",
+            "state": "admin_suspended",
+            "expires_at": "2026-11-24T16:35:07Z",
+            "period_ends_at": "2026-11-24T16:35:07Z",
+            "used_bytes": null,
+            "limit_bytes": 500000000000,
+            "last_activity_at": null,
+            "time_unlimited": false,
+            "traffic_unlimited": false,
+            "traffic_available": false,
+            "traffic_updated_at": null,
+            "traffic_oldest_at": null,
+            "traffic_loss_unknown": false,
+            "traffic_partial_stale": false,
+            "traffic_scope": "за текущий период",
+            "remaining_bytes": null,
+            "access_kind": "paid",
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "revision": "6d093cf6374fec949ff52b27b7e4869d422a0722b46f001f4fb1eb907499b84c",
+            "allowed_actions": [
+              {
+                "action": "key_suspend",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "key_resume",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_revoke",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_extend_days",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_expiry_at",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_periods",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_time_unlimited",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_traffic",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_on",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_off",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              }
+            ]
+          },
+          "after": {
+            "summary": "Статус: пересчёт срока и квоты",
+            "parameters": {},
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "none",
+            "adds_quota": false,
+            "changes_term": false
+          },
+          "expected_version": "6d093cf6374fec949ff52b27b7e4869d422a0722b46f001f4fb1eb907499b84c",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": true,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "confirmed",
+          "order_id": null,
+          "key_id": "00d8718b-3df5-469b-ba35-a5b6b05a82f2",
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null
+      },
+      "post_preview": false,
+      "http_status": 200
+    },
+    {
+      "name": "key_revoke.preview",
+      "request": {
+        "operation_id": "7dabbd6530304956bc64fbff773f8126",
+        "action": "key_revoke",
+        "target": {
+          "kind": "key",
+          "id": "d200a3bb-c569-44b2-9648-4f6f5bc77a03",
+          "client_id": 910002
+        },
+        "parameters": {}
+      },
+      "value": {
+        "operation_id": "7dabbd6530304956bc64fbff773f8126",
+        "action": "key_revoke",
+        "state": "prepared",
+        "summary": "Статус: окончательно отозван; восстановление невозможно",
+        "expires_at": "2026-10-26T16:37:08Z",
+        "target": {
+          "kind": "key",
+          "id": "d200a3bb-c569-44b2-9648-4f6f5bc77a03",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "key",
+          "before": {
+            "key_id": "d200a3bb-c569-44b2-9648-4f6f5bc77a03",
+            "name": "Вымышленное устройство",
+            "protocol": "hysteria2",
+            "state": "suspended",
+            "expires_at": "2026-11-24T16:35:08Z",
+            "period_ends_at": "2026-11-24T16:35:08Z",
+            "used_bytes": null,
+            "limit_bytes": 500000000000,
+            "last_activity_at": null,
+            "time_unlimited": false,
+            "traffic_unlimited": false,
+            "traffic_available": false,
+            "traffic_updated_at": null,
+            "traffic_oldest_at": null,
+            "traffic_loss_unknown": false,
+            "traffic_partial_stale": false,
+            "traffic_scope": "за текущий период",
+            "remaining_bytes": null,
+            "access_kind": "paid",
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "revision": "8611ceeb78b2f19d61017ec32a138d7ceae4c7efde5841d24495354d9c2d48e4",
+            "allowed_actions": [
+              {
+                "action": "key_suspend",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_resume",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "key_revoke",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_extend_days",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_expiry_at",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_periods",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_time_unlimited",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_traffic",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_on",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_off",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              }
+            ]
+          },
+          "after": {
+            "summary": "Статус: окончательно отозван; восстановление невозможно",
+            "parameters": {},
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "none",
+            "adds_quota": false,
+            "changes_term": false
+          },
+          "expected_version": "8611ceeb78b2f19d61017ec32a138d7ceae4c7efde5841d24495354d9c2d48e4",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": false,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "none",
+          "order_id": null,
+          "key_id": null,
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null,
+        "confirmation_token": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "post_preview": true,
+      "http_status": 200
+    },
+    {
+      "name": "key_revoke.status",
+      "request": {
+        "operation_id": "7dabbd6530304956bc64fbff773f8126",
+        "action": "key_revoke",
+        "target": {
+          "kind": "key",
+          "id": "d200a3bb-c569-44b2-9648-4f6f5bc77a03",
+          "client_id": 910002
+        },
+        "parameters": {}
+      },
+      "value": {
+        "operation_id": "7dabbd6530304956bc64fbff773f8126",
+        "action": "key_revoke",
+        "state": "succeeded",
+        "summary": "Статус: окончательно отозван; восстановление невозможно",
+        "expires_at": null,
+        "target": {
+          "kind": "key",
+          "id": "d200a3bb-c569-44b2-9648-4f6f5bc77a03",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "key",
+          "before": {
+            "key_id": "d200a3bb-c569-44b2-9648-4f6f5bc77a03",
+            "name": "Вымышленное устройство",
+            "protocol": "hysteria2",
+            "state": "suspended",
+            "expires_at": "2026-11-24T16:35:08Z",
+            "period_ends_at": "2026-11-24T16:35:08Z",
+            "used_bytes": null,
+            "limit_bytes": 500000000000,
+            "last_activity_at": null,
+            "time_unlimited": false,
+            "traffic_unlimited": false,
+            "traffic_available": false,
+            "traffic_updated_at": null,
+            "traffic_oldest_at": null,
+            "traffic_loss_unknown": false,
+            "traffic_partial_stale": false,
+            "traffic_scope": "за текущий период",
+            "remaining_bytes": null,
+            "access_kind": "paid",
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "revision": "8611ceeb78b2f19d61017ec32a138d7ceae4c7efde5841d24495354d9c2d48e4",
+            "allowed_actions": [
+              {
+                "action": "key_suspend",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_resume",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "key_revoke",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_extend_days",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_expiry_at",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_periods",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_time_unlimited",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_traffic",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_on",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_off",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              }
+            ]
+          },
+          "after": {
+            "summary": "Статус: окончательно отозван; восстановление невозможно",
+            "parameters": {},
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "none",
+            "adds_quota": false,
+            "changes_term": false
+          },
+          "expected_version": "8611ceeb78b2f19d61017ec32a138d7ceae4c7efde5841d24495354d9c2d48e4",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": true,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "confirmed",
+          "order_id": null,
+          "key_id": "d200a3bb-c569-44b2-9648-4f6f5bc77a03",
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null
+      },
+      "post_preview": false,
+      "http_status": 200
+    },
+    {
+      "name": "key_suspend.preview",
+      "request": {
+        "operation_id": "35d50fb04ca142fa92f60ed0554742ef",
+        "action": "key_suspend",
+        "target": {
+          "kind": "key",
+          "id": "8a92d7c8-076d-42ba-8111-6050cb67d3d5",
+          "client_id": 910002
+        },
+        "parameters": {}
+      },
+      "value": {
+        "operation_id": "35d50fb04ca142fa92f60ed0554742ef",
+        "action": "key_suspend",
+        "state": "prepared",
+        "summary": "Статус: остановлен владельцем",
+        "expires_at": "2026-10-26T16:37:08Z",
+        "target": {
+          "kind": "key",
+          "id": "8a92d7c8-076d-42ba-8111-6050cb67d3d5",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "key",
+          "before": {
+            "key_id": "8a92d7c8-076d-42ba-8111-6050cb67d3d5",
+            "name": "Вымышленное устройство",
+            "protocol": "hysteria2",
+            "state": "suspended",
+            "expires_at": "2026-11-24T16:35:08Z",
+            "period_ends_at": "2026-11-24T16:35:08Z",
+            "used_bytes": null,
+            "limit_bytes": 500000000000,
+            "last_activity_at": null,
+            "time_unlimited": false,
+            "traffic_unlimited": false,
+            "traffic_available": false,
+            "traffic_updated_at": null,
+            "traffic_oldest_at": null,
+            "traffic_loss_unknown": false,
+            "traffic_partial_stale": false,
+            "traffic_scope": "за текущий период",
+            "remaining_bytes": null,
+            "access_kind": "paid",
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "revision": "8901999964aed0b4216995cfdfb67547ba4363591892601acde56609216afa55",
+            "allowed_actions": [
+              {
+                "action": "key_suspend",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_resume",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "key_revoke",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_extend_days",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_expiry_at",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_periods",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_time_unlimited",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_traffic",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_on",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_off",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              }
+            ]
+          },
+          "after": {
+            "summary": "Статус: остановлен владельцем",
+            "parameters": {},
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "none",
+            "adds_quota": false,
+            "changes_term": false
+          },
+          "expected_version": "8901999964aed0b4216995cfdfb67547ba4363591892601acde56609216afa55",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": false,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "none",
+          "order_id": null,
+          "key_id": null,
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null,
+        "confirmation_token": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "post_preview": true,
+      "http_status": 200
+    },
+    {
+      "name": "key_suspend.status",
+      "request": {
+        "operation_id": "35d50fb04ca142fa92f60ed0554742ef",
+        "action": "key_suspend",
+        "target": {
+          "kind": "key",
+          "id": "8a92d7c8-076d-42ba-8111-6050cb67d3d5",
+          "client_id": 910002
+        },
+        "parameters": {}
+      },
+      "value": {
+        "operation_id": "35d50fb04ca142fa92f60ed0554742ef",
+        "action": "key_suspend",
+        "state": "succeeded",
+        "summary": "Статус: остановлен владельцем",
+        "expires_at": null,
+        "target": {
+          "kind": "key",
+          "id": "8a92d7c8-076d-42ba-8111-6050cb67d3d5",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "key",
+          "before": {
+            "key_id": "8a92d7c8-076d-42ba-8111-6050cb67d3d5",
+            "name": "Вымышленное устройство",
+            "protocol": "hysteria2",
+            "state": "suspended",
+            "expires_at": "2026-11-24T16:35:08Z",
+            "period_ends_at": "2026-11-24T16:35:08Z",
+            "used_bytes": null,
+            "limit_bytes": 500000000000,
+            "last_activity_at": null,
+            "time_unlimited": false,
+            "traffic_unlimited": false,
+            "traffic_available": false,
+            "traffic_updated_at": null,
+            "traffic_oldest_at": null,
+            "traffic_loss_unknown": false,
+            "traffic_partial_stale": false,
+            "traffic_scope": "за текущий период",
+            "remaining_bytes": null,
+            "access_kind": "paid",
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "revision": "8901999964aed0b4216995cfdfb67547ba4363591892601acde56609216afa55",
+            "allowed_actions": [
+              {
+                "action": "key_suspend",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_resume",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "key_revoke",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_extend_days",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_expiry_at",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_periods",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_time_unlimited",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_traffic",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_on",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_off",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              }
+            ]
+          },
+          "after": {
+            "summary": "Статус: остановлен владельцем",
+            "parameters": {},
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "none",
+            "adds_quota": false,
+            "changes_term": false
+          },
+          "expected_version": "8901999964aed0b4216995cfdfb67547ba4363591892601acde56609216afa55",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": true,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "confirmed",
+          "order_id": null,
+          "key_id": "8a92d7c8-076d-42ba-8111-6050cb67d3d5",
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null
+      },
+      "post_preview": false,
+      "http_status": 200
+    },
+    {
+      "name": "key_time_unlimited.preview",
+      "request": {
+        "operation_id": "b5074f6ef1924533a8742988ab95293f",
+        "action": "key_time_unlimited",
+        "target": {
+          "kind": "key",
+          "id": "b09571cf-7198-44a8-bf59-b80ab4656bc8",
+          "client_id": 910002
+        },
+        "parameters": {}
+      },
+      "value": {
+        "operation_id": "b5074f6ef1924533a8742988ab95293f",
+        "action": "key_time_unlimited",
+        "state": "prepared",
+        "summary": "Срок: ∞; квота трафика сохраняется. Снятие требует отдельного изменения срока",
+        "expires_at": "2026-10-26T16:37:09Z",
+        "target": {
+          "kind": "key",
+          "id": "b09571cf-7198-44a8-bf59-b80ab4656bc8",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "key",
+          "before": {
+            "key_id": "b09571cf-7198-44a8-bf59-b80ab4656bc8",
+            "name": "Вымышленное устройство",
+            "protocol": "hysteria2",
+            "state": "suspended",
+            "expires_at": "2026-11-24T16:35:09Z",
+            "period_ends_at": "2026-11-24T16:35:09Z",
+            "used_bytes": null,
+            "limit_bytes": 500000000000,
+            "last_activity_at": null,
+            "time_unlimited": false,
+            "traffic_unlimited": false,
+            "traffic_available": false,
+            "traffic_updated_at": null,
+            "traffic_oldest_at": null,
+            "traffic_loss_unknown": false,
+            "traffic_partial_stale": false,
+            "traffic_scope": "за текущий период",
+            "remaining_bytes": null,
+            "access_kind": "paid",
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "revision": "a927fc9dbb341f97621b5ccb3b8c44d8792f5fa4f6865804ef4f5fbe1baca665",
+            "allowed_actions": [
+              {
+                "action": "key_suspend",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_resume",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "key_revoke",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_extend_days",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_expiry_at",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_periods",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_time_unlimited",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_traffic",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_on",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_off",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              }
+            ]
+          },
+          "after": {
+            "summary": "Срок: ∞; квота трафика сохраняется. Снятие требует отдельного изменения срока",
+            "parameters": {},
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "none",
+            "adds_quota": false,
+            "changes_term": true
+          },
+          "expected_version": "a927fc9dbb341f97621b5ccb3b8c44d8792f5fa4f6865804ef4f5fbe1baca665",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": false,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "none",
+          "order_id": null,
+          "key_id": null,
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null,
+        "confirmation_token": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "post_preview": true,
+      "http_status": 200
+    },
+    {
+      "name": "key_time_unlimited.status",
+      "request": {
+        "operation_id": "b5074f6ef1924533a8742988ab95293f",
+        "action": "key_time_unlimited",
+        "target": {
+          "kind": "key",
+          "id": "b09571cf-7198-44a8-bf59-b80ab4656bc8",
+          "client_id": 910002
+        },
+        "parameters": {}
+      },
+      "value": {
+        "operation_id": "b5074f6ef1924533a8742988ab95293f",
+        "action": "key_time_unlimited",
+        "state": "succeeded",
+        "summary": "Срок: ∞; квота трафика сохраняется. Снятие требует отдельного изменения срока",
+        "expires_at": null,
+        "target": {
+          "kind": "key",
+          "id": "b09571cf-7198-44a8-bf59-b80ab4656bc8",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "key",
+          "before": {
+            "key_id": "b09571cf-7198-44a8-bf59-b80ab4656bc8",
+            "name": "Вымышленное устройство",
+            "protocol": "hysteria2",
+            "state": "suspended",
+            "expires_at": "2026-11-24T16:35:09Z",
+            "period_ends_at": "2026-11-24T16:35:09Z",
+            "used_bytes": null,
+            "limit_bytes": 500000000000,
+            "last_activity_at": null,
+            "time_unlimited": false,
+            "traffic_unlimited": false,
+            "traffic_available": false,
+            "traffic_updated_at": null,
+            "traffic_oldest_at": null,
+            "traffic_loss_unknown": false,
+            "traffic_partial_stale": false,
+            "traffic_scope": "за текущий период",
+            "remaining_bytes": null,
+            "access_kind": "paid",
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "revision": "a927fc9dbb341f97621b5ccb3b8c44d8792f5fa4f6865804ef4f5fbe1baca665",
+            "allowed_actions": [
+              {
+                "action": "key_suspend",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_resume",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "key_revoke",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_extend_days",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_expiry_at",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_periods",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_time_unlimited",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_traffic",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_on",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_off",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              }
+            ]
+          },
+          "after": {
+            "summary": "Срок: ∞; квота трафика сохраняется. Снятие требует отдельного изменения срока",
+            "parameters": {},
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "none",
+            "adds_quota": false,
+            "changes_term": true
+          },
+          "expected_version": "a927fc9dbb341f97621b5ccb3b8c44d8792f5fa4f6865804ef4f5fbe1baca665",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": true,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "confirmed",
+          "order_id": null,
+          "key_id": "b09571cf-7198-44a8-bf59-b80ab4656bc8",
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null
+      },
+      "post_preview": false,
+      "http_status": 200
+    },
+    {
+      "name": "key_traffic_unlimited_off.preview",
+      "request": {
+        "operation_id": "14ab610bab364ef8a1a582a0590bb958",
+        "action": "key_traffic_unlimited_off",
+        "target": {
+          "kind": "key",
+          "id": "1ba0ea4b-a4d6-4c3c-8a04-bf0dfa7a47bd",
+          "client_id": 910002
+        },
+        "parameters": {}
+      },
+      "value": {
+        "operation_id": "14ab610bab364ef8a1a582a0590bb958",
+        "action": "key_traffic_unlimited_off",
+        "state": "prepared",
+        "summary": "Лимит: по текущим правам",
+        "expires_at": "2026-10-26T16:37:10Z",
+        "target": {
+          "kind": "key",
+          "id": "1ba0ea4b-a4d6-4c3c-8a04-bf0dfa7a47bd",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "key",
+          "before": {
+            "key_id": "1ba0ea4b-a4d6-4c3c-8a04-bf0dfa7a47bd",
+            "name": "Вымышленное устройство",
+            "protocol": "hysteria2",
+            "state": "suspended",
+            "expires_at": "2026-11-24T16:35:10Z",
+            "period_ends_at": "2026-11-24T16:35:10Z",
+            "used_bytes": null,
+            "limit_bytes": null,
+            "last_activity_at": null,
+            "time_unlimited": false,
+            "traffic_unlimited": true,
+            "traffic_available": false,
+            "traffic_updated_at": null,
+            "traffic_oldest_at": null,
+            "traffic_loss_unknown": false,
+            "traffic_partial_stale": false,
+            "traffic_scope": "за всё время устройства",
+            "remaining_bytes": null,
+            "access_kind": "paid",
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "revision": "def1966cc19e03525d6af0d11028b9beb37b9017edc473c1bd3cc4447605ea59",
+            "allowed_actions": [
+              {
+                "action": "key_suspend",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_resume",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "key_revoke",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_extend_days",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_expiry_at",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_periods",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_time_unlimited",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_traffic",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_on",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "key_traffic_unlimited_off",
+                "enabled": true,
+                "reason_code": null
+              }
+            ]
+          },
+          "after": {
+            "summary": "Лимит: по текущим правам",
+            "parameters": {},
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "none",
+            "adds_quota": false,
+            "changes_term": false
+          },
+          "expected_version": "def1966cc19e03525d6af0d11028b9beb37b9017edc473c1bd3cc4447605ea59",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": false,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "none",
+          "order_id": null,
+          "key_id": null,
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null,
+        "confirmation_token": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "post_preview": true,
+      "http_status": 200
+    },
+    {
+      "name": "key_traffic_unlimited_off.status",
+      "request": {
+        "operation_id": "14ab610bab364ef8a1a582a0590bb958",
+        "action": "key_traffic_unlimited_off",
+        "target": {
+          "kind": "key",
+          "id": "1ba0ea4b-a4d6-4c3c-8a04-bf0dfa7a47bd",
+          "client_id": 910002
+        },
+        "parameters": {}
+      },
+      "value": {
+        "operation_id": "14ab610bab364ef8a1a582a0590bb958",
+        "action": "key_traffic_unlimited_off",
+        "state": "succeeded",
+        "summary": "Лимит: по текущим правам",
+        "expires_at": null,
+        "target": {
+          "kind": "key",
+          "id": "1ba0ea4b-a4d6-4c3c-8a04-bf0dfa7a47bd",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "key",
+          "before": {
+            "key_id": "1ba0ea4b-a4d6-4c3c-8a04-bf0dfa7a47bd",
+            "name": "Вымышленное устройство",
+            "protocol": "hysteria2",
+            "state": "suspended",
+            "expires_at": "2026-11-24T16:35:10Z",
+            "period_ends_at": "2026-11-24T16:35:10Z",
+            "used_bytes": null,
+            "limit_bytes": null,
+            "last_activity_at": null,
+            "time_unlimited": false,
+            "traffic_unlimited": true,
+            "traffic_available": false,
+            "traffic_updated_at": null,
+            "traffic_oldest_at": null,
+            "traffic_loss_unknown": false,
+            "traffic_partial_stale": false,
+            "traffic_scope": "за всё время устройства",
+            "remaining_bytes": null,
+            "access_kind": "paid",
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "revision": "def1966cc19e03525d6af0d11028b9beb37b9017edc473c1bd3cc4447605ea59",
+            "allowed_actions": [
+              {
+                "action": "key_suspend",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_resume",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "key_revoke",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_extend_days",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_expiry_at",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_periods",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_time_unlimited",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_traffic",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_on",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "key_traffic_unlimited_off",
+                "enabled": true,
+                "reason_code": null
+              }
+            ]
+          },
+          "after": {
+            "summary": "Лимит: по текущим правам",
+            "parameters": {},
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "none",
+            "adds_quota": false,
+            "changes_term": false
+          },
+          "expected_version": "def1966cc19e03525d6af0d11028b9beb37b9017edc473c1bd3cc4447605ea59",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": true,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "confirmed",
+          "order_id": null,
+          "key_id": "1ba0ea4b-a4d6-4c3c-8a04-bf0dfa7a47bd",
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null
+      },
+      "post_preview": false,
+      "http_status": 200
+    },
+    {
+      "name": "key_traffic_unlimited_on.preview",
+      "request": {
+        "operation_id": "004bdce874bc4671b46d7a31ef936d2b",
+        "action": "key_traffic_unlimited_on",
+        "target": {
+          "kind": "key",
+          "id": "0837ff70-0697-4202-8ee4-fa762ad3d982",
+          "client_id": 910002
+        },
+        "parameters": {}
+      },
+      "value": {
+        "operation_id": "004bdce874bc4671b46d7a31ef936d2b",
+        "action": "key_traffic_unlimited_on",
+        "state": "prepared",
+        "summary": "Лимит: безлимит",
+        "expires_at": "2026-10-26T16:37:11Z",
+        "target": {
+          "kind": "key",
+          "id": "0837ff70-0697-4202-8ee4-fa762ad3d982",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "key",
+          "before": {
+            "key_id": "0837ff70-0697-4202-8ee4-fa762ad3d982",
+            "name": "Вымышленное устройство",
+            "protocol": "hysteria2",
+            "state": "suspended",
+            "expires_at": "2026-11-24T16:35:11Z",
+            "period_ends_at": "2026-11-24T16:35:11Z",
+            "used_bytes": null,
+            "limit_bytes": 500000000000,
+            "last_activity_at": null,
+            "time_unlimited": false,
+            "traffic_unlimited": false,
+            "traffic_available": false,
+            "traffic_updated_at": null,
+            "traffic_oldest_at": null,
+            "traffic_loss_unknown": false,
+            "traffic_partial_stale": false,
+            "traffic_scope": "за текущий период",
+            "remaining_bytes": null,
+            "access_kind": "paid",
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "revision": "1b315855b4ccb695166bc2700415e8ee64fcf09e169120e961cfad930aec4440",
+            "allowed_actions": [
+              {
+                "action": "key_suspend",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_resume",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "key_revoke",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_extend_days",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_expiry_at",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_periods",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_time_unlimited",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_traffic",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_on",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_off",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              }
+            ]
+          },
+          "after": {
+            "summary": "Лимит: безлимит",
+            "parameters": {},
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "none",
+            "adds_quota": false,
+            "changes_term": false
+          },
+          "expected_version": "1b315855b4ccb695166bc2700415e8ee64fcf09e169120e961cfad930aec4440",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": false,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "none",
+          "order_id": null,
+          "key_id": null,
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null,
+        "confirmation_token": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "post_preview": true,
+      "http_status": 200
+    },
+    {
+      "name": "key_traffic_unlimited_on.status",
+      "request": {
+        "operation_id": "004bdce874bc4671b46d7a31ef936d2b",
+        "action": "key_traffic_unlimited_on",
+        "target": {
+          "kind": "key",
+          "id": "0837ff70-0697-4202-8ee4-fa762ad3d982",
+          "client_id": 910002
+        },
+        "parameters": {}
+      },
+      "value": {
+        "operation_id": "004bdce874bc4671b46d7a31ef936d2b",
+        "action": "key_traffic_unlimited_on",
+        "state": "succeeded",
+        "summary": "Лимит: безлимит",
+        "expires_at": null,
+        "target": {
+          "kind": "key",
+          "id": "0837ff70-0697-4202-8ee4-fa762ad3d982",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "key",
+          "before": {
+            "key_id": "0837ff70-0697-4202-8ee4-fa762ad3d982",
+            "name": "Вымышленное устройство",
+            "protocol": "hysteria2",
+            "state": "suspended",
+            "expires_at": "2026-11-24T16:35:11Z",
+            "period_ends_at": "2026-11-24T16:35:11Z",
+            "used_bytes": null,
+            "limit_bytes": 500000000000,
+            "last_activity_at": null,
+            "time_unlimited": false,
+            "traffic_unlimited": false,
+            "traffic_available": false,
+            "traffic_updated_at": null,
+            "traffic_oldest_at": null,
+            "traffic_loss_unknown": false,
+            "traffic_partial_stale": false,
+            "traffic_scope": "за текущий период",
+            "remaining_bytes": null,
+            "access_kind": "paid",
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "revision": "1b315855b4ccb695166bc2700415e8ee64fcf09e169120e961cfad930aec4440",
+            "allowed_actions": [
+              {
+                "action": "key_suspend",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_resume",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "key_revoke",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_extend_days",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_expiry_at",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_periods",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_time_unlimited",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_traffic",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_on",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_off",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              }
+            ]
+          },
+          "after": {
+            "summary": "Лимит: безлимит",
+            "parameters": {},
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "none",
+            "adds_quota": false,
+            "changes_term": false
+          },
+          "expected_version": "1b315855b4ccb695166bc2700415e8ee64fcf09e169120e961cfad930aec4440",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": true,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "confirmed",
+          "order_id": null,
+          "key_id": "0837ff70-0697-4202-8ee4-fa762ad3d982",
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null
+      },
+      "post_preview": false,
+      "http_status": 200
+    },
+    {
+      "name": "order_full_refund.preview",
+      "request": {
+        "operation_id": "adfab04dc83049a5b7b69a0d92e5a47a",
+        "action": "order_full_refund",
+        "target": {
+          "kind": "order",
+          "id": "ae4a687b-08c5-4de7-bddd-8550d2c55153",
+          "client_id": 910002
+        },
+        "parameters": {
+          "reason": "Вымышленный полный возврат"
+        }
+      },
+      "value": {
+        "operation_id": "adfab04dc83049a5b7b69a0d92e5a47a",
+        "action": "order_full_refund",
+        "state": "prepared",
+        "summary": "Полный возврат исходного Stars-платежа; права только соответствующего заказа.",
+        "expires_at": "2026-10-26T16:36:12Z",
+        "target": {
+          "kind": "order",
+          "id": "ae4a687b-08c5-4de7-bddd-8550d2c55153",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "order",
+          "before": {
+            "order_id": "ae4a687b-08c5-4de7-bddd-8550d2c55153",
+            "telegram_user_id": 910002,
+            "amount_xtr": 100,
+            "order_type": "new_keys",
+            "devices_count": 1,
+            "periods_count": 1,
+            "paid_at": "2026-10-26T16:35:12Z",
+            "payment_status": "succeeded",
+            "refundable": true,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "revision": "8d0f2d55504bddb95dd56aa58cb6568231f87aa4648311ff7b666eb24dc9bb9b",
+            "allowed_actions": [
+              {
+                "action": "order_full_refund",
+                "enabled": true,
+                "reason_code": null
+              }
+            ]
+          },
+          "after": {
+            "summary": "Полный возврат исходного Stars-платежа; права только соответствующего заказа.",
+            "parameters": {
+              "reason": "Вымышленный полный возврат"
+            },
+            "amount_xtr": 100,
+            "currency": "XTR",
+            "delivery_to": "none",
+            "adds_quota": false,
+            "changes_term": false
+          },
+          "expected_version": "8d0f2d55504bddb95dd56aa58cb6568231f87aa4648311ff7b666eb24dc9bb9b",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": false,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "none",
+          "order_id": null,
+          "key_id": null,
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null,
+        "confirmation_token": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "post_preview": true,
+      "http_status": 200
+    },
+    {
+      "name": "order_full_refund.status",
+      "request": {
+        "operation_id": "adfab04dc83049a5b7b69a0d92e5a47a",
+        "action": "order_full_refund",
+        "target": {
+          "kind": "order",
+          "id": "ae4a687b-08c5-4de7-bddd-8550d2c55153",
+          "client_id": 910002
+        },
+        "parameters": {
+          "reason": "Вымышленный полный возврат"
+        }
+      },
+      "value": {
+        "operation_id": "adfab04dc83049a5b7b69a0d92e5a47a",
+        "action": "order_full_refund",
+        "state": "running",
+        "summary": "Полный возврат исходного Stars-платежа; права только соответствующего заказа.",
+        "expires_at": null,
+        "target": {
+          "kind": "order",
+          "id": "ae4a687b-08c5-4de7-bddd-8550d2c55153",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "order",
+          "before": {
+            "order_id": "ae4a687b-08c5-4de7-bddd-8550d2c55153",
+            "telegram_user_id": 910002,
+            "amount_xtr": 100,
+            "order_type": "new_keys",
+            "devices_count": 1,
+            "periods_count": 1,
+            "paid_at": "2026-10-26T16:35:12Z",
+            "payment_status": "succeeded",
+            "refundable": true,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "revision": "8d0f2d55504bddb95dd56aa58cb6568231f87aa4648311ff7b666eb24dc9bb9b",
+            "allowed_actions": [
+              {
+                "action": "order_full_refund",
+                "enabled": true,
+                "reason_code": null
+              }
+            ]
+          },
+          "after": {
+            "summary": "Полный возврат исходного Stars-платежа; права только соответствующего заказа.",
+            "parameters": {
+              "reason": "Вымышленный полный возврат"
+            },
+            "amount_xtr": 100,
+            "currency": "XTR",
+            "delivery_to": "none",
+            "adds_quota": false,
+            "changes_term": false
+          },
+          "expected_version": "8d0f2d55504bddb95dd56aa58cb6568231f87aa4648311ff7b666eb24dc9bb9b",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": true,
+          "delivery_state": "none",
+          "payment_state": "pending",
+          "access_state": "pending",
+          "order_id": "ae4a687b-08c5-4de7-bddd-8550d2c55153",
+          "key_id": null,
+          "amount_xtr": 100,
+          "currency": "XTR",
+          "processed": null
+        },
+        "error_code": null
+      },
+      "post_preview": false,
+      "http_status": 200
+    },
+    {
+      "name": "owner_subscription_resend.preview",
+      "request": {
+        "operation_id": "9bb101fafa3f438cb4d4dcf61301ace4",
+        "action": "owner_subscription_resend",
+        "target": {
+          "kind": "key",
+          "id": "d3f6ce61-0988-4376-9848-db49d2ecaf81"
+        },
+        "parameters": {}
+      },
+      "value": {
+        "operation_id": "9bb101fafa3f438cb4d4dcf61301ace4",
+        "action": "owner_subscription_resend",
+        "state": "prepared",
+        "summary": "Повторно отправить существующую общую подписку в личный Telegram владельца.",
+        "expires_at": "2026-10-26T16:37:12Z",
+        "target": {
+          "kind": "key",
+          "id": "d3f6ce61-0988-4376-9848-db49d2ecaf81"
+        },
+        "preview": {
+          "kind": "key",
+          "before": {
+            "key_id": "d3f6ce61-0988-4376-9848-db49d2ecaf81",
+            "name": "Вымышленное устройство",
+            "protocol": "hysteria2",
+            "state": "active",
+            "expires_at": "2026-11-24T16:35:12Z",
+            "period_ends_at": "2026-11-24T16:35:12Z",
+            "used_bytes": null,
+            "limit_bytes": 500000000000,
+            "last_activity_at": null,
+            "time_unlimited": false,
+            "traffic_unlimited": false,
+            "traffic_available": false,
+            "traffic_updated_at": null,
+            "traffic_oldest_at": null,
+            "traffic_loss_unknown": false,
+            "traffic_partial_stale": false,
+            "traffic_scope": "за текущий период",
+            "remaining_bytes": null,
+            "access_kind": "paid",
+            "telegram_user_id": 910001,
+            "username": "fiction_910001",
+            "display_name": "Вымышленный 910001",
+            "revision": "97529c08763ea8365a00feba3cdfc4a5c44818b06c921127d09e10accda53f04",
+            "allowed_actions": [
+              {
+                "action": "key_suspend",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_resume",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "key_revoke",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_extend_days",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_expiry_at",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_periods",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_time_unlimited",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_traffic",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_on",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_off",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "owner_subscription_resend",
+                "enabled": true,
+                "reason_code": null
+              }
+            ]
+          },
+          "after": {
+            "summary": "Повторно отправить существующую общую подписку в личный Telegram владельца.",
+            "parameters": {},
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "owner_private_telegram",
+            "adds_quota": false,
+            "changes_term": false
+          },
+          "expected_version": "97529c08763ea8365a00feba3cdfc4a5c44818b06c921127d09e10accda53f04",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": false,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "none",
+          "order_id": null,
+          "key_id": null,
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null,
+        "confirmation_token": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "post_preview": true,
+      "http_status": 200
+    },
+    {
+      "name": "owner_subscription_resend.status",
+      "request": {
+        "operation_id": "9bb101fafa3f438cb4d4dcf61301ace4",
+        "action": "owner_subscription_resend",
+        "target": {
+          "kind": "key",
+          "id": "d3f6ce61-0988-4376-9848-db49d2ecaf81"
+        },
+        "parameters": {}
+      },
+      "value": {
+        "operation_id": "9bb101fafa3f438cb4d4dcf61301ace4",
+        "action": "owner_subscription_resend",
+        "state": "running",
+        "summary": "Повторно отправить существующую общую подписку в личный Telegram владельца.",
+        "expires_at": null,
+        "target": {
+          "kind": "key",
+          "id": "d3f6ce61-0988-4376-9848-db49d2ecaf81"
+        },
+        "preview": {
+          "kind": "key",
+          "before": {
+            "key_id": "d3f6ce61-0988-4376-9848-db49d2ecaf81",
+            "name": "Вымышленное устройство",
+            "protocol": "hysteria2",
+            "state": "active",
+            "expires_at": "2026-11-24T16:35:12Z",
+            "period_ends_at": "2026-11-24T16:35:12Z",
+            "used_bytes": null,
+            "limit_bytes": 500000000000,
+            "last_activity_at": null,
+            "time_unlimited": false,
+            "traffic_unlimited": false,
+            "traffic_available": false,
+            "traffic_updated_at": null,
+            "traffic_oldest_at": null,
+            "traffic_loss_unknown": false,
+            "traffic_partial_stale": false,
+            "traffic_scope": "за текущий период",
+            "remaining_bytes": null,
+            "access_kind": "paid",
+            "telegram_user_id": 910001,
+            "username": "fiction_910001",
+            "display_name": "Вымышленный 910001",
+            "revision": "97529c08763ea8365a00feba3cdfc4a5c44818b06c921127d09e10accda53f04",
+            "allowed_actions": [
+              {
+                "action": "key_suspend",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_resume",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "key_revoke",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_extend_days",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_expiry_at",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_periods",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_time_unlimited",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_grant_traffic",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_on",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "key_traffic_unlimited_off",
+                "enabled": false,
+                "reason_code": "CORE_PRECONDITION_REJECTED"
+              },
+              {
+                "action": "owner_subscription_resend",
+                "enabled": true,
+                "reason_code": null
+              }
+            ]
+          },
+          "after": {
+            "summary": "Повторно отправить существующую общую подписку в личный Telegram владельца.",
+            "parameters": {},
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "owner_private_telegram",
+            "adds_quota": false,
+            "changes_term": false
+          },
+          "expected_version": "97529c08763ea8365a00feba3cdfc4a5c44818b06c921127d09e10accda53f04",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": true,
+          "delivery_state": "pending",
+          "payment_state": "none",
+          "access_state": "none",
+          "order_id": null,
+          "key_id": "d3f6ce61-0988-4376-9848-db49d2ecaf81",
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null
+      },
+      "post_preview": false,
+      "http_status": 200
+    },
+    {
+      "name": "referral_approve.preview",
+      "request": {
+        "operation_id": "a74a7129f4984f47a7fcc417fbb2c8f8",
+        "action": "referral_approve",
+        "target": {
+          "kind": "referral",
+          "id": "fda5bd90-256c-4cc9-95be-61865cb7a986",
+          "client_id": 910002
+        },
+        "parameters": {
+          "reason": "Вымышленное точное одобрение"
+        }
+      },
+      "value": {
+        "operation_id": "a74a7129f4984f47a7fcc417fbb2c8f8",
+        "action": "referral_approve",
+        "state": "prepared",
+        "summary": "Только показанные приглашения: 1; начислений: 1. Начисляемый бонус: 604800 секунд суммарно; в каждом показанном бонусном периоде трафик безлимитный. При approve_only срок и трафик не добавляются. Другие бонусы не обрабатываются.",
+        "expires_at": "2026-10-26T16:37:13Z",
+        "target": {
+          "kind": "referral",
+          "id": "fda5bd90-256c-4cc9-95be-61865cb7a986",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "referral",
+          "before": {
+            "reward_id": "fda5bd90-256c-4cc9-95be-61865cb7a986",
+            "attribution_id": "87b60412-1a32-470f-a56c-98f2ec8246d4",
+            "status": "earned",
+            "reason": null,
+            "reviewable": true,
+            "earned_at": "2026-10-25T16:35:02Z",
+            "starts_at": null,
+            "ends_at": null,
+            "device_slot_id": null,
+            "order_id": null,
+            "bound_at": "2026-10-24T16:35:02Z",
+            "inviter_telegram_user_id": 910002,
+            "inviter_username": "fiction_910002",
+            "inviter_display_name": "Вымышленный 910002",
+            "invitee_telegram_user_id": 920000,
+            "invitee_username": "fixture_invited_920000",
+            "invitee_display_name": "Вымышленный приглашённый",
+            "gift_created": false,
+            "gift_fulfilled": false,
+            "delivery_confirmed": false,
+            "revision": "f1ea5360e614b40a3603a3536cbf17a0c6e6e05fd0512818e287615bd4e31c9c",
+            "allowed_actions": [
+              {
+                "action": "referral_approve",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "referral_reject",
+                "enabled": true,
+                "reason_code": null
+              }
+            ]
+          },
+          "after": {
+            "summary": "Только показанные приглашения: 1; начислений: 1. Начисляемый бонус: 604800 секунд суммарно; в каждом показанном бонусном периоде трафик безлимитный. При approve_only срок и трафик не добавляются. Другие бонусы не обрабатываются.",
+            "parameters": {
+              "reason": "Вымышленное точное одобрение"
+            },
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "existing_client_telegram",
+            "adds_quota": false,
+            "changes_term": true
+          },
+          "expected_version": "9d20774c9fd77c1c086bed35ef3d862cfe3a47a0cedbf17a67752956e3535d21",
+          "cohort": {
+            "plan_id": "f4d9c85e-ad18-49a8-9dbd-870762045c9d",
+            "revision": "9d20774c9fd77c1c086bed35ef3d862cfe3a47a0cedbf17a67752956e3535d21",
+            "candidate_count": 1,
+            "candidate_ids": [
+              "fda5bd90-256c-4cc9-95be-61865cb7a986"
+            ],
+            "items": [
+              {
+                "attribution_id": "87b60412-1a32-470f-a56c-98f2ec8246d4",
+                "reward_id": "fda5bd90-256c-4cc9-95be-61865cb7a986",
+                "expected_version": "fccc5695f61a8c6192abf7a2b875bd4ae1988b56ddb0a3591b5cf3118be77aac",
+                "inviter_telegram_user_id": 910002,
+                "device_key_id": "334e5f68-5f15-4e29-ab32-2a2fa2caa610",
+                "period_id": "fb88cb5f-5f89-4fca-a7e8-f9bf5ca42d96",
+                "traffic_policy_id": "9132bd25-b774-41e4-8c02-262f7a193ee7",
+                "entitlement_id": "5625f729-afb2-4941-bb8e-eb7410d2cfc3",
+                "generation_id": "c73903e5-f39f-4c34-80b2-d87aa6a92a8e",
+                "starts_at": "2026-11-24T16:35:13.478503Z",
+                "ends_at": "2026-12-01T16:35:13.478503Z",
+                "effect": "approve_and_apply",
+                "creates_reward": false,
+                "term_seconds": 604800,
+                "traffic_mode": "unlimited"
+              }
+            ],
+            "excluded_count": 0,
+            "allowed_actions": []
+          }
+        },
+        "effects": {
+          "business_confirmed": false,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "none",
+          "order_id": null,
+          "key_id": null,
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null,
+        "confirmation_token": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "post_preview": true,
+      "http_status": 200
+    },
+    {
+      "name": "referral_approve.status",
+      "request": {
+        "operation_id": "a74a7129f4984f47a7fcc417fbb2c8f8",
+        "action": "referral_approve",
+        "target": {
+          "kind": "referral",
+          "id": "fda5bd90-256c-4cc9-95be-61865cb7a986",
+          "client_id": 910002
+        },
+        "parameters": {
+          "reason": "Вымышленное точное одобрение"
+        }
+      },
+      "value": {
+        "operation_id": "a74a7129f4984f47a7fcc417fbb2c8f8",
+        "action": "referral_approve",
+        "state": "succeeded",
+        "summary": "Только показанные приглашения: 1; начислений: 1. Начисляемый бонус: 604800 секунд суммарно; в каждом показанном бонусном периоде трафик безлимитный. При approve_only срок и трафик не добавляются. Другие бонусы не обрабатываются.",
+        "expires_at": null,
+        "target": {
+          "kind": "referral",
+          "id": "fda5bd90-256c-4cc9-95be-61865cb7a986",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "referral",
+          "before": {
+            "reward_id": "fda5bd90-256c-4cc9-95be-61865cb7a986",
+            "attribution_id": "87b60412-1a32-470f-a56c-98f2ec8246d4",
+            "status": "earned",
+            "reason": null,
+            "reviewable": true,
+            "earned_at": "2026-10-25T16:35:02Z",
+            "starts_at": null,
+            "ends_at": null,
+            "device_slot_id": null,
+            "order_id": null,
+            "bound_at": "2026-10-24T16:35:02Z",
+            "inviter_telegram_user_id": 910002,
+            "inviter_username": "fiction_910002",
+            "inviter_display_name": "Вымышленный 910002",
+            "invitee_telegram_user_id": 920000,
+            "invitee_username": "fixture_invited_920000",
+            "invitee_display_name": "Вымышленный приглашённый",
+            "gift_created": false,
+            "gift_fulfilled": false,
+            "delivery_confirmed": false,
+            "revision": "f1ea5360e614b40a3603a3536cbf17a0c6e6e05fd0512818e287615bd4e31c9c",
+            "allowed_actions": [
+              {
+                "action": "referral_approve",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "referral_reject",
+                "enabled": true,
+                "reason_code": null
+              }
+            ]
+          },
+          "after": {
+            "summary": "Только показанные приглашения: 1; начислений: 1. Начисляемый бонус: 604800 секунд суммарно; в каждом показанном бонусном периоде трафик безлимитный. При approve_only срок и трафик не добавляются. Другие бонусы не обрабатываются.",
+            "parameters": {
+              "reason": "Вымышленное точное одобрение"
+            },
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "existing_client_telegram",
+            "adds_quota": false,
+            "changes_term": true
+          },
+          "expected_version": "9d20774c9fd77c1c086bed35ef3d862cfe3a47a0cedbf17a67752956e3535d21",
+          "cohort": {
+            "plan_id": "f4d9c85e-ad18-49a8-9dbd-870762045c9d",
+            "revision": "9d20774c9fd77c1c086bed35ef3d862cfe3a47a0cedbf17a67752956e3535d21",
+            "candidate_count": 1,
+            "candidate_ids": [
+              "fda5bd90-256c-4cc9-95be-61865cb7a986"
+            ],
+            "items": [
+              {
+                "attribution_id": "87b60412-1a32-470f-a56c-98f2ec8246d4",
+                "reward_id": "fda5bd90-256c-4cc9-95be-61865cb7a986",
+                "expected_version": "fccc5695f61a8c6192abf7a2b875bd4ae1988b56ddb0a3591b5cf3118be77aac",
+                "inviter_telegram_user_id": 910002,
+                "device_key_id": "334e5f68-5f15-4e29-ab32-2a2fa2caa610",
+                "period_id": "fb88cb5f-5f89-4fca-a7e8-f9bf5ca42d96",
+                "traffic_policy_id": "9132bd25-b774-41e4-8c02-262f7a193ee7",
+                "entitlement_id": "5625f729-afb2-4941-bb8e-eb7410d2cfc3",
+                "generation_id": "c73903e5-f39f-4c34-80b2-d87aa6a92a8e",
+                "starts_at": "2026-11-24T16:35:13.478503Z",
+                "ends_at": "2026-12-01T16:35:13.478503Z",
+                "effect": "approve_and_apply",
+                "creates_reward": false,
+                "term_seconds": 604800,
+                "traffic_mode": "unlimited"
+              }
+            ],
+            "excluded_count": 0,
+            "allowed_actions": []
+          }
+        },
+        "effects": {
+          "business_confirmed": true,
+          "delivery_state": "pending",
+          "payment_state": "none",
+          "access_state": "confirmed",
+          "order_id": null,
+          "key_id": null,
+          "amount_xtr": null,
+          "currency": null,
+          "processed": 1
+        },
+        "error_code": null
+      },
+      "post_preview": false,
+      "http_status": 200
+    },
+    {
+      "name": "referral_reject.preview",
+      "request": {
+        "operation_id": "fc438d8e60fb46309905e00110f0268a",
+        "action": "referral_reject",
+        "target": {
+          "kind": "referral",
+          "id": "af7b7f77-6adc-4a6e-a2be-6f69a44eec25",
+          "client_id": 910002
+        },
+        "parameters": {
+          "reason": "Вымышленное решение"
+        }
+      },
+      "value": {
+        "operation_id": "fc438d8e60fb46309905e00110f0268a",
+        "action": "referral_reject",
+        "state": "prepared",
+        "summary": "Отклонить выбранное приглашение; уже выданный бонус не отзывается.",
+        "expires_at": "2026-10-26T16:37:14Z",
+        "target": {
+          "kind": "referral",
+          "id": "af7b7f77-6adc-4a6e-a2be-6f69a44eec25",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "referral",
+          "before": {
+            "reward_id": "af7b7f77-6adc-4a6e-a2be-6f69a44eec25",
+            "attribution_id": "af7b7f77-6adc-4a6e-a2be-6f69a44eec25",
+            "status": "review",
+            "reason": "Вымышленная проверка",
+            "reviewable": true,
+            "earned_at": null,
+            "starts_at": null,
+            "ends_at": null,
+            "device_slot_id": null,
+            "order_id": null,
+            "bound_at": "2026-10-26T16:35:14Z",
+            "inviter_telegram_user_id": 910002,
+            "inviter_username": "fiction_910002",
+            "inviter_display_name": "Вымышленный 910002",
+            "invitee_telegram_user_id": 910003,
+            "invitee_username": "fiction_910003",
+            "invitee_display_name": "Вымышленный 910003",
+            "gift_created": false,
+            "gift_fulfilled": false,
+            "delivery_confirmed": false,
+            "revision": "2b68e5843c38953829fb175becf7a56343efdedd6dd2b5710727bfa38601e6c7",
+            "allowed_actions": [
+              {
+                "action": "referral_approve",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "referral_reject",
+                "enabled": true,
+                "reason_code": null
+              }
+            ]
+          },
+          "after": {
+            "summary": "Отклонить выбранное приглашение; уже выданный бонус не отзывается.",
+            "parameters": {
+              "reason": "Вымышленное решение"
+            },
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "none",
+            "adds_quota": false,
+            "changes_term": false
+          },
+          "expected_version": "2b68e5843c38953829fb175becf7a56343efdedd6dd2b5710727bfa38601e6c7",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": false,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "none",
+          "order_id": null,
+          "key_id": null,
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null,
+        "confirmation_token": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "post_preview": true,
+      "http_status": 200
+    },
+    {
+      "name": "referral_reject.status",
+      "request": {
+        "operation_id": "fc438d8e60fb46309905e00110f0268a",
+        "action": "referral_reject",
+        "target": {
+          "kind": "referral",
+          "id": "af7b7f77-6adc-4a6e-a2be-6f69a44eec25",
+          "client_id": 910002
+        },
+        "parameters": {
+          "reason": "Вымышленное решение"
+        }
+      },
+      "value": {
+        "operation_id": "fc438d8e60fb46309905e00110f0268a",
+        "action": "referral_reject",
+        "state": "succeeded",
+        "summary": "Отклонить выбранное приглашение; уже выданный бонус не отзывается.",
+        "expires_at": null,
+        "target": {
+          "kind": "referral",
+          "id": "af7b7f77-6adc-4a6e-a2be-6f69a44eec25",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "referral",
+          "before": {
+            "reward_id": "af7b7f77-6adc-4a6e-a2be-6f69a44eec25",
+            "attribution_id": "af7b7f77-6adc-4a6e-a2be-6f69a44eec25",
+            "status": "review",
+            "reason": "Вымышленная проверка",
+            "reviewable": true,
+            "earned_at": null,
+            "starts_at": null,
+            "ends_at": null,
+            "device_slot_id": null,
+            "order_id": null,
+            "bound_at": "2026-10-26T16:35:14Z",
+            "inviter_telegram_user_id": 910002,
+            "inviter_username": "fiction_910002",
+            "inviter_display_name": "Вымышленный 910002",
+            "invitee_telegram_user_id": 910003,
+            "invitee_username": "fiction_910003",
+            "invitee_display_name": "Вымышленный 910003",
+            "gift_created": false,
+            "gift_fulfilled": false,
+            "delivery_confirmed": false,
+            "revision": "2b68e5843c38953829fb175becf7a56343efdedd6dd2b5710727bfa38601e6c7",
+            "allowed_actions": [
+              {
+                "action": "referral_approve",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "referral_reject",
+                "enabled": true,
+                "reason_code": null
+              }
+            ]
+          },
+          "after": {
+            "summary": "Отклонить выбранное приглашение; уже выданный бонус не отзывается.",
+            "parameters": {
+              "reason": "Вымышленное решение"
+            },
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "none",
+            "adds_quota": false,
+            "changes_term": false
+          },
+          "expected_version": "2b68e5843c38953829fb175becf7a56343efdedd6dd2b5710727bfa38601e6c7",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": true,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "none",
+          "order_id": null,
+          "key_id": null,
+          "amount_xtr": null,
+          "currency": null,
+          "processed": 1
+        },
+        "error_code": null
+      },
+      "post_preview": false,
+      "http_status": 200
+    },
+    {
+      "name": "referrals_reconcile.preview",
+      "request": {
+        "operation_id": "cadab3a602ed495f973de55f556096ff",
+        "action": "referrals_reconcile",
+        "target": {
+          "kind": "referral_scope",
+          "id": "all"
+        },
+        "parameters": {}
+      },
+      "value": {
+        "operation_id": "cadab3a602ed495f973de55f556096ff",
+        "action": "referrals_reconcile",
+        "state": "prepared",
+        "summary": "Только показанные приглашения: 2; начислений: 2. Начисляемый бонус: 1209600 секунд суммарно; в каждом показанном бонусном периоде трафик безлимитный. При approve_only срок и трафик не добавляются. Другие бонусы не обрабатываются.",
+        "expires_at": "2026-10-26T16:37:15Z",
+        "target": {
+          "kind": "referral_scope",
+          "id": "all"
+        },
+        "preview": {
+          "kind": "referral_scope",
+          "before": {
+            "plan_id": "47356e3c-4187-4d91-ba72-95af91852232",
+            "revision": "4b681da46247d8c25297554598f80f72b2ffe4520f9a14c3be208383fb45b0c5",
+            "candidate_count": 2,
+            "candidate_ids": [
+              "5d8c4c5a-9245-4585-81bd-42f5e3f3ba3d",
+              "335b28b8-7d96-413b-804d-413728816c8e"
+            ],
+            "items": [
+              {
+                "attribution_id": "3415022f-0b47-4f7c-b231-ab7278b155a0",
+                "reward_id": "5d8c4c5a-9245-4585-81bd-42f5e3f3ba3d",
+                "expected_version": "d11ab08c09d00f6f7464fb9516a5feed6528e506688d877bd41a5d87ae19f074",
+                "inviter_telegram_user_id": 910002,
+                "device_key_id": "f2fe89c3-fd9b-40c5-ae5a-8f44a8401585",
+                "period_id": "e737794e-c96a-4cfa-98f6-6ac2b4273a76",
+                "traffic_policy_id": "35491ac5-7cfe-439e-919d-a243e6381278",
+                "entitlement_id": "a60b68b9-e2f4-4547-bae2-3ee4fab082fd",
+                "generation_id": "1952f657-1689-4cd5-a8fa-dcb68155a57e",
+                "starts_at": "2026-11-24T16:35:15.368537Z",
+                "ends_at": "2026-12-01T16:35:15.368537Z",
+                "effect": "apply",
+                "creates_reward": false,
+                "term_seconds": 604800,
+                "traffic_mode": "unlimited"
+              },
+              {
+                "attribution_id": "7a5f8218-20e1-4b1b-9794-a17a231cbacd",
+                "reward_id": "335b28b8-7d96-413b-804d-413728816c8e",
+                "expected_version": "c13ffd7d04a250b9df6fb69f460b136d90e365d636265511ecff566dd0a9f268",
+                "inviter_telegram_user_id": 910002,
+                "device_key_id": "f2fe89c3-fd9b-40c5-ae5a-8f44a8401585",
+                "period_id": "294fd731-f362-466a-ae49-18c8fe0b75f0",
+                "traffic_policy_id": "1369c6b1-f612-41e2-89cf-e956ad55e733",
+                "entitlement_id": "6effff0a-13d0-4bca-98d2-6e0b1064ac98",
+                "generation_id": "1952f657-1689-4cd5-a8fa-dcb68155a57e",
+                "starts_at": "2026-12-01T16:35:15.368537Z",
+                "ends_at": "2026-12-08T16:35:15.368537Z",
+                "effect": "apply",
+                "creates_reward": false,
+                "term_seconds": 604800,
+                "traffic_mode": "unlimited"
+              }
+            ],
+            "excluded_count": 0,
+            "allowed_actions": []
+          },
+          "after": {
+            "summary": "Только показанные приглашения: 2; начислений: 2. Начисляемый бонус: 1209600 секунд суммарно; в каждом показанном бонусном периоде трафик безлимитный. При approve_only срок и трафик не добавляются. Другие бонусы не обрабатываются.",
+            "parameters": {},
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "existing_client_telegram",
+            "adds_quota": false,
+            "changes_term": true
+          },
+          "expected_version": "4b681da46247d8c25297554598f80f72b2ffe4520f9a14c3be208383fb45b0c5",
+          "cohort": {
+            "plan_id": "47356e3c-4187-4d91-ba72-95af91852232",
+            "revision": "4b681da46247d8c25297554598f80f72b2ffe4520f9a14c3be208383fb45b0c5",
+            "candidate_count": 2,
+            "candidate_ids": [
+              "5d8c4c5a-9245-4585-81bd-42f5e3f3ba3d",
+              "335b28b8-7d96-413b-804d-413728816c8e"
+            ],
+            "items": [
+              {
+                "attribution_id": "3415022f-0b47-4f7c-b231-ab7278b155a0",
+                "reward_id": "5d8c4c5a-9245-4585-81bd-42f5e3f3ba3d",
+                "expected_version": "d11ab08c09d00f6f7464fb9516a5feed6528e506688d877bd41a5d87ae19f074",
+                "inviter_telegram_user_id": 910002,
+                "device_key_id": "f2fe89c3-fd9b-40c5-ae5a-8f44a8401585",
+                "period_id": "e737794e-c96a-4cfa-98f6-6ac2b4273a76",
+                "traffic_policy_id": "35491ac5-7cfe-439e-919d-a243e6381278",
+                "entitlement_id": "a60b68b9-e2f4-4547-bae2-3ee4fab082fd",
+                "generation_id": "1952f657-1689-4cd5-a8fa-dcb68155a57e",
+                "starts_at": "2026-11-24T16:35:15.368537Z",
+                "ends_at": "2026-12-01T16:35:15.368537Z",
+                "effect": "apply",
+                "creates_reward": false,
+                "term_seconds": 604800,
+                "traffic_mode": "unlimited"
+              },
+              {
+                "attribution_id": "7a5f8218-20e1-4b1b-9794-a17a231cbacd",
+                "reward_id": "335b28b8-7d96-413b-804d-413728816c8e",
+                "expected_version": "c13ffd7d04a250b9df6fb69f460b136d90e365d636265511ecff566dd0a9f268",
+                "inviter_telegram_user_id": 910002,
+                "device_key_id": "f2fe89c3-fd9b-40c5-ae5a-8f44a8401585",
+                "period_id": "294fd731-f362-466a-ae49-18c8fe0b75f0",
+                "traffic_policy_id": "1369c6b1-f612-41e2-89cf-e956ad55e733",
+                "entitlement_id": "6effff0a-13d0-4bca-98d2-6e0b1064ac98",
+                "generation_id": "1952f657-1689-4cd5-a8fa-dcb68155a57e",
+                "starts_at": "2026-12-01T16:35:15.368537Z",
+                "ends_at": "2026-12-08T16:35:15.368537Z",
+                "effect": "apply",
+                "creates_reward": false,
+                "term_seconds": 604800,
+                "traffic_mode": "unlimited"
+              }
+            ],
+            "excluded_count": 0,
+            "allowed_actions": []
+          }
+        },
+        "effects": {
+          "business_confirmed": false,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "none",
+          "order_id": null,
+          "key_id": null,
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null,
+        "confirmation_token": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "post_preview": true,
+      "http_status": 200
+    },
+    {
+      "name": "referrals_reconcile.status",
+      "request": {
+        "operation_id": "cadab3a602ed495f973de55f556096ff",
+        "action": "referrals_reconcile",
+        "target": {
+          "kind": "referral_scope",
+          "id": "all"
+        },
+        "parameters": {}
+      },
+      "value": {
+        "operation_id": "cadab3a602ed495f973de55f556096ff",
+        "action": "referrals_reconcile",
+        "state": "succeeded",
+        "summary": "Только показанные приглашения: 2; начислений: 2. Начисляемый бонус: 1209600 секунд суммарно; в каждом показанном бонусном периоде трафик безлимитный. При approve_only срок и трафик не добавляются. Другие бонусы не обрабатываются.",
+        "expires_at": null,
+        "target": {
+          "kind": "referral_scope",
+          "id": "all"
+        },
+        "preview": {
+          "kind": "referral_scope",
+          "before": {
+            "plan_id": "47356e3c-4187-4d91-ba72-95af91852232",
+            "revision": "4b681da46247d8c25297554598f80f72b2ffe4520f9a14c3be208383fb45b0c5",
+            "candidate_count": 2,
+            "candidate_ids": [
+              "5d8c4c5a-9245-4585-81bd-42f5e3f3ba3d",
+              "335b28b8-7d96-413b-804d-413728816c8e"
+            ],
+            "items": [
+              {
+                "attribution_id": "3415022f-0b47-4f7c-b231-ab7278b155a0",
+                "reward_id": "5d8c4c5a-9245-4585-81bd-42f5e3f3ba3d",
+                "expected_version": "d11ab08c09d00f6f7464fb9516a5feed6528e506688d877bd41a5d87ae19f074",
+                "inviter_telegram_user_id": 910002,
+                "device_key_id": "f2fe89c3-fd9b-40c5-ae5a-8f44a8401585",
+                "period_id": "e737794e-c96a-4cfa-98f6-6ac2b4273a76",
+                "traffic_policy_id": "35491ac5-7cfe-439e-919d-a243e6381278",
+                "entitlement_id": "a60b68b9-e2f4-4547-bae2-3ee4fab082fd",
+                "generation_id": "1952f657-1689-4cd5-a8fa-dcb68155a57e",
+                "starts_at": "2026-11-24T16:35:15.368537Z",
+                "ends_at": "2026-12-01T16:35:15.368537Z",
+                "effect": "apply",
+                "creates_reward": false,
+                "term_seconds": 604800,
+                "traffic_mode": "unlimited"
+              },
+              {
+                "attribution_id": "7a5f8218-20e1-4b1b-9794-a17a231cbacd",
+                "reward_id": "335b28b8-7d96-413b-804d-413728816c8e",
+                "expected_version": "c13ffd7d04a250b9df6fb69f460b136d90e365d636265511ecff566dd0a9f268",
+                "inviter_telegram_user_id": 910002,
+                "device_key_id": "f2fe89c3-fd9b-40c5-ae5a-8f44a8401585",
+                "period_id": "294fd731-f362-466a-ae49-18c8fe0b75f0",
+                "traffic_policy_id": "1369c6b1-f612-41e2-89cf-e956ad55e733",
+                "entitlement_id": "6effff0a-13d0-4bca-98d2-6e0b1064ac98",
+                "generation_id": "1952f657-1689-4cd5-a8fa-dcb68155a57e",
+                "starts_at": "2026-12-01T16:35:15.368537Z",
+                "ends_at": "2026-12-08T16:35:15.368537Z",
+                "effect": "apply",
+                "creates_reward": false,
+                "term_seconds": 604800,
+                "traffic_mode": "unlimited"
+              }
+            ],
+            "excluded_count": 0,
+            "allowed_actions": []
+          },
+          "after": {
+            "summary": "Только показанные приглашения: 2; начислений: 2. Начисляемый бонус: 1209600 секунд суммарно; в каждом показанном бонусном периоде трафик безлимитный. При approve_only срок и трафик не добавляются. Другие бонусы не обрабатываются.",
+            "parameters": {},
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "existing_client_telegram",
+            "adds_quota": false,
+            "changes_term": true
+          },
+          "expected_version": "4b681da46247d8c25297554598f80f72b2ffe4520f9a14c3be208383fb45b0c5",
+          "cohort": {
+            "plan_id": "47356e3c-4187-4d91-ba72-95af91852232",
+            "revision": "4b681da46247d8c25297554598f80f72b2ffe4520f9a14c3be208383fb45b0c5",
+            "candidate_count": 2,
+            "candidate_ids": [
+              "5d8c4c5a-9245-4585-81bd-42f5e3f3ba3d",
+              "335b28b8-7d96-413b-804d-413728816c8e"
+            ],
+            "items": [
+              {
+                "attribution_id": "3415022f-0b47-4f7c-b231-ab7278b155a0",
+                "reward_id": "5d8c4c5a-9245-4585-81bd-42f5e3f3ba3d",
+                "expected_version": "d11ab08c09d00f6f7464fb9516a5feed6528e506688d877bd41a5d87ae19f074",
+                "inviter_telegram_user_id": 910002,
+                "device_key_id": "f2fe89c3-fd9b-40c5-ae5a-8f44a8401585",
+                "period_id": "e737794e-c96a-4cfa-98f6-6ac2b4273a76",
+                "traffic_policy_id": "35491ac5-7cfe-439e-919d-a243e6381278",
+                "entitlement_id": "a60b68b9-e2f4-4547-bae2-3ee4fab082fd",
+                "generation_id": "1952f657-1689-4cd5-a8fa-dcb68155a57e",
+                "starts_at": "2026-11-24T16:35:15.368537Z",
+                "ends_at": "2026-12-01T16:35:15.368537Z",
+                "effect": "apply",
+                "creates_reward": false,
+                "term_seconds": 604800,
+                "traffic_mode": "unlimited"
+              },
+              {
+                "attribution_id": "7a5f8218-20e1-4b1b-9794-a17a231cbacd",
+                "reward_id": "335b28b8-7d96-413b-804d-413728816c8e",
+                "expected_version": "c13ffd7d04a250b9df6fb69f460b136d90e365d636265511ecff566dd0a9f268",
+                "inviter_telegram_user_id": 910002,
+                "device_key_id": "f2fe89c3-fd9b-40c5-ae5a-8f44a8401585",
+                "period_id": "294fd731-f362-466a-ae49-18c8fe0b75f0",
+                "traffic_policy_id": "1369c6b1-f612-41e2-89cf-e956ad55e733",
+                "entitlement_id": "6effff0a-13d0-4bca-98d2-6e0b1064ac98",
+                "generation_id": "1952f657-1689-4cd5-a8fa-dcb68155a57e",
+                "starts_at": "2026-12-01T16:35:15.368537Z",
+                "ends_at": "2026-12-08T16:35:15.368537Z",
+                "effect": "apply",
+                "creates_reward": false,
+                "term_seconds": 604800,
+                "traffic_mode": "unlimited"
+              }
+            ],
+            "excluded_count": 0,
+            "allowed_actions": []
+          }
+        },
+        "effects": {
+          "business_confirmed": true,
+          "delivery_state": "pending",
+          "payment_state": "none",
+          "access_state": "confirmed",
+          "order_id": null,
+          "key_id": null,
+          "amount_xtr": null,
+          "currency": null,
+          "processed": 2
+        },
+        "error_code": null
+      },
+      "post_preview": false,
+      "http_status": 200
+    },
+    {
+      "name": "request_decline.preview",
+      "request": {
+        "operation_id": "90acf5c215014989beccbbd16ee4ab37",
+        "action": "request_decline",
+        "target": {
+          "kind": "request",
+          "id": "7a9416b9-9630-42ef-b6c1-1ae7500e07b5",
+          "client_id": 910002
+        },
+        "parameters": {
+          "reason": "Вымышленное решение"
+        }
+      },
+      "value": {
+        "operation_id": "90acf5c215014989beccbbd16ee4ab37",
+        "action": "request_decline",
+        "state": "prepared",
+        "summary": "Отклонить только выбранную заявку. Причина: Вымышленное решение",
+        "expires_at": "2026-10-26T16:37:16Z",
+        "target": {
+          "kind": "request",
+          "id": "7a9416b9-9630-42ef-b6c1-1ae7500e07b5",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "request",
+          "before": {
+            "request_id": "7a9416b9-9630-42ef-b6c1-1ae7500e07b5",
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "device_count": 1,
+            "period_count": 1,
+            "total_xtr": 100,
+            "status": "pending",
+            "request_kind": "paid",
+            "stage": null,
+            "identity_conflict": false,
+            "replace_invoice_available": false,
+            "gift_order_id": null,
+            "revision": "9e1022d39a8ba447a10a94ebcdb295c2a5948942a6b0e55ac2e13fe6f4dcb914",
+            "allowed_actions": [
+              {
+                "action": "request_invoice",
+                "enabled": false,
+                "reason_code": "CLIENT_ISSUANCE_E2E_GATE"
+              },
+              {
+                "action": "request_free",
+                "enabled": false,
+                "reason_code": "CLIENT_ISSUANCE_E2E_GATE"
+              },
+              {
+                "action": "request_decline",
+                "enabled": true,
+                "reason_code": null
+              }
+            ]
+          },
+          "after": {
+            "summary": "Отклонить только выбранную заявку. Причина: Вымышленное решение",
+            "parameters": {
+              "reason": "Вымышленное решение"
+            },
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "none",
+            "adds_quota": false,
+            "changes_term": false
+          },
+          "expected_version": "9e1022d39a8ba447a10a94ebcdb295c2a5948942a6b0e55ac2e13fe6f4dcb914",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": false,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "none",
+          "order_id": null,
+          "key_id": null,
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null,
+        "confirmation_token": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "post_preview": true,
+      "http_status": 200
+    },
+    {
+      "name": "request_decline.status",
+      "request": {
+        "operation_id": "90acf5c215014989beccbbd16ee4ab37",
+        "action": "request_decline",
+        "target": {
+          "kind": "request",
+          "id": "7a9416b9-9630-42ef-b6c1-1ae7500e07b5",
+          "client_id": 910002
+        },
+        "parameters": {
+          "reason": "Вымышленное решение"
+        }
+      },
+      "value": {
+        "operation_id": "90acf5c215014989beccbbd16ee4ab37",
+        "action": "request_decline",
+        "state": "succeeded",
+        "summary": "Отклонить только выбранную заявку. Причина: Вымышленное решение",
+        "expires_at": null,
+        "target": {
+          "kind": "request",
+          "id": "7a9416b9-9630-42ef-b6c1-1ae7500e07b5",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "request",
+          "before": {
+            "request_id": "7a9416b9-9630-42ef-b6c1-1ae7500e07b5",
+            "telegram_user_id": 910002,
+            "username": "fiction_910002",
+            "display_name": "Вымышленный 910002",
+            "device_count": 1,
+            "period_count": 1,
+            "total_xtr": 100,
+            "status": "pending",
+            "request_kind": "paid",
+            "stage": null,
+            "identity_conflict": false,
+            "replace_invoice_available": false,
+            "gift_order_id": null,
+            "revision": "9e1022d39a8ba447a10a94ebcdb295c2a5948942a6b0e55ac2e13fe6f4dcb914",
+            "allowed_actions": [
+              {
+                "action": "request_invoice",
+                "enabled": false,
+                "reason_code": "CLIENT_ISSUANCE_E2E_GATE"
+              },
+              {
+                "action": "request_free",
+                "enabled": false,
+                "reason_code": "CLIENT_ISSUANCE_E2E_GATE"
+              },
+              {
+                "action": "request_decline",
+                "enabled": true,
+                "reason_code": null
+              }
+            ]
+          },
+          "after": {
+            "summary": "Отклонить только выбранную заявку. Причина: Вымышленное решение",
+            "parameters": {
+              "reason": "Вымышленное решение"
+            },
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "none",
+            "adds_quota": false,
+            "changes_term": false
+          },
+          "expected_version": "9e1022d39a8ba447a10a94ebcdb295c2a5948942a6b0e55ac2e13fe6f4dcb914",
+          "cohort": null
+        },
+        "effects": {
+          "business_confirmed": true,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "none",
+          "order_id": null,
+          "key_id": null,
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null
+      },
+      "post_preview": false,
+      "http_status": 200
+    },
+    {
+      "name": "request_free.gated",
+      "request": {
+        "operation_id": "8d55d471382c496cb8f19cb8960520f9",
+        "action": "request_free",
+        "target": {
+          "kind": "request",
+          "id": "1636bc6e-ea47-4780-9516-5687224d74c4",
+          "client_id": 910002
+        },
+        "parameters": {
+          "reason": "Вымышленное решение"
+        }
+      },
+      "value": {
+        "error": {
+          "code": "CLIENT_ISSUANCE_E2E_GATE",
+          "message": "Действие пока недоступно в ядре.",
+          "retryable": false
+        }
+      },
+      "post_preview": true,
+      "http_status": 409
+    },
+    {
+      "name": "request_gift.gated",
+      "request": {
+        "operation_id": "a40886abe0c44be4a391cc0050ae99b3",
+        "action": "request_gift",
+        "target": {
+          "kind": "request",
+          "id": "d602829a-a7a7-49ad-8dab-7993d5d83938",
+          "client_id": 910002
+        },
+        "parameters": {}
+      },
+      "value": {
+        "error": {
+          "code": "CLIENT_ISSUANCE_E2E_GATE",
+          "message": "Действие пока недоступно в ядре.",
+          "retryable": false
+        }
+      },
+      "post_preview": true,
+      "http_status": 409
+    },
+    {
+      "name": "request_invoice.gated",
+      "request": {
+        "operation_id": "cdfd379511034724a6747195a7f0754b",
+        "action": "request_invoice",
+        "target": {
+          "kind": "request",
+          "id": "60236255-62f7-47f7-a84a-b7f0150bf6e5",
+          "client_id": 910002
+        },
+        "parameters": {}
+      },
+      "value": {
+        "error": {
+          "code": "CLIENT_ISSUANCE_E2E_GATE",
+          "message": "Действие пока недоступно в ядре.",
+          "retryable": false
+        }
+      },
+      "post_preview": true,
+      "http_status": 409
+    },
+    {
+      "name": "referral_approve.review_only.preview",
+      "request": {
+        "operation_id": "4da448d0bb784fff8b0befb2bec53eed",
+        "action": "referral_approve",
+        "target": {
+          "kind": "referral",
+          "id": "12fd9be1-7724-4024-b9fa-4fc0dd2d85c4",
+          "client_id": 910002
+        },
+        "parameters": {
+          "reason": "Вымышленное решение без начисления"
+        }
+      },
+      "value": {
+        "operation_id": "4da448d0bb784fff8b0befb2bec53eed",
+        "action": "referral_approve",
+        "state": "prepared",
+        "summary": "Только показанные приглашения: 1; начислений: 0. Начисляемый бонус: 0 секунд суммарно; в каждом показанном бонусном периоде трафик безлимитный. При approve_only срок и трафик не добавляются. Другие бонусы не обрабатываются.",
+        "expires_at": "2026-10-26T16:37:19Z",
+        "target": {
+          "kind": "referral",
+          "id": "12fd9be1-7724-4024-b9fa-4fc0dd2d85c4",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "referral",
+          "before": {
+            "reward_id": "12fd9be1-7724-4024-b9fa-4fc0dd2d85c4",
+            "attribution_id": "12fd9be1-7724-4024-b9fa-4fc0dd2d85c4",
+            "status": "review",
+            "reason": "Вымышленная проверка",
+            "reviewable": true,
+            "earned_at": null,
+            "starts_at": null,
+            "ends_at": null,
+            "device_slot_id": null,
+            "order_id": null,
+            "bound_at": "2026-10-26T16:35:19Z",
+            "inviter_telegram_user_id": 910002,
+            "inviter_username": "fiction_910002",
+            "inviter_display_name": "Вымышленный 910002",
+            "invitee_telegram_user_id": 910003,
+            "invitee_username": "fiction_910003",
+            "invitee_display_name": "Вымышленный 910003",
+            "gift_created": false,
+            "gift_fulfilled": false,
+            "delivery_confirmed": false,
+            "revision": "c77ad851d40c79c28487904686f7175eabbbdb2a50e35029061642da7dcdceda",
+            "allowed_actions": [
+              {
+                "action": "referral_approve",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "referral_reject",
+                "enabled": true,
+                "reason_code": null
+              }
+            ]
+          },
+          "after": {
+            "summary": "Только показанные приглашения: 1; начислений: 0. Начисляемый бонус: 0 секунд суммарно; в каждом показанном бонусном периоде трафик безлимитный. При approve_only срок и трафик не добавляются. Другие бонусы не обрабатываются.",
+            "parameters": {
+              "reason": "Вымышленное решение без начисления"
+            },
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "existing_client_telegram",
+            "adds_quota": false,
+            "changes_term": false
+          },
+          "expected_version": "fd0f76a788ff78d2c751c6991672d7ee522b7ff2963e2efb4dc37312d6911db5",
+          "cohort": {
+            "plan_id": "58c168f0-3df6-4c2f-bbf0-5c056218dd09",
+            "revision": "fd0f76a788ff78d2c751c6991672d7ee522b7ff2963e2efb4dc37312d6911db5",
+            "candidate_count": 1,
+            "candidate_ids": [
+              "12fd9be1-7724-4024-b9fa-4fc0dd2d85c4"
+            ],
+            "items": [
+              {
+                "attribution_id": "12fd9be1-7724-4024-b9fa-4fc0dd2d85c4",
+                "reward_id": null,
+                "expected_version": "304347a8e39e1e6bda5fa6c676991604a7e386ff656b74be03e00e9383ecd477",
+                "inviter_telegram_user_id": 910002,
+                "device_key_id": null,
+                "period_id": null,
+                "traffic_policy_id": null,
+                "entitlement_id": null,
+                "generation_id": null,
+                "starts_at": null,
+                "ends_at": null,
+                "effect": "approve_only",
+                "creates_reward": false,
+                "term_seconds": 0,
+                "traffic_mode": "none"
+              }
+            ],
+            "excluded_count": 0,
+            "allowed_actions": []
+          }
+        },
+        "effects": {
+          "business_confirmed": false,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "none",
+          "order_id": null,
+          "key_id": null,
+          "amount_xtr": null,
+          "currency": null,
+          "processed": null
+        },
+        "error_code": null,
+        "confirmation_token": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "post_preview": true,
+      "http_status": 200
+    },
+    {
+      "name": "referral_approve.review_only.status",
+      "request": {
+        "operation_id": "4da448d0bb784fff8b0befb2bec53eed",
+        "action": "referral_approve",
+        "target": {
+          "kind": "referral",
+          "id": "12fd9be1-7724-4024-b9fa-4fc0dd2d85c4",
+          "client_id": 910002
+        },
+        "parameters": {
+          "reason": "Вымышленное решение без начисления"
+        }
+      },
+      "value": {
+        "operation_id": "4da448d0bb784fff8b0befb2bec53eed",
+        "action": "referral_approve",
+        "state": "succeeded",
+        "summary": "Только показанные приглашения: 1; начислений: 0. Начисляемый бонус: 0 секунд суммарно; в каждом показанном бонусном периоде трафик безлимитный. При approve_only срок и трафик не добавляются. Другие бонусы не обрабатываются.",
+        "expires_at": null,
+        "target": {
+          "kind": "referral",
+          "id": "12fd9be1-7724-4024-b9fa-4fc0dd2d85c4",
+          "client_id": 910002
+        },
+        "preview": {
+          "kind": "referral",
+          "before": {
+            "reward_id": "12fd9be1-7724-4024-b9fa-4fc0dd2d85c4",
+            "attribution_id": "12fd9be1-7724-4024-b9fa-4fc0dd2d85c4",
+            "status": "review",
+            "reason": "Вымышленная проверка",
+            "reviewable": true,
+            "earned_at": null,
+            "starts_at": null,
+            "ends_at": null,
+            "device_slot_id": null,
+            "order_id": null,
+            "bound_at": "2026-10-26T16:35:19Z",
+            "inviter_telegram_user_id": 910002,
+            "inviter_username": "fiction_910002",
+            "inviter_display_name": "Вымышленный 910002",
+            "invitee_telegram_user_id": 910003,
+            "invitee_username": "fiction_910003",
+            "invitee_display_name": "Вымышленный 910003",
+            "gift_created": false,
+            "gift_fulfilled": false,
+            "delivery_confirmed": false,
+            "revision": "c77ad851d40c79c28487904686f7175eabbbdb2a50e35029061642da7dcdceda",
+            "allowed_actions": [
+              {
+                "action": "referral_approve",
+                "enabled": true,
+                "reason_code": null
+              },
+              {
+                "action": "referral_reject",
+                "enabled": true,
+                "reason_code": null
+              }
+            ]
+          },
+          "after": {
+            "summary": "Только показанные приглашения: 1; начислений: 0. Начисляемый бонус: 0 секунд суммарно; в каждом показанном бонусном периоде трафик безлимитный. При approve_only срок и трафик не добавляются. Другие бонусы не обрабатываются.",
+            "parameters": {
+              "reason": "Вымышленное решение без начисления"
+            },
+            "amount_xtr": null,
+            "currency": null,
+            "delivery_to": "existing_client_telegram",
+            "adds_quota": false,
+            "changes_term": false
+          },
+          "expected_version": "fd0f76a788ff78d2c751c6991672d7ee522b7ff2963e2efb4dc37312d6911db5",
+          "cohort": {
+            "plan_id": "58c168f0-3df6-4c2f-bbf0-5c056218dd09",
+            "revision": "fd0f76a788ff78d2c751c6991672d7ee522b7ff2963e2efb4dc37312d6911db5",
+            "candidate_count": 1,
+            "candidate_ids": [
+              "12fd9be1-7724-4024-b9fa-4fc0dd2d85c4"
+            ],
+            "items": [
+              {
+                "attribution_id": "12fd9be1-7724-4024-b9fa-4fc0dd2d85c4",
+                "reward_id": null,
+                "expected_version": "304347a8e39e1e6bda5fa6c676991604a7e386ff656b74be03e00e9383ecd477",
+                "inviter_telegram_user_id": 910002,
+                "device_key_id": null,
+                "period_id": null,
+                "traffic_policy_id": null,
+                "entitlement_id": null,
+                "generation_id": null,
+                "starts_at": null,
+                "ends_at": null,
+                "effect": "approve_only",
+                "creates_reward": false,
+                "term_seconds": 0,
+                "traffic_mode": "none"
+              }
+            ],
+            "excluded_count": 0,
+            "allowed_actions": []
+          }
+        },
+        "effects": {
+          "business_confirmed": true,
+          "delivery_state": "none",
+          "payment_state": "none",
+          "access_state": "confirmed",
+          "order_id": null,
+          "key_id": null,
+          "amount_xtr": null,
+          "currency": null,
+          "processed": 0
+        },
+        "error_code": null
+      },
+      "post_preview": false,
+      "http_status": 200
+    }
+  ]
+}

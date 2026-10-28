@@ -1,0 +1,866 @@
+{
+  "version": 1,
+  "stage": "actual mTLS HTTP routes + production DTO/normalization; explicitly fictional in-memory backend; NOT metadata core acceptance",
+  "records": [
+    {
+      "name": "capabilities",
+      "kind": "MetadataCapabilities",
+      "method": "GET",
+      "path": "/v2/key-metadata/capabilities",
+      "http_status": 200,
+      "value": {
+        "schema_revision": 1,
+        "enabled": true,
+        "reason_code": null,
+        "normalization": "NFC",
+        "length_unit": "unicode_scalar",
+        "name_min": 1,
+        "name_max": 80,
+        "note_max": 1000,
+        "preview_ttl_seconds": 120,
+        "request_max_bytes": 8192
+      }
+    },
+    {
+      "name": "original",
+      "kind": "KeyMetadata",
+      "method": "GET",
+      "path": "/v2/key-metadata/keys/326e4605-75d9-4c1b-86dc-d0e33ba1dd68?client_id=910002",
+      "http_status": 200,
+      "value": {
+        "schema_revision": 1,
+        "key_id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+        "client_id": 910002,
+        "original_name": "Вымышленное устройство",
+        "effective_name": "Вымышленное устройство",
+        "name_source": "original",
+        "note": "",
+        "metadata_revision": 0,
+        "updated_at": null,
+        "view_revision": "0f1a02a037bd21c2bb2d3de62feae82ae9077fa3987ebb612ecea04fc0a54d3f"
+      }
+    },
+    {
+      "name": "preview.1",
+      "kind": "MetadataOperation",
+      "method": "POST",
+      "path": "/v2/key-metadata/operations/previews",
+      "http_status": 200,
+      "value": {
+        "schema_revision": 1,
+        "operation_id": "11111111111111111111111111111111",
+        "action": "key_metadata_update",
+        "state": "prepared",
+        "request_digest": "c76afa6edc4286d364e7c34dee454135d30cf450e1cf22e3fb8a280bbb320c0d",
+        "target": {
+          "kind": "key",
+          "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+          "client_id": 910002
+        },
+        "expires_at": "2026-10-26T22:09:17Z",
+        "preview": {
+          "target": {
+            "kind": "key",
+            "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002
+          },
+          "before": {
+            "schema_revision": 1,
+            "key_id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002,
+            "original_name": "Вымышленное устройство",
+            "effective_name": "Вымышленное устройство",
+            "name_source": "original",
+            "note": "",
+            "metadata_revision": 0,
+            "updated_at": null,
+            "view_revision": "0f1a02a037bd21c2bb2d3de62feae82ae9077fa3987ebb612ecea04fc0a54d3f"
+          },
+          "after": {
+            "effective_name": "Café 📱",
+            "note": "Первая\n\tвторая",
+            "business_fields_unchanged": true
+          },
+          "expected_view_revision": "0f1a02a037bd21c2bb2d3de62feae82ae9077fa3987ebb612ecea04fc0a54d3f",
+          "request_digest": "c76afa6edc4286d364e7c34dee454135d30cf450e1cf22e3fb8a280bbb320c0d"
+        },
+        "result": null,
+        "error_code": null,
+        "confirmation_token": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      }
+    },
+    {
+      "name": "queued.1",
+      "kind": "MetadataOperation",
+      "method": "POST",
+      "path": "/v2/key-metadata/operations/11111111111111111111111111111111/confirm",
+      "http_status": 202,
+      "value": {
+        "schema_revision": 1,
+        "operation_id": "11111111111111111111111111111111",
+        "action": "key_metadata_update",
+        "state": "queued",
+        "request_digest": "c76afa6edc4286d364e7c34dee454135d30cf450e1cf22e3fb8a280bbb320c0d",
+        "target": {
+          "kind": "key",
+          "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+          "client_id": 910002
+        },
+        "expires_at": null,
+        "preview": {
+          "target": {
+            "kind": "key",
+            "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002
+          },
+          "before": {
+            "schema_revision": 1,
+            "key_id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002,
+            "original_name": "Вымышленное устройство",
+            "effective_name": "Вымышленное устройство",
+            "name_source": "original",
+            "note": "",
+            "metadata_revision": 0,
+            "updated_at": null,
+            "view_revision": "0f1a02a037bd21c2bb2d3de62feae82ae9077fa3987ebb612ecea04fc0a54d3f"
+          },
+          "after": {
+            "effective_name": "Café 📱",
+            "note": "Первая\n\tвторая",
+            "business_fields_unchanged": true
+          },
+          "expected_view_revision": "0f1a02a037bd21c2bb2d3de62feae82ae9077fa3987ebb612ecea04fc0a54d3f",
+          "request_digest": "c76afa6edc4286d364e7c34dee454135d30cf450e1cf22e3fb8a280bbb320c0d"
+        },
+        "result": null,
+        "error_code": null,
+        "confirmation_token": null
+      }
+    },
+    {
+      "name": "succeeded.1",
+      "kind": "MetadataOperation",
+      "method": "GET",
+      "path": "/v2/key-metadata/operations/11111111111111111111111111111111",
+      "http_status": 200,
+      "value": {
+        "schema_revision": 1,
+        "operation_id": "11111111111111111111111111111111",
+        "action": "key_metadata_update",
+        "state": "succeeded",
+        "request_digest": "c76afa6edc4286d364e7c34dee454135d30cf450e1cf22e3fb8a280bbb320c0d",
+        "target": {
+          "kind": "key",
+          "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+          "client_id": 910002
+        },
+        "expires_at": null,
+        "preview": {
+          "target": {
+            "kind": "key",
+            "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002
+          },
+          "before": {
+            "schema_revision": 1,
+            "key_id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002,
+            "original_name": "Вымышленное устройство",
+            "effective_name": "Вымышленное устройство",
+            "name_source": "original",
+            "note": "",
+            "metadata_revision": 0,
+            "updated_at": null,
+            "view_revision": "0f1a02a037bd21c2bb2d3de62feae82ae9077fa3987ebb612ecea04fc0a54d3f"
+          },
+          "after": {
+            "effective_name": "Café 📱",
+            "note": "Первая\n\tвторая",
+            "business_fields_unchanged": true
+          },
+          "expected_view_revision": "0f1a02a037bd21c2bb2d3de62feae82ae9077fa3987ebb612ecea04fc0a54d3f",
+          "request_digest": "c76afa6edc4286d364e7c34dee454135d30cf450e1cf22e3fb8a280bbb320c0d"
+        },
+        "result": {
+          "schema_revision": 1,
+          "key_id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+          "client_id": 910002,
+          "original_name": "Вымышленное устройство",
+          "effective_name": "Café 📱",
+          "name_source": "override",
+          "note": "Первая\n\tвторая",
+          "metadata_revision": 1,
+          "updated_at": "2026-10-27T00:00:00.000000Z",
+          "view_revision": "7219ea3183e6e98d85c451b989bca6018bef9821cd946820e16c2d50e1030c80"
+        },
+        "error_code": null,
+        "confirmation_token": null
+      }
+    },
+    {
+      "name": "preview.2",
+      "kind": "MetadataOperation",
+      "method": "POST",
+      "path": "/v2/key-metadata/operations/previews",
+      "http_status": 200,
+      "value": {
+        "schema_revision": 1,
+        "operation_id": "22222222222222222222222222222222",
+        "action": "key_metadata_update",
+        "state": "prepared",
+        "request_digest": "136a51e7fc227baaf50569fa17f93fdbd219a66ab9671446936b809ed597b9bd",
+        "target": {
+          "kind": "key",
+          "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+          "client_id": 910002
+        },
+        "expires_at": "2026-10-26T22:09:17Z",
+        "preview": {
+          "target": {
+            "kind": "key",
+            "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002
+          },
+          "before": {
+            "schema_revision": 1,
+            "key_id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002,
+            "original_name": "Вымышленное устройство",
+            "effective_name": "Café 📱",
+            "name_source": "override",
+            "note": "Первая\n\tвторая",
+            "metadata_revision": 1,
+            "updated_at": "2026-10-27T00:00:00.000000Z",
+            "view_revision": "7219ea3183e6e98d85c451b989bca6018bef9821cd946820e16c2d50e1030c80"
+          },
+          "after": {
+            "effective_name": "Телефон",
+            "note": "",
+            "business_fields_unchanged": true
+          },
+          "expected_view_revision": "7219ea3183e6e98d85c451b989bca6018bef9821cd946820e16c2d50e1030c80",
+          "request_digest": "136a51e7fc227baaf50569fa17f93fdbd219a66ab9671446936b809ed597b9bd"
+        },
+        "result": null,
+        "error_code": null,
+        "confirmation_token": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      }
+    },
+    {
+      "name": "queued.2",
+      "kind": "MetadataOperation",
+      "method": "POST",
+      "path": "/v2/key-metadata/operations/22222222222222222222222222222222/confirm",
+      "http_status": 202,
+      "value": {
+        "schema_revision": 1,
+        "operation_id": "22222222222222222222222222222222",
+        "action": "key_metadata_update",
+        "state": "queued",
+        "request_digest": "136a51e7fc227baaf50569fa17f93fdbd219a66ab9671446936b809ed597b9bd",
+        "target": {
+          "kind": "key",
+          "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+          "client_id": 910002
+        },
+        "expires_at": null,
+        "preview": {
+          "target": {
+            "kind": "key",
+            "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002
+          },
+          "before": {
+            "schema_revision": 1,
+            "key_id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002,
+            "original_name": "Вымышленное устройство",
+            "effective_name": "Café 📱",
+            "name_source": "override",
+            "note": "Первая\n\tвторая",
+            "metadata_revision": 1,
+            "updated_at": "2026-10-27T00:00:00.000000Z",
+            "view_revision": "7219ea3183e6e98d85c451b989bca6018bef9821cd946820e16c2d50e1030c80"
+          },
+          "after": {
+            "effective_name": "Телефон",
+            "note": "",
+            "business_fields_unchanged": true
+          },
+          "expected_view_revision": "7219ea3183e6e98d85c451b989bca6018bef9821cd946820e16c2d50e1030c80",
+          "request_digest": "136a51e7fc227baaf50569fa17f93fdbd219a66ab9671446936b809ed597b9bd"
+        },
+        "result": null,
+        "error_code": null,
+        "confirmation_token": null
+      }
+    },
+    {
+      "name": "succeeded.2",
+      "kind": "MetadataOperation",
+      "method": "GET",
+      "path": "/v2/key-metadata/operations/22222222222222222222222222222222",
+      "http_status": 200,
+      "value": {
+        "schema_revision": 1,
+        "operation_id": "22222222222222222222222222222222",
+        "action": "key_metadata_update",
+        "state": "succeeded",
+        "request_digest": "136a51e7fc227baaf50569fa17f93fdbd219a66ab9671446936b809ed597b9bd",
+        "target": {
+          "kind": "key",
+          "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+          "client_id": 910002
+        },
+        "expires_at": null,
+        "preview": {
+          "target": {
+            "kind": "key",
+            "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002
+          },
+          "before": {
+            "schema_revision": 1,
+            "key_id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002,
+            "original_name": "Вымышленное устройство",
+            "effective_name": "Café 📱",
+            "name_source": "override",
+            "note": "Первая\n\tвторая",
+            "metadata_revision": 1,
+            "updated_at": "2026-10-27T00:00:00.000000Z",
+            "view_revision": "7219ea3183e6e98d85c451b989bca6018bef9821cd946820e16c2d50e1030c80"
+          },
+          "after": {
+            "effective_name": "Телефон",
+            "note": "",
+            "business_fields_unchanged": true
+          },
+          "expected_view_revision": "7219ea3183e6e98d85c451b989bca6018bef9821cd946820e16c2d50e1030c80",
+          "request_digest": "136a51e7fc227baaf50569fa17f93fdbd219a66ab9671446936b809ed597b9bd"
+        },
+        "result": {
+          "schema_revision": 1,
+          "key_id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+          "client_id": 910002,
+          "original_name": "Вымышленное устройство",
+          "effective_name": "Телефон",
+          "name_source": "override",
+          "note": "",
+          "metadata_revision": 2,
+          "updated_at": "2026-10-27T00:00:00.000000Z",
+          "view_revision": "7f0b904d63918b1f2429c211732f6cb8e8af1aceb01f9eee2fd4419badce3443"
+        },
+        "error_code": null,
+        "confirmation_token": null
+      }
+    },
+    {
+      "name": "historical-first-after-second-edit",
+      "kind": "MetadataOperation",
+      "method": "GET",
+      "path": "/v2/key-metadata/operations/11111111111111111111111111111111",
+      "http_status": 200,
+      "value": {
+        "schema_revision": 1,
+        "operation_id": "11111111111111111111111111111111",
+        "action": "key_metadata_update",
+        "state": "succeeded",
+        "request_digest": "c76afa6edc4286d364e7c34dee454135d30cf450e1cf22e3fb8a280bbb320c0d",
+        "target": {
+          "kind": "key",
+          "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+          "client_id": 910002
+        },
+        "expires_at": null,
+        "preview": {
+          "target": {
+            "kind": "key",
+            "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002
+          },
+          "before": {
+            "schema_revision": 1,
+            "key_id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002,
+            "original_name": "Вымышленное устройство",
+            "effective_name": "Вымышленное устройство",
+            "name_source": "original",
+            "note": "",
+            "metadata_revision": 0,
+            "updated_at": null,
+            "view_revision": "0f1a02a037bd21c2bb2d3de62feae82ae9077fa3987ebb612ecea04fc0a54d3f"
+          },
+          "after": {
+            "effective_name": "Café 📱",
+            "note": "Первая\n\tвторая",
+            "business_fields_unchanged": true
+          },
+          "expected_view_revision": "0f1a02a037bd21c2bb2d3de62feae82ae9077fa3987ebb612ecea04fc0a54d3f",
+          "request_digest": "c76afa6edc4286d364e7c34dee454135d30cf450e1cf22e3fb8a280bbb320c0d"
+        },
+        "result": {
+          "schema_revision": 1,
+          "key_id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+          "client_id": 910002,
+          "original_name": "Вымышленное устройство",
+          "effective_name": "Café 📱",
+          "name_source": "override",
+          "note": "Первая\n\tвторая",
+          "metadata_revision": 1,
+          "updated_at": "2026-10-27T00:00:00.000000Z",
+          "view_revision": "7219ea3183e6e98d85c451b989bca6018bef9821cd946820e16c2d50e1030c80"
+        },
+        "error_code": null,
+        "confirmation_token": null
+      }
+    },
+    {
+      "name": "current",
+      "kind": "KeyMetadata",
+      "method": "GET",
+      "path": "/v2/key-metadata/keys/326e4605-75d9-4c1b-86dc-d0e33ba1dd68?client_id=910002",
+      "http_status": 200,
+      "value": {
+        "schema_revision": 1,
+        "key_id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+        "client_id": 910002,
+        "original_name": "Вымышленное устройство",
+        "effective_name": "Телефон",
+        "name_source": "override",
+        "note": "",
+        "metadata_revision": 2,
+        "updated_at": "2026-10-27T00:00:00.000000Z",
+        "view_revision": "7f0b904d63918b1f2429c211732f6cb8e8af1aceb01f9eee2fd4419badce3443"
+      }
+    },
+    {
+      "name": "preview.cancel",
+      "kind": "MetadataOperation",
+      "method": "POST",
+      "path": "/v2/key-metadata/operations/previews",
+      "http_status": 200,
+      "value": {
+        "schema_revision": 1,
+        "operation_id": "33333333333333333333333333333333",
+        "action": "key_metadata_update",
+        "state": "prepared",
+        "request_digest": "525f175a3195cb3267ad932145e4a29bd086982d1b3df94d84107f8ac0cc26bc",
+        "target": {
+          "kind": "key",
+          "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+          "client_id": 910002
+        },
+        "expires_at": "2026-10-26T22:09:17Z",
+        "preview": {
+          "target": {
+            "kind": "key",
+            "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002
+          },
+          "before": {
+            "schema_revision": 1,
+            "key_id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002,
+            "original_name": "Вымышленное устройство",
+            "effective_name": "Телефон",
+            "name_source": "override",
+            "note": "",
+            "metadata_revision": 2,
+            "updated_at": "2026-10-27T00:00:00.000000Z",
+            "view_revision": "7f0b904d63918b1f2429c211732f6cb8e8af1aceb01f9eee2fd4419badce3443"
+          },
+          "after": {
+            "effective_name": "Cancel fixture",
+            "note": "",
+            "business_fields_unchanged": true
+          },
+          "expected_view_revision": "7f0b904d63918b1f2429c211732f6cb8e8af1aceb01f9eee2fd4419badce3443",
+          "request_digest": "525f175a3195cb3267ad932145e4a29bd086982d1b3df94d84107f8ac0cc26bc"
+        },
+        "result": null,
+        "error_code": null,
+        "confirmation_token": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      }
+    },
+    {
+      "name": "canceled",
+      "kind": "MetadataOperation",
+      "method": "POST",
+      "path": "/v2/key-metadata/operations/33333333333333333333333333333333/cancel",
+      "http_status": 200,
+      "value": {
+        "schema_revision": 1,
+        "operation_id": "33333333333333333333333333333333",
+        "action": "key_metadata_update",
+        "state": "canceled",
+        "request_digest": "525f175a3195cb3267ad932145e4a29bd086982d1b3df94d84107f8ac0cc26bc",
+        "target": {
+          "kind": "key",
+          "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+          "client_id": 910002
+        },
+        "expires_at": null,
+        "preview": {
+          "target": {
+            "kind": "key",
+            "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002
+          },
+          "before": {
+            "schema_revision": 1,
+            "key_id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002,
+            "original_name": "Вымышленное устройство",
+            "effective_name": "Телефон",
+            "name_source": "override",
+            "note": "",
+            "metadata_revision": 2,
+            "updated_at": "2026-10-27T00:00:00.000000Z",
+            "view_revision": "7f0b904d63918b1f2429c211732f6cb8e8af1aceb01f9eee2fd4419badce3443"
+          },
+          "after": {
+            "effective_name": "Cancel fixture",
+            "note": "",
+            "business_fields_unchanged": true
+          },
+          "expected_view_revision": "7f0b904d63918b1f2429c211732f6cb8e8af1aceb01f9eee2fd4419badce3443",
+          "request_digest": "525f175a3195cb3267ad932145e4a29bd086982d1b3df94d84107f8ac0cc26bc"
+        },
+        "result": null,
+        "error_code": null,
+        "confirmation_token": null
+      }
+    },
+    {
+      "name": "state.running",
+      "kind": "MetadataOperation",
+      "method": "GET",
+      "path": "/v2/key-metadata/operations/33333333333333333333333333333333",
+      "http_status": 200,
+      "value": {
+        "schema_revision": 1,
+        "operation_id": "33333333333333333333333333333333",
+        "action": "key_metadata_update",
+        "state": "running",
+        "request_digest": "525f175a3195cb3267ad932145e4a29bd086982d1b3df94d84107f8ac0cc26bc",
+        "target": {
+          "kind": "key",
+          "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+          "client_id": 910002
+        },
+        "expires_at": null,
+        "preview": {
+          "target": {
+            "kind": "key",
+            "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002
+          },
+          "before": {
+            "schema_revision": 1,
+            "key_id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002,
+            "original_name": "Вымышленное устройство",
+            "effective_name": "Телефон",
+            "name_source": "override",
+            "note": "",
+            "metadata_revision": 2,
+            "updated_at": "2026-10-27T00:00:00.000000Z",
+            "view_revision": "7f0b904d63918b1f2429c211732f6cb8e8af1aceb01f9eee2fd4419badce3443"
+          },
+          "after": {
+            "effective_name": "Cancel fixture",
+            "note": "",
+            "business_fields_unchanged": true
+          },
+          "expected_view_revision": "7f0b904d63918b1f2429c211732f6cb8e8af1aceb01f9eee2fd4419badce3443",
+          "request_digest": "525f175a3195cb3267ad932145e4a29bd086982d1b3df94d84107f8ac0cc26bc"
+        },
+        "result": null,
+        "error_code": null,
+        "confirmation_token": null
+      }
+    },
+    {
+      "name": "state.unknown",
+      "kind": "MetadataOperation",
+      "method": "GET",
+      "path": "/v2/key-metadata/operations/33333333333333333333333333333333",
+      "http_status": 200,
+      "value": {
+        "schema_revision": 1,
+        "operation_id": "33333333333333333333333333333333",
+        "action": "key_metadata_update",
+        "state": "unknown",
+        "request_digest": "525f175a3195cb3267ad932145e4a29bd086982d1b3df94d84107f8ac0cc26bc",
+        "target": {
+          "kind": "key",
+          "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+          "client_id": 910002
+        },
+        "expires_at": null,
+        "preview": {
+          "target": {
+            "kind": "key",
+            "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002
+          },
+          "before": {
+            "schema_revision": 1,
+            "key_id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002,
+            "original_name": "Вымышленное устройство",
+            "effective_name": "Телефон",
+            "name_source": "override",
+            "note": "",
+            "metadata_revision": 2,
+            "updated_at": "2026-10-27T00:00:00.000000Z",
+            "view_revision": "7f0b904d63918b1f2429c211732f6cb8e8af1aceb01f9eee2fd4419badce3443"
+          },
+          "after": {
+            "effective_name": "Cancel fixture",
+            "note": "",
+            "business_fields_unchanged": true
+          },
+          "expected_view_revision": "7f0b904d63918b1f2429c211732f6cb8e8af1aceb01f9eee2fd4419badce3443",
+          "request_digest": "525f175a3195cb3267ad932145e4a29bd086982d1b3df94d84107f8ac0cc26bc"
+        },
+        "result": null,
+        "error_code": "CORE_OUTCOME_UNKNOWN",
+        "confirmation_token": null
+      }
+    },
+    {
+      "name": "state.failed",
+      "kind": "MetadataOperation",
+      "method": "GET",
+      "path": "/v2/key-metadata/operations/33333333333333333333333333333333",
+      "http_status": 200,
+      "value": {
+        "schema_revision": 1,
+        "operation_id": "33333333333333333333333333333333",
+        "action": "key_metadata_update",
+        "state": "failed",
+        "request_digest": "525f175a3195cb3267ad932145e4a29bd086982d1b3df94d84107f8ac0cc26bc",
+        "target": {
+          "kind": "key",
+          "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+          "client_id": 910002
+        },
+        "expires_at": null,
+        "preview": {
+          "target": {
+            "kind": "key",
+            "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002
+          },
+          "before": {
+            "schema_revision": 1,
+            "key_id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002,
+            "original_name": "Вымышленное устройство",
+            "effective_name": "Телефон",
+            "name_source": "override",
+            "note": "",
+            "metadata_revision": 2,
+            "updated_at": "2026-10-27T00:00:00.000000Z",
+            "view_revision": "7f0b904d63918b1f2429c211732f6cb8e8af1aceb01f9eee2fd4419badce3443"
+          },
+          "after": {
+            "effective_name": "Cancel fixture",
+            "note": "",
+            "business_fields_unchanged": true
+          },
+          "expected_view_revision": "7f0b904d63918b1f2429c211732f6cb8e8af1aceb01f9eee2fd4419badce3443",
+          "request_digest": "525f175a3195cb3267ad932145e4a29bd086982d1b3df94d84107f8ac0cc26bc"
+        },
+        "result": null,
+        "error_code": "METADATA_CHANGED",
+        "confirmation_token": null
+      }
+    },
+    {
+      "name": "state.expired",
+      "kind": "MetadataOperation",
+      "method": "GET",
+      "path": "/v2/key-metadata/operations/33333333333333333333333333333333",
+      "http_status": 200,
+      "value": {
+        "schema_revision": 1,
+        "operation_id": "33333333333333333333333333333333",
+        "action": "key_metadata_update",
+        "state": "expired",
+        "request_digest": "525f175a3195cb3267ad932145e4a29bd086982d1b3df94d84107f8ac0cc26bc",
+        "target": {
+          "kind": "key",
+          "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+          "client_id": 910002
+        },
+        "expires_at": null,
+        "preview": {
+          "target": {
+            "kind": "key",
+            "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002
+          },
+          "before": {
+            "schema_revision": 1,
+            "key_id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+            "client_id": 910002,
+            "original_name": "Вымышленное устройство",
+            "effective_name": "Телефон",
+            "name_source": "override",
+            "note": "",
+            "metadata_revision": 2,
+            "updated_at": "2026-10-27T00:00:00.000000Z",
+            "view_revision": "7f0b904d63918b1f2429c211732f6cb8e8af1aceb01f9eee2fd4419badce3443"
+          },
+          "after": {
+            "effective_name": "Cancel fixture",
+            "note": "",
+            "business_fields_unchanged": true
+          },
+          "expected_view_revision": "7f0b904d63918b1f2429c211732f6cb8e8af1aceb01f9eee2fd4419badce3443",
+          "request_digest": "525f175a3195cb3267ad932145e4a29bd086982d1b3df94d84107f8ac0cc26bc"
+        },
+        "result": null,
+        "error_code": "PREVIEW_EXPIRED",
+        "confirmation_token": null
+      }
+    },
+    {
+      "name": "wrong-client",
+      "kind": "Error",
+      "method": "GET",
+      "path": "/v2/key-metadata/keys/326e4605-75d9-4c1b-86dc-d0e33ba1dd68?client_id=910003",
+      "http_status": 404,
+      "value": {
+        "error": {
+          "code": "OBJECT_NOT_FOUND",
+          "message": "Ключ не найден для выбранного клиента.",
+          "retryable": false
+        }
+      }
+    },
+    {
+      "name": "unknown-cert",
+      "kind": "Error",
+      "method": "GET",
+      "path": "/v2/key-metadata/capabilities",
+      "http_status": 403,
+      "value": {
+        "error": {
+          "code": "CERTIFICATE_NOT_AUTHORIZED",
+          "message": "Сертификат не разрешён.",
+          "retryable": false
+        }
+      }
+    },
+    {
+      "name": "invalid-body",
+      "kind": "Error",
+      "method": "POST",
+      "path": "/v2/key-metadata/operations/previews",
+      "http_status": 422,
+      "value": {
+        "error": {
+          "code": "INVALID_BODY",
+          "message": "Проверьте поля и допустимые значения запроса.",
+          "retryable": false
+        }
+      }
+    }
+  ],
+  "requests": [
+    {
+      "name": "preview.1",
+      "path": "/v2/key-metadata/operations/previews",
+      "method": "POST",
+      "value": {
+        "operation_id": "11111111111111111111111111111111",
+        "action": "key_metadata_update",
+        "target": {
+          "kind": "key",
+          "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+          "client_id": 910002
+        },
+        "parameters": {
+          "name": "  Café 📱  ",
+          "note": "Первая\r\n\tвторая",
+          "expected_view_revision": "0f1a02a037bd21c2bb2d3de62feae82ae9077fa3987ebb612ecea04fc0a54d3f"
+        }
+      }
+    },
+    {
+      "name": "queued.1",
+      "path": "/v2/key-metadata/operations/11111111111111111111111111111111/confirm",
+      "method": "POST",
+      "value": {
+        "confirmation_token": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      }
+    },
+    {
+      "name": "preview.2",
+      "path": "/v2/key-metadata/operations/previews",
+      "method": "POST",
+      "value": {
+        "operation_id": "22222222222222222222222222222222",
+        "action": "key_metadata_update",
+        "target": {
+          "kind": "key",
+          "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+          "client_id": 910002
+        },
+        "parameters": {
+          "name": "Телефон",
+          "note": "",
+          "expected_view_revision": "7219ea3183e6e98d85c451b989bca6018bef9821cd946820e16c2d50e1030c80"
+        }
+      }
+    },
+    {
+      "name": "queued.2",
+      "path": "/v2/key-metadata/operations/22222222222222222222222222222222/confirm",
+      "method": "POST",
+      "value": {
+        "confirmation_token": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      }
+    },
+    {
+      "name": "preview.cancel",
+      "path": "/v2/key-metadata/operations/previews",
+      "method": "POST",
+      "value": {
+        "operation_id": "33333333333333333333333333333333",
+        "action": "key_metadata_update",
+        "target": {
+          "kind": "key",
+          "id": "326e4605-75d9-4c1b-86dc-d0e33ba1dd68",
+          "client_id": 910002
+        },
+        "parameters": {
+          "name": "Cancel fixture",
+          "note": "",
+          "expected_view_revision": "7f0b904d63918b1f2429c211732f6cb8e8af1aceb01f9eee2fd4419badce3443"
+        }
+      }
+    },
+    {
+      "name": "canceled",
+      "path": "/v2/key-metadata/operations/33333333333333333333333333333333/cancel",
+      "method": "POST",
+      "value": {
+        "confirmation_token": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      }
+    },
+    {
+      "name": "invalid-body",
+      "path": "/v2/key-metadata/operations/previews",
+      "method": "POST",
+      "value": {
+        "actor": 910001
+      }
+    }
+  ]
+}

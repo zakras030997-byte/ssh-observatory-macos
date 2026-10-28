@@ -1,0 +1,68 @@
+{
+  "scope": "Frozen fictional full-service response; no production data.",
+  "key_metadata": {
+    "client_id": 910002,
+    "effective_name": "Café 📱",
+    "key_id": "0b210c62-c4d0-43b8-a5a9-a4532914d0c5",
+    "metadata_revision": 1,
+    "name_source": "override",
+    "note": "A\nB",
+    "original_name": "Вымышленное устройство",
+    "schema_revision": 1,
+    "updated_at": "2026-10-26T22:32:21.593942Z",
+    "view_revision": "cf1369428be37e79ae6ee0bdf5c79857df212c7277e272765244d0c9bbceeb9c"
+  },
+  "operation": {
+    "schema_revision": 1,
+    "operation_id": "b2ae82035b474fbe9bb432e81106e99d",
+    "action": "key_metadata_update",
+    "state": "succeeded",
+    "request_digest": "5cb5a1b68a9c494be19209733fca943646b4ebdc7c78f186fb0dd9add82c1a11",
+    "target": {
+      "client_id": 910002,
+      "id": "0b210c62-c4d0-43b8-a5a9-a4532914d0c5",
+      "kind": "key"
+    },
+    "expires_at": null,
+    "preview": {
+      "after": {
+        "business_fields_unchanged": true,
+        "effective_name": "Café 📱",
+        "note": "A\nB"
+      },
+      "before": {
+        "client_id": 910002,
+        "effective_name": "Вымышленное устройство",
+        "key_id": "0b210c62-c4d0-43b8-a5a9-a4532914d0c5",
+        "metadata_revision": 0,
+        "name_source": "original",
+        "note": "",
+        "original_name": "Вымышленное устройство",
+        "schema_revision": 1,
+        "updated_at": null,
+        "view_revision": "137062dfdf703eb40f8492b8eb34e6beddde552a8e30e1bbb11e8cc560ff4528"
+      },
+      "expected_view_revision": "137062dfdf703eb40f8492b8eb34e6beddde552a8e30e1bbb11e8cc560ff4528",
+      "request_digest": "5cb5a1b68a9c494be19209733fca943646b4ebdc7c78f186fb0dd9add82c1a11",
+      "target": {
+        "client_id": 910002,
+        "id": "0b210c62-c4d0-43b8-a5a9-a4532914d0c5",
+        "kind": "key"
+      }
+    },
+    "result": {
+      "client_id": 910002,
+      "effective_name": "Café 📱",
+      "key_id": "0b210c62-c4d0-43b8-a5a9-a4532914d0c5",
+      "metadata_revision": 1,
+      "name_source": "override",
+      "note": "A\nB",
+      "original_name": "Вымышленное устройство",
+      "schema_revision": 1,
+      "updated_at": "2026-10-26T22:32:21.593942Z",
+      "view_revision": "cf1369428be37e79ae6ee0bdf5c79857df212c7277e272765244d0c9bbceeb9c"
+    },
+    "error_code": null,
+    "confirmation_token": null
+  }
+}

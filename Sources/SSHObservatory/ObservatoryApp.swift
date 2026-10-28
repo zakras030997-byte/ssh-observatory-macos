@@ -8,7 +8,12 @@ import TelemetryCore
     @StateObject private var model = TelemetryModel()
     var body: some Scene {
         Window("SSH Observatory", id: "observatory") {
-            Dashboard(model: model)
+            TabView {
+                Dashboard(model: model)
+                    .tabItem { Label("Телеметрия", systemImage: "waveform.path.ecg") }
+                ControlPrototypeView()
+                    .tabItem { Label("Управление", systemImage: "slider.horizontal.3") }
+            }
                 .background(WindowObserver(onClose: { model.stopAll() }))
                 .onReceive(NotificationCenter.default.publisher(for: NSApplication.willTerminateNotification)) { _ in model.stopAll() }
         }
@@ -64,6 +69,19 @@ struct Dashboard: View {
             VStack(alignment: .leading, spacing: 18) {
                 header
                 HStack(spacing: 12) {
+                    Button { model.connectAll(includePaused: true) } label: {
+                        Label("Подключить все", systemImage: "play.fill")
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(model.nodes.isEmpty || model.loading)
+                    Button { model.stopAll(rememberPause: true) } label: {
+                        Label("Остановить все", systemImage: "stop.fill")
+                    }
+                    .buttonStyle(.bordered)
+                    .disabled(model.nodes.isEmpty || model.loading)
+                    Spacer()
+                }
+                HStack(spacing: 12) {
                     Image(systemName: model.demo ? "square.stack.3d.up" : "lock.shield")
                     Text(model.demo ? "Демонстрация · все значения условные · подключений к серверам нет" : "Сбор только при открытом приложении · VPN-трафик отдельно не проверен")
                         .font(.callout)
@@ -105,23 +123,8 @@ struct Dashboard: View {
         .sheet(isPresented: $showingAdd) { AddNodeSheet(model: model) }
         .sheet(item: $selected) { node in NodeDetail(node: node, demo: model.demo) }
         .toolbar {
-            ToolbarItem(placement: .automatic) {
-                Button(model.demo ? "Мои серверы" : "Демонстрация") {
-                    if model.demo { model.enterRealMode() } else { model.showDemo() }
-                }
-            }
-            if !model.demo {
-                ToolbarItem {
-                    Button { showingAdd = true } label: { Label("Добавить сервер", systemImage: "plus") }
-                }
-                ToolbarItem {
-                    Button { model.connectAll() } label: { Label("Подключить", systemImage: "play.fill") }
-                        .disabled(model.nodes.isEmpty || model.loading)
-                }
-                ToolbarItem {
-                    Button { model.stopAll(rememberPause: true) } label: { Label("Остановить сбор", systemImage: "stop") }
-                        .disabled(model.nodes.isEmpty)
-                }
+            ToolbarItem {
+                Button { showingAdd = true } label: { Label("Добавить сервер", systemImage: "plus") }
             }
         }
     }

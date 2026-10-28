@@ -17,3 +17,15 @@ launch.json
 *.sqlite-*
 evidence/
 private/
+
+*.crt
+*.cer
+*.der
+*.db
+*.db-*
+*.sqlite3
+*.sqlite3-*
+pending*.json
+*.mobileprovision
+backups/
+outputs/

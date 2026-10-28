@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "stage": "actual mTLS HTTP routes + production DTO/normalization; explicitly fictional in-memory backend; NOT metadata core acceptance",
+  "records": [
+    {
+      "name": "capabilities",
+      "kind": "OverviewCapabilities",
+      "method": "GET",
+      "path": "/v2/overview/capabilities",
+      "http_status": 200,
+      "value": {
+        "schema_revision": 1,
+        "enabled": true,
+        "scope": "non_owner_clients",
+        "counters": [
+          "registered_clients",
+          "active_clients",
+          "active_keys",
+          "slots_used"
+        ]
+      }
+    },
+    {
+      "name": "snapshot",
+      "kind": "Overview",
+      "method": "GET",
+      "path": "/v2/overview",
+      "http_status": 200,
+      "value": {
+        "schema_revision": 1,
+        "registered_clients": 2,
+        "active_clients": 1,
+        "active_keys": 2,
+        "slots_used": 3,
+        "snapshot_at": "2026-10-27T00:00:00.000000Z",
+        "scope": "non_owner_clients"
+      }
+    }
+  ]
+}

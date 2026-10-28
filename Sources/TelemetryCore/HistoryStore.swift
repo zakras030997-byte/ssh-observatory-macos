@@ -5,7 +5,7 @@ import SQLite3
 /// are enforced in the same transaction. Existing JSON rows remain readable.
 public final class HistoryStore {
     private var database: OpaquePointer?
-    private let queue = DispatchQueue(label: "ssh.observatory.history", qos: .utility)
+    private let queue = DispatchQueue(label: "sshobservatory.telemetry.history", qos: .utility)
     private let lock = NSLock()
     private struct Write { let point: ReceivedSample; let node: String; let failure: () -> Void }
     private var pending: [Write] = []

@@ -17,7 +17,7 @@ public struct SessionCallbacks {
 }
 /// One owned ssh process; bounded nonblocking IO off the UI.
 public final class SSHSession: SessionControl {
-    private let queue = DispatchQueue(label: "ssh.observatory.ssh", qos: .utility)
+    private let queue = DispatchQueue(label: "sshobservatory.telemetry.ssh", qos: .utility)
     private let profile: NodeProfile
     private let collector: String
     private let executableURL: URL

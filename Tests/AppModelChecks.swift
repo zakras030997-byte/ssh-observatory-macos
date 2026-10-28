@@ -70,6 +70,7 @@ private final class FakeSession: SessionControl {
         let root=FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         defer { try? FileManager.default.removeItem(at:root) }
         let model=TelemetryModel(base:root,collectorSource:"fixture",restore:false,observeWorkspace:false)
+        check(!model.demo,"first launch uses real servers instead of demonstration")
         model.enterRealMode()
         for _ in 0..<100 { if !model.loading { break }; try? await Task.sleep(for:.milliseconds(5)) }
         try model.add(profile)
@@ -82,8 +83,15 @@ private final class FakeSession: SessionControl {
         model.nodes=[node]; node.connect(); let count=sessions.count
         model.connectAll(); await settle()
         check(sessions.count==count,"connect all preserves healthy sessions")
+        node.pause()
+        model.connectAll(); await settle()
+        check(sessions.count==count && node.userPaused,"automatic connect all respects individual pause")
+        model.connectAll(includePaused:true); await settle()
+        check(sessions.count==count+1 && !node.userPaused,"explicit connect all resumes individually paused nodes")
+        model.connectAll(includePaused:true); await settle()
+        check(sessions.count==count+1,"repeated explicit connect all preserves active sessions")
         model.sleep(); node.pause(); model.wake(); await settle()
-        check(sessions.count==count && node.userPaused,"wake does not resume an explicitly paused node")
+        check(sessions.count==count+1 && node.userPaused,"wake does not resume an explicitly paused node")
         let other=root.appendingPathComponent("aliases")
         try FileManager.default.createDirectory(at:other,withIntermediateDirectories:true)
         let sameAlias=[NodeProfile(id:"A",name:"A",region:"",sshAlias:"node",sshConfigPath:"/fixture/A.conf"),

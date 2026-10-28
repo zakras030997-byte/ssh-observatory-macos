@@ -137,7 +137,7 @@ struct LaunchSettings: Codable {
 
 @MainActor final class TelemetryModel: ObservableObject {
     @Published var nodes:[NodeModel]=[]
-    @Published var demo=true
+    @Published var demo=false
     @Published var notice:String?
     @Published private(set) var loading=false
     private var sleepObserver:NSObjectProtocol?
@@ -161,7 +161,7 @@ struct LaunchSettings: Codable {
         else if let url=resourceBundle.url(forResource:"collector",withExtension:"py") { collector=(try? String(contentsOf:url,encoding:.utf8)) ?? "" }
         let saved=restore ? (try? Self.readLimited(self.base.appendingPathComponent("launch.json"),limit:16_384)).flatMap { try? JSONDecoder().decode(LaunchSettings.self,from:$0) } : nil
         pausedIDs=Set(saved?.pausedNodeIDs ?? [])
-        if saved?.mode=="live" { enterRealMode(resume:saved?.autoConnect == true) } else { showDemo() }
+        enterRealMode(resume:saved?.mode == "live" && saved?.autoConnect == true)
         if observeWorkspace {
             let center=NSWorkspace.shared.notificationCenter
             sleepObserver=center.addObserver(forName:NSWorkspace.willSleepNotification,object:nil,queue:.main) { [weak self] _ in Task { @MainActor in self?.sleep() } }
@@ -192,10 +192,10 @@ struct LaunchSettings: Codable {
     func showDemo() {
         loadTask?.cancel(); loadGeneration=UUID(); stopAll(); demo=true; loading=false; notice=nil
         if FileManager.default.fileExists(atPath:base.path) { saveLaunch(autoConnect:false) }
-        let profiles=[NodeProfile(id:"demo-one",name:"Example One",region:"Example service",sshAlias:"demo-one"),
-            NodeProfile(id:"demo-two",name:"Example Two",region:"Example service",sshAlias:"demo-two"),
-            NodeProfile(id:"demo-three",name:"Example Three",region:"Example service",sshAlias:"demo-three"),
-            NodeProfile(id:"demo-four",name:"Example Four",region:"Example service",sshAlias:"demo-four")]
+        let profiles=[NodeProfile(id:"demo-bg",name:"Болгария",region:"Европа · Hysteria 2",sshAlias:"demo-bg"),
+            NodeProfile(id:"demo-kz",name:"Казахстан",region:"Центральная Азия · VLESS",sshAlias:"demo-kz"),
+            NodeProfile(id:"demo-us",name:"Новая Америка",region:"США · Hysteria 2",sshAlias:"demo-us"),
+            NodeProfile(id:"demo-waw",name:"Варшава",region:"Европа · Trojan",sshAlias:"demo-waw")]
         nodes=profiles.enumerated().map { i,p in
             let node=NodeModel(profile:p,demo:true,collector:"",history:nil)
             node.feedDemo(DemoSamples.make(profile:p,index:i)); return node
@@ -250,10 +250,10 @@ struct LaunchSettings: Codable {
         try FileManager.default.setAttributes([.posixPermissions:0o600],ofItemAtPath:url.path)
         nodes.append(makeNode(profile))
     }
-    func connectAll() {
+    func connectAll(includePaused:Bool = false) {
         guard !demo, !loading, !collector.isEmpty, !nodes.isEmpty else { return }
         saveLaunch(autoConnect:true)
-        for node in nodes where !node.userPaused && !node.state.active { node.connect() }
+        for node in nodes where (includePaused || !node.userPaused) && !node.state.active { node.connect() }
     }
 }
 
