@@ -50,7 +50,7 @@ enum ControlOperationState: String, Codable {
         switch self {
         case .prepared:return "Подготовлено"
         case .queued:return "В очереди сервера"
-        case .running:return "Выполняется на сервере"
+        case .running:return "Выполняется на KZ"
         case .succeeded:return "Результат подтверждён"
         case .failed:return "Сервер сообщил об ошибке"
         case .unknown:return "Результат неизвестен — нужна сверка"

@@ -12,8 +12,8 @@ struct ControlAPIConnectionSheet: View {
     @State private var validation:String?
     var body: some View {
         VStack(alignment:.leading,spacing:18) {
-            Text("Подключение к API сервер").font(.title2)
-            Text("Используйте адрес действующего API сервер и уже установленный клиентский сертификат. Подключение проверит доступные функции; операции требуют отдельного подтверждения.").foregroundStyle(.secondary)
+            Text("Подключение к API KZ").font(.title2)
+            Text("Используйте адрес действующего API KZ и уже установленный клиентский сертификат. Подключение проверит доступные функции; операции требуют отдельного подтверждения.").foregroundStyle(.secondary)
             TextField("HTTPS-адрес API",text:$endpoint).textFieldStyle(.roundedBorder)
             TextField("Название клиентского сертификата в Связке ключей",text:$identityLabel).textFieldStyle(.roundedBorder)
             HStack {
@@ -69,9 +69,9 @@ struct ControlOwnerKeysWorkspace: View {
                 Button(creating ? "Закрыть форму":"Создать ключ") { creating.toggle() }.disabled(!model.canStart)
             }
             if !model.connected {
-                ContentUnavailableView(model.busy ? "Подключение к API сервер…":"API сервер не подключён",systemImage:"network",description:Text(model.profile == nil ? "Укажите параметры подключения через «Настроить API». Реальные ключи не загружены.":"Профиль сохранён. Подключитесь к API, чтобы получить актуальные ключи."))
+                ContentUnavailableView(model.busy ? "Подключение к API KZ…":"API KZ не подключён",systemImage:"network",description:Text(model.profile == nil ? "Укажите параметры подключения через «Настроить API». Реальные ключи не загружены.":"Профиль сохранён. Подключитесь к API, чтобы получить актуальные ключи."))
             } else if model.keys.isEmpty {
-                ContentUnavailableView("В этой выборке нет ключей",systemImage:"key",description:Text("Ответ получен от API сервер. Новые ключи появятся после подтверждённой выдачи."))
+                ContentUnavailableView("В этой выборке нет ключей",systemImage:"key",description:Text("Ответ получен от API KZ. Новые ключи появятся после подтверждённой выдачи."))
             } else {
                 ForEach(model.keys) { key in
                     GroupBox {
@@ -91,7 +91,7 @@ struct ControlOwnerKeysWorkspace: View {
             }
             if creating && model.canStart { ControlOwnerIssueForm(model:model) }
             if let operation=model.pending { ControlOperationCard(model:model,operation:operation) }
-            Text(console?.ready == true ? "Доступные действия определяет подключённый API сервер.":"Подключён первый API-пакет. Остальные действия появятся после установки расширенного пакета на сервере.").font(.caption).foregroundStyle(.secondary)
+            Text(console?.ready == true ? "Доступные действия определяет подключённый API KZ.":"Подключён первый API-пакет. Остальные действия появятся после установки расширенного пакета на KZ.").font(.caption).foregroundStyle(.secondary)
         }
         .onChange(of:archived) { _,value in Task { await model.refreshKeys(archived:value) } }
         .sheet(item:$extending) { key in ControlExtensionSheet(model:model,key:key) }
@@ -101,7 +101,7 @@ struct ControlOwnerKeysWorkspace: View {
                 if let console {
                     if let notice=console.notice{Text(notice).foregroundStyle(.orange)}
                     if let record=console.detail,record.kind == .key,record.id==key.keyID{ConsoleDetailPanel(model:console,record:record,clientScope:nil,metadata:metadata)}
-                    else{Text(console.busy ? "Загрузка данных сервер…":"Данные выбранного ключа ещё не подтверждены.").foregroundStyle(.secondary)}
+                    else{Text(console.busy ? "Загрузка данных KZ…":"Данные выбранного ключа ещё не подтверждены.").foregroundStyle(.secondary)}
                     ConsoleOperationPanel(model:console)
                     if let metadata{MetadataOperationPanel(model:metadata)}
                 }
@@ -137,7 +137,7 @@ private struct ControlOwnerIssueForm: View {
                     Text(timeMode=="periods" ? "Квота на каждый период по 30 дней.":"Квота на весь выбранный срок.").font(.caption).foregroundStyle(.secondary)
                     HStack {
                         Button("Назад: срок") {validation=nil;step=1}
-                        Button("Получить предпросмотр сервер") {
+                        Button("Получить предпросмотр KZ") {
                             let request=ControlPreviewRequest(operationID:ControlPreviewRequest.newID(),action:.issue,timeMode:timeMode,timeValue:timeMode=="unlimited" ? nil:Int(duration),trafficMode:trafficMode,trafficGB:trafficMode=="custom" ? Int(traffic):nil)
                             do {try request.validate();validation=nil;Task{await model.prepare(request)}}catch{validation="Проверьте срок и объём трафика."}
                         }.buttonStyle(.borderedProminent).disabled(!model.canStart)
@@ -165,7 +165,7 @@ private struct ControlExtensionSheet: View {
             if let validation {Text(validation).foregroundStyle(.orange)}
             HStack {
                 Button("Закрыть"){dismiss()};Spacer()
-                Button("Получить предпросмотр сервер") {
+                Button("Получить предпросмотр KZ") {
                     let request=ControlPreviewRequest(operationID:ControlPreviewRequest.newID(),action:.extend,keyID:key.keyID,days:Int(days))
                     do {try request.validate();validation=nil;Task{await model.prepare(request);if model.pending?.request.operationID==request.operationID{dismiss()}}}catch{validation="Введите целое число дней от 1 до 3650."}
                 }.buttonStyle(.borderedProminent).disabled(!model.canStart)

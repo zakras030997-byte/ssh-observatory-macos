@@ -3,25 +3,42 @@ import SwiftUI
 import Charts
 import TelemetryCore
 
-@main struct ObservatoryApp: App {
+#if !ROUTE_PREVIEW
+@main enum ObservatoryEntry {
+    @MainActor static func main() {
+        if CommandLine.arguments.contains("--security-contour") { ContourService.run() }
+        else { ObservatoryApp.main() }
+    }
+}
+struct ObservatoryApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    @StateObject private var model = TelemetryModel()
+    @StateObject private var model = TelemetryModel(clientMode:true)
+    @StateObject private var homeEgress = HomeEgressModel()
+    @StateObject private var hub = ObservatoryHub()
     var body: some Scene {
-        Window("SSH Observatory", id: "observatory") {
+        Window("SSH · Observatory", id: "observatory") {
             TabView {
                 Dashboard(model: model)
                     .tabItem { Label("Телеметрия", systemImage: "waveform.path.ecg") }
                 ControlPrototypeView()
                     .tabItem { Label("Управление", systemImage: "slider.horizontal.3") }
+                HomeEgressView(model: homeEgress)
+                    .tabItem { Label("Home", systemImage: "shield.lefthalf.filled") }
             }
-                .background(WindowObserver(onClose: { model.stopAll() }))
-                .onReceive(NotificationCenter.default.publisher(for: NSApplication.willTerminateNotification)) { _ in model.stopAll() }
+                .safeAreaInset(edge:.bottom) {
+                    HStack { Label(model.serviceStatus,systemImage:"point.3.connected.trianglepath.dotted");Spacer();Text("Единый защищённый транспорт") }
+                        .font(.caption).foregroundStyle(.secondary).padding(.horizontal,16).padding(.vertical,6)
+                }
+                .onAppear { model.startProtectedRoute() }
+                .background(WindowObserver(onClose: { model.stopProtectedRoute(); homeEgress.disconnect() }))
+                .onReceive(NotificationCenter.default.publisher(for: NSApplication.willTerminateNotification)) { _ in model.stopProtectedRoute(); homeEgress.disconnect() }
         }
         .defaultSize(width: 1040, height: 820)
         .windowResizability(.contentMinSize)
-        .commands { CommandGroup(replacing: .newItem) {} }
+        .commands { CommandGroup(replacing: .newItem) {}; CommandMenu("Защищённый контур") { Button("Запустить защищённый контур") { ContourService.ensureStarted() }; Button("Остановить защищённый контур") { ContourService.stop() } } }
     }
 }
+#endif
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -64,6 +81,7 @@ struct Dashboard: View {
     @ObservedObject var model: TelemetryModel
     @State private var showingAdd = false
     @State private var selected: NodeModel?
+    @State private var selectedRoute: NodeModel?
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 18) {
@@ -83,7 +101,7 @@ struct Dashboard: View {
                 }
                 HStack(spacing: 12) {
                     Image(systemName: model.demo ? "square.stack.3d.up" : "lock.shield")
-                    Text(model.demo ? "Демонстрация · все значения условные · подключений к серверам нет" : "Сбор только при открытом приложении · VPN-трафик отдельно не проверен")
+                    Text(model.demo ? "Демонстрация · все значения условные · подключений к серверам нет" : "Подключения обслуживает фоновая служба · VPN-трафик отдельно не проверен")
                         .font(.callout)
                     Spacer(minLength: 0)
                 }
@@ -104,7 +122,8 @@ struct Dashboard: View {
                 } else {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 400), spacing: 18)], spacing: 18) {
                         ForEach(model.nodes) { node in
-                            NodeCard(node: node, demo: model.demo) { selected = node }
+                            NodeCard(node: node, demo: model.demo, route:model.routeEvidence,
+                                     openDetail:{selected=node},openRoute:{selectedRoute=node})
                         }
                     }
                 }
@@ -122,6 +141,7 @@ struct Dashboard: View {
         .frame(minWidth: 870, minHeight: 620)
         .sheet(isPresented: $showingAdd) { AddNodeSheet(model: model) }
         .sheet(item: $selected) { node in NodeDetail(node: node, demo: model.demo) }
+        .sheet(item: $selectedRoute) { node in ConnectionDetail(node:node,model:model) }
         .toolbar {
             ToolbarItem {
                 Button { showingAdd = true } label: { Label("Добавить сервер", systemImage: "plus") }
@@ -147,7 +167,9 @@ struct Dashboard: View {
 struct NodeCard: View {
     @ObservedObject var node: NodeModel
     let demo: Bool
+    let route:RouteEvidence
     var openDetail: () -> Void
+    var openRoute: () -> Void
     private var sample: TelemetrySample? { node.latest?.sample }
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -163,6 +185,23 @@ struct NodeCard: View {
                         .font(.caption)
                         .foregroundStyle(demo ? Color.secondary : (node.fresh ? Palette.cpu : Color.orange))
                 }
+            }
+            TimelineView(.periodic(from:.now,by:3)) { context in
+                let protected = !demo && route.isFresh(at:context.date)
+                Button(action:openRoute) {
+                    HStack(spacing:6) {
+                        RouteStep(name:"VPN",confirmed:protected,detail:protected ? "проверен" : "нет данных")
+                        Image(systemName:"chevron.right").font(.system(size:9)).foregroundStyle(.secondary)
+                        RouteStep(name:"Tor",confirmed:protected,detail:protected ? "готов" : "нет данных")
+                        Image(systemName:"chevron.right").font(.system(size:9)).foregroundStyle(.secondary)
+                        RouteStep(name:"SSH",confirmed:!demo && node.fresh,detail:!demo && node.fresh ? "на связи" : "нет данных")
+                        Spacer(minLength:0)
+                        Image(systemName:"info.circle").foregroundStyle(.secondary)
+                    }.padding(.vertical,9).padding(.horizontal,10)
+                        .background(.primary.opacity(0.035),in:RoundedRectangle(cornerRadius:9))
+                        .contentShape(Rectangle())
+                }.buttonStyle(.plain)
+                 .accessibilityLabel("Маршрут подключения. VPN: \(protected ? "проверен" : "нет данных"). Tor: \(protected ? "готов" : "нет данных"). SSH: \(!demo && node.fresh ? "на связи" : "нет данных"). Открыть подробности")
             }
             HStack(alignment: .firstTextBaseline) {
                 Text("CPU").font(.caption).foregroundStyle(.secondary)
@@ -210,6 +249,69 @@ struct NodeCard: View {
         guard let latest = node.latest else { return "Показаний ещё нет" }
         let seconds = max(0, Int(date.timeIntervalSince(latest.receivedAt)))
         return seconds < 60 ? "Получено \(seconds) с назад" : "Получено \(seconds / 60) мин назад"
+    }
+}
+
+private struct RouteStep:View {
+    let name:String
+    let confirmed:Bool
+    let detail:String
+    var body:some View {
+        HStack(spacing:4) {
+            Image(systemName:confirmed ? "checkmark.circle.fill" : "circle.dotted")
+                .foregroundStyle(confirmed ? Palette.cpu : Color.secondary)
+            Text(name).fontWeight(.semibold)
+            Text(detail).foregroundStyle(.secondary).lineLimit(1)
+        }.font(.caption2)
+    }
+}
+
+struct ConnectionDetail:View {
+    @ObservedObject var node:NodeModel
+    @ObservedObject var model:TelemetryModel
+    @Environment(\.dismiss) private var dismiss
+    var body:some View {
+        TimelineView(.periodic(from:.now,by:3)) { context in
+            let routeOK = !model.demo && model.routeEvidence.isFresh(at:context.date)
+            let sshOK = !model.demo && node.fresh
+            VStack(alignment:.leading,spacing:20) {
+                HStack(alignment:.top) {
+                    VStack(alignment:.leading,spacing:5) {
+                        Text("Маршрут подключения").font(.title2.weight(.semibold))
+                        Text(node.profile.name).foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    Button("Готово") {dismiss()}.keyboardShortcut(.cancelAction)
+                }
+                VStack(spacing:0) {
+                    detailRow("VPN",routeOK ? "Системный VPN-интерфейс подтверждён" : "Нет свежего подтверждения",routeOK)
+                    Divider()
+                    detailRow("Tor",routeOK ? "Цепочка Tor готова" : "Нет свежего подтверждения",routeOK)
+                    Divider()
+                    detailRow("SSH",sshOK ? "Нода отвечает по SSH" : "Нет свежего ответа ноды",sshOK)
+                }.padding(.horizontal,14).background(.primary.opacity(0.035),in:RoundedRectangle(cornerRadius:12))
+                if let checked=model.routeEvidence.observedAt {
+                    Text("Проверка VPN и Tor: \(checked.formatted(date:.abbreviated,time:.standard))")
+                        .font(.caption).foregroundStyle(.secondary)
+                } else {Text("VPN и Tor ещё не подтверждены").font(.caption).foregroundStyle(.secondary)}
+                if let point=node.latest,!model.demo {
+                    Text("Последний ответ SSH: \(point.receivedAt.formatted(date:.abbreviated,time:.standard))")
+                        .font(.caption).foregroundStyle(.secondary)
+                }
+                Text("VPN и Tor проверяются вместе. Если маршрут недоступен, причина может быть на любом из этих этапов. Состояние интерфейса VPN не подтверждает шифрование каждого потока или работу всех правил split-tunnel.")
+                    .font(.callout).foregroundStyle(.secondary).fixedSize(horizontal:false,vertical:true)
+                Text("Home по LAN использует отдельный локальный путь.")
+                    .font(.caption).foregroundStyle(.secondary)
+            }.padding(26).frame(width:560)
+        }
+    }
+    private func detailRow(_ title:String,_ message:String,_ confirmed:Bool)->some View {
+        HStack(alignment:.center,spacing:12) {
+            Image(systemName:confirmed ? "checkmark.circle.fill" : "circle.dotted")
+                .foregroundStyle(confirmed ? Palette.cpu : Color.secondary).font(.title3)
+            VStack(alignment:.leading,spacing:3) {Text(title).fontWeight(.semibold);Text(message).font(.caption).foregroundStyle(.secondary)}
+            Spacer()
+        }.padding(.vertical,13)
     }
 }
 

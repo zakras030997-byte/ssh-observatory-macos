@@ -34,9 +34,10 @@ xcrun swiftc -swift-version 5 -sdk "$sdk" -target arm64-apple-macosx14.0 -module
   -Xlinker -rpath -Xlinker @executable_path -o "$OBSERVATORY_BUILD_DIR/CoreChecks"
 "$OBSERVATORY_BUILD_DIR/CoreChecks"
 python3 -B -m unittest discover -s Tests/CollectorTests -v
+python3 -B -c 'import os;from pathlib import Path;Path(os.environ["OBSERVATORY_BUILD_DIR"],"HomeModels.swift").write_text(Path("Sources/SSHObservatory/HomeEgressView.swift").read_text().split("struct HomeEgressView: View")[0])'
 
 xcrun swiftc -swift-version 5 -sdk "$sdk" -target arm64-apple-macosx14.0 -module-cache-path "$OBSERVATORY_BUILD_DIR/ModuleCache" -parse-as-library \
   -I "$OBSERVATORY_BUILD_DIR" -L "$OBSERVATORY_BUILD_DIR" -lTelemetryCore \
-  Sources/SSHObservatory/TelemetryModel.swift Tests/AppModelChecks.swift \
+  Sources/SSHObservatory/{ProtectedRoute,TelemetryModel,ContourService,ObservatoryHub,InteractiveSSH,ProtectedSFTP,HomeEgressNetwork,HomeAccessConfiguration}.swift "$OBSERVATORY_BUILD_DIR/HomeModels.swift" Tests/AppModelChecks.swift \
   -Xlinker -rpath -Xlinker @executable_path -o "$OBSERVATORY_BUILD_DIR/AppModelChecks"
 "$OBSERVATORY_BUILD_DIR/AppModelChecks"

@@ -173,7 +173,7 @@ struct ConsoleCapabilities:Decodable {
     var contractRevision:Int?=nil
     enum CodingKeys:String,CodingKey{case apiVersion="api_version",contract,features,actions,contractRevision="contract_revision"}
     func validate()throws {
-        guard apiVersion==2,contract=="anodhas.owner-control.r2",features.count<=30,
+        guard apiVersion==2,contract=="sshobservatory.owner-control.r2",features.count<=30,
               features.allSatisfy({$0.count<=100}),actions.count<=ConsoleAction.allCases.count,
               Set(actions.map(\.action)).count==actions.count,
               contractRevision==nil || [2,3].contains(contractRevision!),

@@ -21,6 +21,7 @@ public final class SSHSession: SessionControl {
     private let profile: NodeProfile
     private let collector: String
     private let executableURL: URL
+    private let protectedTorPort: Int?
     private let sampleHandler: (TelemetrySample) -> Void
     private let exitHandler: (SessionFailure) -> Void
     private var process: Process?
@@ -42,14 +43,26 @@ public final class SSHSession: SessionControl {
 
     public init(profile: NodeProfile, collector: String,
                 executableURL: URL = URL(fileURLWithPath: "/usr/bin/ssh"),
+                protectedTorPort: Int? = nil,
                 onSample: @escaping (TelemetrySample) -> Void,
                 onExit: @escaping (SessionFailure) -> Void) {
         self.profile = profile; self.collector = collector
         self.executableURL = executableURL
+        self.protectedTorPort = protectedTorPort
         self.sampleHandler = onSample; self.exitHandler = onExit
     }
-    public static func arguments(profile: NodeProfile, collector: String) throws -> [String] {
+    public static func arguments(profile: NodeProfile, collector: String, protectedTorPort: Int? = nil) throws -> [String] {
         try profile.validate()
+        // Opt-in candidate only. The caller must own and verify the complete
+        // VPN -> Tor lifecycle; a SOCKS listener alone is not an attestation.
+        let routeArguments: [String]
+        if let port = protectedTorPort {
+            guard (1024...65535).contains(port) else { throw TelemetryError.invalidProfile }
+            routeArguments = ["-o", "ProxyCommand=/usr/bin/nc -X 5 -x 127.0.0.1:\(port) %h %p",
+                              "-o", "ProxyJump=none", "-o", "BindInterface=none"]
+        } else {
+            routeArguments = []
+        }
         var config: [String: Any] = ["nodeID": profile.id, "units": profile.units]
         if let hostname = profile.expectedHostname { config["expectedHostname"] = hostname }
         if let interface = profile.networkInterface { config["networkInterface"] = interface }
@@ -59,11 +72,11 @@ public final class SSHSession: SessionControl {
         // Only Base64 enters the remote shell, never user-supplied shell text.
         let remote = "python3 -u -B -c 'exec(__import__(\"base64\").b64decode(\"\(encoded)\"))'"
         let configArguments = profile.sshConfigPath.map { ["-F", $0] } ?? []
-        return configArguments + ["-T", "-o", "BatchMode=yes", "-o", "StrictHostKeyChecking=yes",
+        return routeArguments + configArguments + ["-T", "-o", "BatchMode=yes", "-o", "StrictHostKeyChecking=yes",
                 "-o", "UpdateHostKeys=no", "-o", "ForwardAgent=no", "-o", "ForwardX11=no",
                 "-o", "ClearAllForwardings=yes", "-o", "ControlMaster=no", "-o", "ControlPath=none",
                 "-o", "PermitLocalCommand=no", "-o", "RequestTTY=no",
-                "-o", "ConnectTimeout=8", "-o", "ConnectionAttempts=1",
+                "-o", "ConnectTimeout=\(protectedTorPort == nil ? 8 : 30)", "-o", "ConnectionAttempts=1",
                 "-o", "ServerAliveInterval=5", "-o", "ServerAliveCountMax=2",
                 "-o", "LogLevel=ERROR", profile.sshAlias, remote]
     }
@@ -73,7 +86,7 @@ public final class SSHSession: SessionControl {
             do {
                 let task = Process(), stdin = Pipe(), stdout = Pipe(), errors = Pipe()
                 task.executableURL = executableURL
-                task.arguments = try Self.arguments(profile: profile, collector: collector)
+                task.arguments = try Self.arguments(profile: profile, collector: collector, protectedTorPort: protectedTorPort)
                 // Keep SSH agent availability, but disable askpass prompts and English
                 // error classification is fixed by locale; no env values are logged.
                 var env = ProcessInfo.processInfo.environment

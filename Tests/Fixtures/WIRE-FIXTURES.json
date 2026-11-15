@@ -7,7 +7,7 @@
       "kind": "Capabilities",
       "value": {
         "api_version": 2,
-        "contract": "anodhas.owner-control.r2",
+        "contract": "sshobservatory.owner-control.r2",
         "contract_revision": 3,
         "features": [
           "requests_read",

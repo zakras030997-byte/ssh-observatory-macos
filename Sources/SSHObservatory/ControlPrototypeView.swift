@@ -1,7 +1,7 @@
 import SwiftUI
 import Foundation
 
-/// Owner console; feature availability comes from the authenticated сервер package.
+/// Owner console; feature availability comes from the authenticated KZ package.
 struct ControlPrototypeView: View {
     @State private var section: ControlPrototypeSection = .requests
     @StateObject private var control:ControlAPIModel
@@ -22,7 +22,7 @@ struct ControlPrototypeView: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     HStack {
-                        Label(control.busy && !control.connected ? "Подключение к API сервер…":console.ready ? "API подключён · управление сервер":control.connected ? "API подключён · владельческие ключи" : "API сервер не подключён", systemImage: "network")
+                        Label(control.busy && !control.connected ? "Подключение к API KZ…":console.ready ? "API подключён · управление KZ":control.connected ? "API подключён · владельческие ключи" : "API KZ не подключён", systemImage: "network")
                         Spacer()
                         if control.connected || control.busy {
                             Button(control.connected ? "Отключить API":"Отменить подключение") {
@@ -43,7 +43,7 @@ struct ControlPrototypeView: View {
                     content
                     MetadataOperationPanel(model:metadata)
                     ConsoleOperationPanel(model:console)
-                    Text("Доступность действий подтверждает сервер. Постановка в очередь, изменение доступа, оплата и доставка проверяются отдельно.")
+                    Text("Доступность действий подтверждает KZ. Постановка в очередь, изменение доступа, оплата и доставка проверяются отдельно.")
                         .font(.caption).foregroundStyle(.secondary)
                 }
                 .padding(24)
@@ -77,7 +77,7 @@ struct ControlPrototypeView: View {
                 .accessibilityAddTraits(section == item ? .isSelected : [])
             }
             Spacer(minLength: 22)
-            Label("Контур сервер", systemImage: "server.rack").font(.callout)
+            Label("Контур KZ", systemImage: "server.rack").font(.callout)
             Text(console.ready ? "API · управление":control.connected ? "API · владельческие ключи" : "API не подключён").font(.caption).foregroundStyle(.secondary)
         }
         .padding(16).frame(width: 210)
@@ -138,7 +138,7 @@ private struct PrototypeRequestsView: View {
             PrototypeEmptySource(title: "Заявки не загружены", icon: "tray", selection: filter, query: query)
             GroupBox("Карточка заявки") {
                 VStack(alignment: .leading, spacing: 14) {
-                    Text("Выберите заявку после подключения сервер. Здесь будут получатель, число устройств, срок, стоимость и состояние.")
+                    Text("Выберите заявку после подключения KZ. Здесь будут получатель, число устройств, срок, стоимость и состояние.")
                         .foregroundStyle(.secondary)
                     Text("Платная заявка: 1–5 новых устройств и 1–6 периодов по 30 дней.")
                         .font(.callout)
@@ -177,7 +177,7 @@ private struct PrototypeClientsView: View {
                 GroupBox("Карточка клиента") {
                     VStack(alignment: .leading, spacing: 16) {
                         Text("Клиент не выбран").font(.headline)
-                        Text("Источник сервер ещё не подключён.").foregroundStyle(.secondary)
+                        Text("Источник KZ ещё не подключён.").foregroundStyle(.secondary)
                         Picker("Содержимое карточки", selection: $pane) {
                             ForEach(PrototypeClientPane.allCases) { Text($0.rawValue).tag($0) }
                         }.pickerStyle(.menu)
@@ -340,7 +340,7 @@ private struct PrototypeOwnerKeyWizard: View {
                 Button("Назад: трафик") { validation = nil; step = .traffic }.buttonStyle(.bordered)
                 Button("Создать и выдать") {}.buttonStyle(.borderedProminent).disabled(true)
             }
-            Text("Подтверждение создания отключено до подключения сервер. Подписка не создавалась и не отправлялась.")
+            Text("Подтверждение создания отключено до подключения KZ. Подписка не создавалась и не отправлялась.")
                 .font(.caption).foregroundStyle(.secondary)
         }
     }
@@ -428,7 +428,7 @@ private struct PrototypeAttentionView: View {
             PrototypeEmptySource(title: "Проблемы не загружены", icon: "exclamationmark.bubble", selection: "\(category) · \(status)", query: query)
             GroupBox("Карточка проблемы") {
                 VStack(alignment: .leading, spacing: 12) {
-                    Text("Выберите проблему после подключения сервер. Здесь будут состояние, связанная операция и подтверждённый результат.")
+                    Text("Выберите проблему после подключения KZ. Здесь будут состояние, связанная операция и подтверждённый результат.")
                         .foregroundStyle(.secondary)
                     Text("Неизвестный результат выделяется отдельно и не повторяется автоматически. Произвольный повтор очереди не предусмотрен.")
                         .font(.caption).foregroundStyle(.secondary)
@@ -510,7 +510,7 @@ private struct PrototypeEmptySource: View {
             Label(title, systemImage: icon)
         } description: {
             VStack(spacing: 5) {
-                Text("Источник сервер ещё не подключён.")
+                Text("Источник KZ ещё не подключён.")
                 Text("Выбранный вид: \(selection)")
                 if !query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     Text("Поиск: \(query)")

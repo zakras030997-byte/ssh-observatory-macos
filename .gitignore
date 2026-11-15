@@ -29,3 +29,10 @@ pending*.json
 *.mobileprovision
 backups/
 outputs/
+
+home-access.json
+*.sock
+*.partial
+service-launch-status.json
+__pycache__/
+*.pyc

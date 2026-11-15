@@ -1,98 +1,123 @@
 # SSH Observatory for macOS
 
-A native macOS SSH dashboard with an optional VPN administration client. SwiftUI, Swift Charts, system OpenSSH, a session-scoped Python collector and local SQLite, with no third-party runtime dependencies. Administration requires a separately operated compatible HTTPS API. No server backend, credentials or operational data are included.
+A native macOS dashboard and local MCP server for hosts you own or are authorized
+to administer. SwiftUI and Charts display CPU, memory, disk, network and systemd
+status; system OpenSSH handles pinned SSH authentication. The optional management
+client connects to a separately deployed mutual-TLS API.
 
-## 01 · How it works
+## Background protected transport — 0.7.0
 
-The app uses an existing SSH alias to start a read-only collector in memory. CPU, memory, swap and one network interface update every three seconds; service states every 15 seconds and disk every 30 seconds. Compact cards show CPU charts, memory/disk use, network rates and connection state. Details include memory charts, load averages and service restart counters.
+One per-user background service owns node SSH, interactive sessions, SFTP and
+telemetry. Both the window and the stdio MCP adapter use its private Unix socket:
 
-The collector runs only during its SSH session. Closing the app ends its owned connections. No daemon, cron job, remote file, privileged installation or monitoring port is created. Telemetry does not repair or provision a VPN. Administrative changes use separate, explicit preview-and-confirm API operations.
+```text
+Dashboard ─┐
+           ├─ local service ─ active VPN ─ Tor ─ pinned SSH / SFTP ─ registered host
+MCP client ┘
+```
 
-The main screen uses your configured hosts with Connect All / Stop All controls. A clean install contains no private profiles or automatic host discovery. Saved live monitoring can reconnect; global and per-node pauses are preserved. Host/service status is not proof of working client VPN traffic.
+Closing the window leaves the service and its sessions running. Opening the
+window reconnects to that service. A distinct helper bundle identity prevents
+macOS from mistaking the background process for the visible application. A lock
+prevents a second service from taking ownership. The service menu can start or
+stop only this application's service. Login startup is disabled by default.
 
-## 02 · Requirements and build
+The service discovers a connected macOS VPN association and binds its outbound
+SOCKS transport to that tunnel interface. Its own Tor instance must establish an
+authenticated healthy circuit before node operations are accepted. Losing the
+verified association or Tor route revokes owned sessions; new operations fail
+closed. Existing local Tor Browser obfs4 bridges may be used for recovery if
+configured. No bridge addresses or VPN profiles are bundled.
 
-- Apple Silicon Mac, macOS 14 or later.
-- A matching Swift 6+ compiler and macOS SDK from Xcode or Command Line Tools.
-- Linux hosts with Python 3, procfs and permission to read the selected systemd units.
-- Existing SSH key authentication and independently verified host keys.
+**Limits:** a connected VPN association and tunnel-bound socket are not proof
+that every provider's internal split rules encrypt every flow. Other SSH clients
+are outside this service's enforcement. Disconnecting a local client does not
+guarantee termination of an arbitrary remote process. A local user with access
+to the service has its registered SSH account authority; MCP annotations are not
+an approval system.
+
+## Build and local setup
+
+Requirements: macOS 14+, Apple Silicon, Swift command-line tools with a compatible
+SDK, Python 3.9+, system OpenSSH, and local `tor` (plus `obfs4proxy` for configured
+obfs4 bridges). The supplied runtime uses the usual Apple Silicon Homebrew paths.
+Dependencies are not installed automatically. The package is locally signed;
+Developer ID signing, notarization and another physical Mac are not verified.
 
 ```sh
 bash scripts/build-local.sh
-open dist/SSHObservatory-0.2.app
 ```
 
-The script defaults to an optimized Release build and creates a locally ad-hoc-signed app. It is not notarized. It does not change system security settings. If your compiler and default SDK do not match, select an already-installed compatible SDK with OBSERVATORY_SDK. The script does not download or install one.
+The output is `dist/SSH Observatory.app`. Copy it to `/Applications`, then register
+the user-owned helper:
 
 ```sh
-OBSERVATORY_CONFIGURATION=Debug bash scripts/build-local.sh
+python3 scripts/install-service.py --app '/Applications/SSH Observatory.app'
+```
+
+The installer validates the bundle and refuses an unrelated or different existing
+job configuration. It registers no root daemon and does not change the active VPN,
+network routes, SSH configuration, host pins or remote services. For a later app
+update, close its window and stop the service before replacing the bundle.
+
+The service uses `~/Library/Application Support/SSH Observatory/`. Add your own
+node inventory there using `examples/nodes.example.json`, with existing aliases
+from your private SSH configuration. The example hostnames and documentation IPs
+are fictional. Nothing connects merely because an example file is present in this
+repository. Use the dashboard's connection controls to enable collection.
+
+For private-CA control API deployments, an optional exact-host ATS exception can
+be provided during the build via `OBSERVATORY_CONTROL_ATS_HOST`. HTTPS, the
+configured CA, hostname and client identity are still validated. No production
+endpoint, server backend or client credential is included.
+
+## MCP
+
+Configure your MCP client to run Python with the absolute path to `mcp/server.py`.
+The adapter connects to the service's private `hub.sock`; the window may be closed.
+The service must already be running. The adapter never opens a separate SSH path.
+
+Tools include `observatory_status`, `observatory_nodes`,
+`observatory_telemetry`, `observatory_connect`, `observatory_inspect`,
+`observatory_ssh_exec`, `observatory_ssh_open/read/write/close`,
+`observatory_sftp_transfer` and the four `observatory_home_*` tools.
+
+SSH commands may modify registered hosts; the caller must be authorized for their
+specific effects. Interactive open returns `connecting`; wait for `ready` before
+writing. Terminal data uses base64, writes can be partial, and reads are bounded.
+SFTP upload requires explicit overwrite permission; download does not overwrite a
+local file. Unknown outcomes must be inspected before replaying a mutation.
+
+`observatory_status` includes service identity and timestamped protected-route
+evidence. Missing or stale evidence must not be reported as a working route.
+Telemetry is resource evidence, not proof of client VPN traffic.
+
+## Optional Home LAN access
+
+Home remains a distinct explicitly configured LAN path. No home IP, username,
+private-key filename, reserve host or expected hostname is built into the public
+source. Copy `examples/home-access.example.json` to the local data directory as
+`home-access.json`, adapt it to your own authorized hosts, and define both SSH
+aliases privately. Home functions refuse connection if this configuration is
+absent or invalid. The Home control API requires a compatible separately deployed
+loopback service; its server implementation is not part of this repository.
+
+## Validation
+
+```sh
 bash scripts/test-local.sh
+(cd transport && python3 -B -m unittest discover -q)
+python3 -B -m unittest discover -s mcp/tests -q
+bash scripts/test-hub.sh
 ```
 
-The test script rebuilds the Debug core, runs the same synchronous CoreTests methods through a small local assertion runner, runs Python unittest checks and validates the connection model using an injected fake transport. No live server is contacted by tests. A standard Package.swift is also included for compatible SwiftPM environments; the executable product is SSHObservatory.
+The tests use fictional data and isolated sockets/processes. Socket tests require
+permission to create local Unix sockets. They cover bounded input, identity and
+host-key constraints, cancellation, reconnect, collector lease expiry, history,
+client/service delegation, missing-route denial and IPC ownership. No production
+inventory, live acceptance logs, screenshots, private configurations or compiled
+application packages are included.
 
-Output and cache directories can be selected with OBSERVATORY_BUILD_DIR and OBSERVATORY_APP_DIR. Build/test output belongs outside tracked source files.
+## License
 
-## 03 · Add your own hosts
-
-Use Add Server to enter a display name, an existing SSH alias, optional absolute SSH configuration path, optional expected hostname, optional network interface and exact .service unit names. Saving does not start collection. Connect when ready. Use an account with only the permissions needed for monitoring.
-
-[examples/nodes.example.json](examples/nodes.example.json) and [examples/ssh-config.example](examples/ssh-config.example) contain synthetic placeholders only. Configure your own host and validate its host key independently; never copy a private key into this repository.
-
-Profiles and launch preferences are stored in ~/Library/Application Support/SSH Observatory/. The app does not migrate or discover another application's private profiles. It never needs a token embedded in the source.
-
-## 04 · VPN administration
-
-Management contains requests, clients, owner keys, referrals and items needing attention. Capability-gated operations include previews and confirmation, operation status, duration/traffic changes, pause/resume/revoke, subscription redelivery, aliases/notes and summaries. Server-side support and authorization are required; a visible form is not proof of live acceptance.
-
-Configure your own HTTPS endpoint, trusted server CA and existing client-certificate identity in API settings. Identities stay in macOS Keychain. No endpoint, key, certificate, host inventory or customer list is bundled. The compatibility identifier `anodhas.owner-control.r2` is a wire protocol name, not a credential. The private bot/backend is outside this repository.
-
-Mutations bind durable operation IDs, targets and expiring previews. Unknown outcomes are checked by status rather than blindly replayed. Local operation journals contain sensitive metadata and must remain outside Git. TLS verifies the configured CA, hostname and client identity.
-
-Default builds add no ATS exception. Private-CA deployments may explicitly set one exact endpoint hostname when building:
-
-```sh
-OBSERVATORY_CONTROL_ATS_HOST=api.example.com bash scripts/build-local.sh
-```
-
-This is scoped to that host. The transport still requires HTTPS, CA/hostname validation and mutual TLS; it does not bypass a certificate error.
-
-Client-only checks use fictional records and injected transports, without live endpoints:
-
-```sh
-bash scripts/test-control-api.sh
-bash scripts/test-control-api-connection.sh
-bash scripts/test-control-console.sh
-bash scripts/test-control-console-wire.sh
-bash scripts/test-control-metadata.sh
-bash scripts/test-control-metadata-draft.sh
-bash scripts/test-control-session-lifecycle.sh
-```
-
-`Tests/Fixtures` contains frozen synthetic JSON responses. Private backend-dependent TLS fixture runners are excluded. Verify live TLS and administrative behavior in your own controlled deployment.
-
-## 05 · Security and resource limits
-
-- Strict host-key checking; no automatic host-key updates, agent/X11 forwarding, port forwarding, shared control sockets or local SSH commands.
-- Direct process arguments and an encoded remote bootstrap. Existing user-selected ProxyCommand/ProxyJump configuration remains trusted local policy.
-- Nonblocking SSH reads in 4 KiB chunks, at most 16 KiB per readiness callback. Shared admission budget: 128 KiB and four stdout records per six-second window. Oversized or excessive input stops the offending session with a terminal error.
-- One pending sample/notification before UI delivery. A busy UI coalesces samples; the skipped count is visible. Duplicate sequence numbers do not refresh liveness.
-- At most four reconnect attempts, five seconds apart; authentication and host-key errors stop retries. Ten valid ingress samples reset the retry budget.
-- Up to 120 chart points per host and 24 profiles. Local history uses batched transactions, up to 32 pending/in-flight writes, 200000 rows, 64 MiB of JSON payload and seven days of retention. SQLite file/index/journal size is separate; an existing larger file is not automatically shrunk. Retention can delete old samples.
-- EOF/SIGHUP and a POSIX alarm stop the collector after 12 seconds without heartbeat, including blocked userspace output. This is not a guarantee against an uninterruptible kernel wait.
-
-No application can trust measurements from an already compromised host. See [SECURITY.md](SECURITY.md) for boundaries and reporting guidance.
-
-## 06 · Metric semantics and limitations
-
-Network rates use a configured interface or the lowest-metric default IPv4 route, avoiding sums across bridges/veth/tunnels. An interface change or counter reset produces a gap. For IPv6-only systems choose an interface explicitly. Missing sources are unknown, never healthy zeroes. Disk capacity, allocated bytes, user-available space and reserved blocks are distinct.
-
-This is a local prototype, not a monitoring SLA. Physical sleep/wake, actual network faults, independently observed Linux process cleanup, live VPN end-to-end checks, long-duration consumption and portability across macOS releases need deployment-specific validation. Local automated tests do not establish those properties. No binary release or performance guarantee is implied.
-
-## 07 · Development and license
-
-Core transport, protocol and history code lives in Sources/TelemetryCore; native UI, API clients and collector live in Sources/SSHObservatory. Tests use temporary data and injected local processes. Do not add operational profiles, keys, host inventories, generated logs, private paths, screenshots or databases to commits.
-
-Known administration limitations: completed operations can require explicit list/detail refresh; an unsupported client-help pane is informational only; live payment, refund and referral acceptance is deployment-specific. This source snapshot is not a claim of complete production acceptance.
-
-Licensed under the [MIT License](LICENSE). Contributions should preserve read-only remote collection, strict SSH trust and bounded resource use.
+MIT. See [LICENSE](LICENSE) and [SECURITY.md](SECURITY.md).

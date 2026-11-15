@@ -40,17 +40,20 @@ enum LinkState: Equatable {
     private let collector: String
     private let history: HistoryStore?
     private let factory: Factory
+    private let routePort: (() -> Int?)?
+    private var wantsConnection=false
     private let retryDelay: Duration
     private let intentChanged: ((Bool) -> Void)?
+    private let clientAction: ((String)->Void)?
     let demo: Bool
     var latest: ReceivedSample? { window.points.last }
     var fresh: Bool { state == .online && receivedUptime.map { ProcessInfo.processInfo.systemUptime - $0 < 12 } == true }
     init(profile: NodeProfile, demo: Bool, collector: String, history: HistoryStore?, userPaused: Bool = false,
          retryDelay: Duration = .seconds(5), loadHistory: Bool = true,
          factory: @escaping Factory = { p,c,cb in SSHSession(profile:p,collector:c,onSample:cb.sample,onExit:cb.exit) },
-         intentChanged: ((Bool) -> Void)? = nil) {
-        self.id=profile.id; self.profile=profile; self.demo=demo; self.collector=collector; self.history=history
-        self.userPaused=userPaused; self.factory=factory; self.retryDelay=retryDelay; self.intentChanged=intentChanged
+         intentChanged: ((Bool) -> Void)? = nil, routePort: (() -> Int?)? = nil, clientAction: ((String)->Void)? = nil) {
+        self.clientAction=clientAction; self.id=profile.id; self.profile=profile; self.demo=demo; self.collector=collector; self.history=history
+        self.userPaused=userPaused; self.factory=factory; self.retryDelay=retryDelay; self.intentChanged=intentChanged; self.routePort=routePort
         if userPaused { state = .paused }
         if !demo, loadHistory, let history {
             Task { [weak self] in
@@ -65,11 +68,13 @@ enum LinkState: Equatable {
         }
     }
     func connect(force: Bool = false) {
+        if let clientAction {clientAction("node.connect");return}
         guard !demo, force || !state.active else { return }
         userPaused=false; intentChanged?(false)
-        stop(); retries=0; begin()
+        stop(); wantsConnection=true; retries=0; begin()
     }
     private func begin() {
+        if let routePort, routePort() == nil { state = .failed("Защищённый маршрут недоступен"); return }
         generation=UUID(); segment=UUID(); consecutiveSamples=0
         let token=generation, delivery=LatestValueMailbox<TelemetrySample>()
         mailbox=delivery; state = retries == 0 ? .connecting : .retry(retries)
@@ -117,11 +122,32 @@ enum LinkState: Equatable {
             self.begin()
         }
     }
-    func pause() { userPaused=true; stop(paused:true); intentChanged?(true) }
+    func pause() { if let clientAction {clientAction("node.pause");return}; userPaused=true; stop(paused:true); intentChanged?(true) }
     func stop(paused: Bool = false) {
+        wantsConnection=false
         generation=UUID(); reconnectTask?.cancel(); reconnectTask=nil
         mailbox?.close(); mailbox=nil; session?.stop(); session=nil
         state = paused || userPaused ? .paused : .idle
+    }
+    func routeChanged(_ port:Int?) {
+        guard routePort != nil, wantsConnection else { return }
+        if port == nil {
+            stop(); wantsConnection=true
+            state = .failed("Защищённый маршрут недоступен")
+        } else if !state.active { retries=0; begin() }
+    }
+    func receiveRemote(_ row:[String:Any]) {
+        guard clientAction != nil else{return}
+        userPaused=row["paused"] as? Bool ?? false
+        if let raw=row["sample"] as? [String:Any],let data=try? JSONSerialization.data(withJSONObject:raw),
+           let sample=try? JSONDecoder().decode(TelemetrySample.self,from:data) {
+            if let last=latest, last.sample.bootID != sample.bootID || (sample.measuredAt>last.sample.measuredAt && sample.sequence<=last.sample.sequence) {segment=UUID()}
+            let date=Date(timeIntervalSince1970:(row["received_at"] as? Double) ?? sample.measuredAt)
+            window.append(ReceivedSample(sample:sample,receivedAt:date,segment:segment))
+        }
+        if row["fresh"] as? Bool == true {
+            receivedUptime=ProcessInfo.processInfo.systemUptime;state = .online
+        } else {receivedUptime=nil;state = userPaused ? .paused : .failed("Нет свежего ответа службы")}
     }
     func feedDemo(_ samples:[TelemetrySample]) {
         guard demo else { return }; state = .online
@@ -140,6 +166,10 @@ struct LaunchSettings: Codable {
     @Published var demo=false
     @Published var notice:String?
     @Published private(set) var loading=false
+    @Published private(set) var routeEvidence=RouteEvidence.unknown
+    let clientMode:Bool
+    @Published private(set) var serviceStatus="MCP доступен · локально"
+    private var clientTask:Task<Void,Never>?
     private var sleepObserver:NSObjectProtocol?
     private var wakeObserver:NSObjectProtocol?
     private var resumeIDs=Set<String>()
@@ -149,9 +179,15 @@ struct LaunchSettings: Codable {
     private var collector=""
     private var history:HistoryStore?
     private var autoConnect=false
+    private let protectedRoute:ProtectedRoute
+    var protectedPort:Int? { protectedRoute.port }
     private let base:URL
-    init(base:URL? = nil, collectorSource:String? = nil, restore:Bool = true, observeWorkspace:Bool = true) {
+    init(base:URL? = nil, collectorSource:String? = nil, restore:Bool = true, observeWorkspace:Bool = true, protectedRuntime:URL? = nil, clientMode:Bool = false) {
+        self.clientMode=clientMode
         self.base=base ?? FileManager.default.urls(for:.applicationSupportDirectory,in:.userDomainMask)[0].appendingPathComponent("SSH Observatory",isDirectory:true)
+        self.protectedRoute=ProtectedRoute(runtimeOverride:protectedRuntime)
+        protectedRoute.changed = { [weak self] port in self?.nodes.forEach { $0.routeChanged(port) } }
+        protectedRoute.evidenceChanged = { [weak self] evidence in self?.routeEvidence=evidence }
         #if SWIFT_PACKAGE
         let resourceBundle=Bundle.module
         #else
@@ -162,12 +198,53 @@ struct LaunchSettings: Codable {
         let saved=restore ? (try? Self.readLimited(self.base.appendingPathComponent("launch.json"),limit:16_384)).flatMap { try? JSONDecoder().decode(LaunchSettings.self,from:$0) } : nil
         pausedIDs=Set(saved?.pausedNodeIDs ?? [])
         enterRealMode(resume:saved?.mode == "live" && saved?.autoConnect == true)
-        if observeWorkspace {
+        if observeWorkspace && !clientMode {
             let center=NSWorkspace.shared.notificationCenter
             sleepObserver=center.addObserver(forName:NSWorkspace.willSleepNotification,object:nil,queue:.main) { [weak self] _ in Task { @MainActor in self?.sleep() } }
             wakeObserver=center.addObserver(forName:NSWorkspace.didWakeNotification,object:nil,queue:.main) { [weak self] _ in Task { @MainActor in self?.wake() } }
         }
     }
+    func startProtectedRoute() {
+        if clientMode {startClient();return}
+        protectedRoute.start()
+    }
+    private func startClient() {
+        guard clientTask==nil else{return}
+        clientTask=Task { [weak self] in
+            await Task.detached(priority:.utility){ContourService.ensureStarted()}.value
+            while !Task.isCancelled {
+                guard let self else{return}
+                let response=await Task.detached(priority:.utility){ () -> ([String:Any],[String:Any])? in
+                    guard let status=try? ContourClient.call("hub.status"),status["service_version"] as? String == "0.7.0",
+                          let nodes=try? ContourClient.call("nodes.list") else{return nil}
+                    return (status,nodes)
+                }.value
+                guard !Task.isCancelled else{return}
+                if let (status,listing)=response {
+                    self.serviceStatus="Защищённый контур · фоновая служба"
+                    if let r=status["route"] as? [String:Any],let t=r["observed_at"] as? Double {
+                        self.routeEvidence=RouteEvidence(confirmed:r["confirmed"] as? Bool ?? false,observedAt:t>0 ? Date(timeIntervalSince1970:t):nil)
+                    } else {self.routeEvidence = .unknown}
+                    for row in listing["nodes"] as? [[String:Any]] ?? [] {
+                        if let id=row["node_id"] as? String,let node=self.nodes.first(where:{$0.id==id}) {node.receiveRemote(row)}
+                    }
+                } else {
+                    self.serviceStatus="Фоновая служба недоступна";self.routeEvidence = .unknown
+                    self.nodes.forEach{$0.receiveRemote([:])}
+                }
+                try? await Task.sleep(for:.seconds(3))
+            }
+        }
+    }
+    private func clientAction(_ method:String,_ id:String) {
+        Task { [weak self] in
+            let ok=await Task.detached(priority:.utility){(try? ContourClient.call(method,["node_id":id])) != nil}.value
+            if !ok {self?.notice="Служба не подтвердила действие. Прямой обход не выполнялся."}
+        }
+    }
+    func stopProtectedRoute() { clientTask?.cancel();clientTask=nil;protectedRoute.stop() }
+    func registerProtected(_ revoke:@escaping () -> Void) -> UUID? { protectedRoute.register(revoke) }
+    func unregisterProtected(_ token:UUID) { protectedRoute.unregister(token) }
     func sleep() {
         resumeIDs=Set(nodes.filter { $0.state.active && !$0.userPaused }.map(\.id))
         nodes.forEach { $0.stop(paused:true) }
@@ -177,10 +254,12 @@ struct LaunchSettings: Codable {
         resumeIDs.removeAll()
     }
     func stopAll(rememberPause:Bool = false) {
+        if clientMode && rememberPause {nodes.forEach{$0.pause()};return}
         nodes.forEach { $0.stop() }; resumeIDs.removeAll()
         if rememberPause && !demo { saveLaunch(autoConnect:false) }
     }
     private func saveLaunch(autoConnect:Bool) {
+        if clientMode {return}
         self.autoConnect=autoConnect
         do {
             try FileManager.default.createDirectory(at:base,withIntermediateDirectories:true,attributes:[.posixPermissions:0o700])
@@ -208,7 +287,7 @@ struct LaunchSettings: Codable {
     }
     func enterRealMode(resume:Bool = false) {
         loadTask?.cancel(); stopAll(); demo=false; notice=nil; loading=true; nodes=[]
-        loadGeneration=UUID(); let token=loadGeneration, directory=base
+        loadGeneration=UUID(); let token=loadGeneration, directory=base, isClient=clientMode
         saveLaunch(autoConnect:resume)
         loadTask=Task { [weak self] in
             let result=await Task.detached(priority:.utility) { () -> Result<([NodeProfile],HistoryStore?,Bool),Error> in
@@ -217,7 +296,7 @@ struct LaunchSettings: Codable {
                     let profiles=FileManager.default.fileExists(atPath:url.path) ? try JSONDecoder().decode([NodeProfile].self,from:Self.readLimited(url,limit:128_000)) : []
                     guard profiles.count <= 24, Set(profiles.map(\.id)).count==profiles.count else { throw TelemetryError.invalidProfile }
                     try profiles.forEach { try $0.validate() }
-                    let history=try? HistoryStore(url:directory.appendingPathComponent("history.sqlite"))
+                    let history=isClient ? nil : try? HistoryStore(url:directory.appendingPathComponent("history.sqlite"))
                     return (profiles,history,history == nil)
                 }
             }.value
@@ -226,21 +305,28 @@ struct LaunchSettings: Codable {
             switch result {
             case .success(let (profiles,history,historyError)):
                 self.history=history; self.nodes=profiles.map { self.makeNode($0) }
-                if historyError { self.notice="История недоступна; текущие показания сохраняются только в памяти." }
-                if self.autoConnect { self.connectAll() }
+                if historyError && !self.clientMode { self.notice="История недоступна; текущие показания сохраняются только в памяти." }
+                if self.autoConnect && !self.clientMode { self.connectAll() }
             case .failure: self.nodes=[]; self.notice="Не удалось прочитать список серверов. Исходный файл не изменён."
             }
         }
     }
     private func makeNode(_ profile:NodeProfile) -> NodeModel {
-        NodeModel(profile:profile,demo:false,collector:collector,history:history,userPaused:pausedIDs.contains(profile.id),intentChanged:{ [weak self] paused in
+        if clientMode {return NodeModel(profile:profile,demo:false,collector:"",history:nil,loadHistory:false,clientAction:{[weak self] method in self?.clientAction(method,profile.id)})}
+        return NodeModel(profile:profile,demo:false,collector:collector,history:history,userPaused:pausedIDs.contains(profile.id),factory:{ [weak self] p,c,cb in
+            SSHSession(profile:p,collector:c,protectedTorPort:self?.protectedPort,onSample:cb.sample,onExit:cb.exit)
+        },intentChanged:{ [weak self] paused in
             guard let self else { return }
             if paused { self.pausedIDs.insert(profile.id); self.resumeIDs.remove(profile.id) }
             else { self.pausedIDs.remove(profile.id) }
             self.saveLaunch(autoConnect:paused ? self.autoConnect:true)
-        })
+        },routePort:{ [weak self] in self?.protectedPort })
     }
     func add(_ profile:NodeProfile) throws {
+        if clientMode {
+            let raw=try JSONSerialization.jsonObject(with:JSONEncoder().encode(profile))
+            _=try ContourClient.call("node.add",["profile":raw]);nodes.append(makeNode(profile));return
+        }
         try profile.validate()
         guard !demo, !loading, nodes.count < 24, !nodes.contains(where: {
             ($0.profile.sshAlias==profile.sshAlias && $0.profile.sshConfigPath==profile.sshConfigPath) || $0.id==profile.id

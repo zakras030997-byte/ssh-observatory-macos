@@ -1,0 +1,7 @@
+{
+  "lanAlias": "home-lan",
+  "reserveAlias": "home-reserve",
+  "lanAddress": "192.0.2.10",
+  "expectedHostname": "example-home",
+  "units": ["example.service"]
+}

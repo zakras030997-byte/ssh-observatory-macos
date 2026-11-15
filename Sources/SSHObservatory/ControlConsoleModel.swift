@@ -136,7 +136,7 @@ final class ConsoleLocalStore {
             if journalBlocked{notice="Просмотр работает. Изменения заблокированы до проверки повреждённого журнала."}
         } catch ControlAPIError.notFound {
             guard generation==g else{return}
-            notice="На сервере пока установлен первый API-пакет. Остальные разделы ещё не включены."
+            notice="На KZ пока установлен первый API-пакет. Остальные разделы ещё не включены."
         } catch {
             guard generation==g else{return};notice=message(error)
         }

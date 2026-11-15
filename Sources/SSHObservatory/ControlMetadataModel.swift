@@ -97,11 +97,11 @@ final class MetadataLocalStore {
             if let p=pending,p.connectionID != binding { notice="Сохранённая операция относится к другому подключению. Верните прежний адрес и сертификат для сверки."; return }
             self.client=client; connectionID=binding
             do { let c=try await client.capabilities(); guard generation==g else { return }; ready=true; enabled=c.enabled; if !c.enabled { notice="Хранилище имён и заметок сейчас недоступно." } }
-            catch ControlAPIError.notFound { guard generation==g else { return }; notice="Пакет имён и заметок ещё не установлен на сервере." }
+            catch ControlAPIError.notFound { guard generation==g else { return }; notice="Пакет имён и заметок ещё не установлен на KZ." }
             catch { guard generation==g else { return }; notice=message(error) }
             if generation==g,ready,let p=pending { do { let r=try await client.status(id:p.operationID,target:p.target,digest:p.digest); guard generation==g else { return }; try apply(r) } catch ControlAPIError.notFound { guard generation==g else { return }; statusNotFound=true; notice="Сохранённая операция не найдена. Отправленное подтверждение автоматически не повторяется." } catch { guard generation==g else { return }; notice=message(error) } }
             guard generation==g else { return }
-            do { let ok=try await client.overviewCapabilities(); guard generation==g else { return }; overviewEnabled=ok; if ok { let v=try await client.overview(); guard generation==g else { return }; overview=v } else { overviewNotice="Сводка клиентов отключена на сервере." } }
+            do { let ok=try await client.overviewCapabilities(); guard generation==g else { return }; overviewEnabled=ok; if ok { let v=try await client.overview(); guard generation==g else { return }; overview=v } else { overviewNotice="Сводка клиентов отключена на KZ." } }
             catch { guard generation==g else { return }; overviewNotice="Сводка клиентов пока недоступна; нулевые значения не подставляются." }
         } catch { if generation==g { notice=message(error) } }
     }

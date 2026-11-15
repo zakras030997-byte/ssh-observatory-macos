@@ -84,7 +84,7 @@ private final class MetadataFixture:ControlHTTPTransport {
             }
             return(200,Data(try MetadataWire.canonical(.object(result)).utf8))
         }
-        let consoleTransport=MetadataFixture(); consoleTransport.handler={_ in (200,Data(#"{"api_version":2,"contract":"anodhas.owner-control.r2","features":["keys_read"],"actions":[]}"#.utf8))}
+        let consoleTransport=MetadataFixture(); consoleTransport.handler={_ in (200,Data(#"{"api_version":2,"contract":"sshobservatory.owner-control.r2","features":["keys_read"],"actions":[]}"#.utf8))}
         let console=ControlConsoleModel(legacy:legacy,store:ConsoleLocalStore(directory:root.appendingPathComponent("r2")));await console.attach(profile:profile,client:ControlConsoleClient(transport:consoleTransport))
         let model=ControlMetadataModel(legacy:legacy,store:store); await model.attach(profile:profile,client:client)
         try check(model.canStart && model.overview?.registeredClients==2,"capabilities and exact overview ready")

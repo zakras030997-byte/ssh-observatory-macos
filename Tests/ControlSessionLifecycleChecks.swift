@@ -34,7 +34,7 @@ private final class LifecycleLegacyTransport:ControlHTTPTransport {
     static let profile=ControlConnectionProfile(endpoint:"https://fixture.example.invalid:29443",serverCA:Data([1]),identityLabel:"Lifecycle fixture only")
     static let keyID="326e4605-75d9-4c1b-86dc-d0e33ba1dd68"
     static let revision=String(repeating:"b",count:64)
-    static let consoleCapabilities=Data(#"{"api_version":2,"contract":"anodhas.owner-control.r2","features":["clients_read","referrals_read","keys_read","durable_preview_confirm_status"],"actions":[{"action":"key_extend_days","enabled":true,"reason_code":null}]}"#.utf8)
+    static let consoleCapabilities=Data(#"{"api_version":2,"contract":"sshobservatory.owner-control.r2","features":["clients_read","referrals_read","keys_read","durable_preview_confirm_status"],"actions":[{"action":"key_extend_days","enabled":true,"reason_code":null}]}"#.utf8)
     static let metadataCapabilities=Data(#"{"schema_revision":1,"enabled":true,"reason_code":null,"normalization":"NFC","length_unit":"unicode_scalar","name_min":1,"name_max":80,"note_max":1000,"preview_ttl_seconds":120,"request_max_bytes":8192}"#.utf8)
     static let overviewCapabilities=Data(#"{"schema_revision":1,"enabled":false,"scope":"non_owner_clients","counters":["registered_clients","active_clients","active_keys","slots_used"]}"#.utf8)
 

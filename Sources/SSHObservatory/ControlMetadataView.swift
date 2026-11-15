@@ -9,7 +9,7 @@ struct MetadataKeyTitle: View {
 struct ControlOverviewPanel: View {
     @ObservedObject var model:ControlMetadataModel
     var body:some View {
-        GroupBox("Клиенты · общий снимок сервер") {
+        GroupBox("Клиенты · общий снимок KZ") {
             VStack(alignment:.leading,spacing:10) {
                 if let v=model.overview {
                     HStack(spacing:28) {
@@ -49,7 +49,7 @@ struct MetadataEditor: View {
                     HStack {
                         if let s=snapshot { Text("Исходное имя: \(s.originalName)").font(.caption).foregroundStyle(.secondary) }
                         Spacer()
-                        Button("Перечитать с сервером"){Task{await model.load(target);reset()}}.disabled(model.busy)
+                        Button("Перечитать с KZ"){Task{await model.load(target);reset()}}.disabled(model.busy)
                     }
                     if let s=snapshot {
                         TextField("Имя устройства",text:$name).textFieldStyle(.roundedBorder).disabled(!model.canStart)
@@ -58,7 +58,7 @@ struct MetadataEditor: View {
                         TextEditor(text:$note).font(.body).frame(height:100).border(.quaternary).disabled(!model.canStart)
                         Text("До 1000 символов Unicode. Пустая заметка удалит её содержимое.").font(.caption).foregroundStyle(.secondary)
                         if let validation { Text(validation).foregroundStyle(.orange) }
-                        Button("Проверить изменение на сервере") {
+                        Button("Проверить изменение на KZ") {
                             do { let draft=try ControlMetadataDraft(name:name,note:note).normalized();validation=nil;Task{await model.prepare(target:target,snapshot:s,draft:draft)} }
                             catch { validation=(error as? LocalizedError)?.errorDescription ?? "Проверьте текст." }
                         }.buttonStyle(.borderedProminent).disabled(!model.canStart || loadedRevision != s.viewRevision)
@@ -81,7 +81,7 @@ struct MetadataOperationPanel: View {
             GroupBox("Изменение имени и заметки") {
                 VStack(alignment:.leading,spacing:10) {
                     Text("Ключ: \(p.target.id)").font(.caption).textSelection(.enabled)
-                    Text(model.needsStatus ? "Результат нужно сверить с сервером":state(p.state)).font(.headline)
+                    Text(model.needsStatus ? "Результат нужно сверить с KZ":state(p.state)).font(.headline)
                     if let preview=model.receipt?.preview {
                         HStack(alignment:.top,spacing:20) {
                             text("Было",name:preview.before.effectiveName,note:preview.before.note)

@@ -77,6 +77,17 @@ final class CoreTests: XCTestCase {
         XCTAssertFalse(args.contains("sudo"))
         XCTAssertEqual(args[args.count - 2], "safe-profile")
     }
+    func testProtectedRouteRequiresExplicitValidLoopbackTorPort() throws {
+        let profile = NodeProfile(name: "Test", region: "", sshAlias: "safe-profile")
+        let args = try SSHSession.arguments(profile: profile, collector: "", protectedTorPort: 19082)
+        XCTAssertTrue(args.contains("ProxyCommand=/usr/bin/nc -X 5 -x 127.0.0.1:19082 %h %p"))
+        XCTAssertTrue(args.contains("ProxyJump=none"))
+        XCTAssertTrue(args.contains("BindInterface=none"))
+        XCTAssertTrue(args.contains("StrictHostKeyChecking=yes"))
+        XCTAssertTrue(args.contains("ControlPath=none"))
+        XCTAssertThrowsError(try SSHSession.arguments(profile: profile, collector: "", protectedTorPort: 0))
+        XCTAssertFalse(try SSHSession.arguments(profile: profile, collector: "").contains { $0.hasPrefix("ProxyCommand=") })
+    }
     func testSQLiteCapAndReadbackKeepOnlyNewestSamples() throws {
         let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: root) }
@@ -109,6 +120,24 @@ final class CoreTests: XCTestCase {
             Thread.sleep(forTimeInterval: 0.05)
         }
         XCTAssertNotEqual(kill(pid, 0), 0)
+    }
+    func testProtectedTorArgumentsReachOwnedSSHProcess() throws {
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: root) }
+        let script = root.appendingPathComponent("fake-ssh")
+        let argsFile = root.appendingPathComponent("args")
+        let json = String(data: try JSONEncoder().encode(sample()), encoding: .utf8)!
+        try ("#!/bin/sh\nprintf '%s\\n' \"$@\" > '" + argsFile.path + "'\nprintf '%s\\n' '" + json + "'\nwhile IFS= read -r beat; do :; done\n").write(to: script, atomically: true, encoding: .utf8)
+        try FileManager.default.setAttributes([.posixPermissions: 0o700], ofItemAtPath: script.path)
+        let received = DispatchSemaphore(value: 0)
+        let session = SSHSession(profile: NodeProfile(id: "test", name: "Fixture", region: "", sshAlias: "fixture"), collector: "", executableURL: script, protectedTorPort: 19082, onSample: { _ in received.signal() }, onExit: { _ in })
+        session.start()
+        XCTAssertEqual(received.wait(timeout: .now() + 4), .success)
+        let args = try String(contentsOf: argsFile, encoding: .utf8).components(separatedBy: "\n")
+        XCTAssertTrue(args.contains("ProxyCommand=/usr/bin/nc -X 5 -x 127.0.0.1:19082 %h %p"))
+        XCTAssertTrue(args.contains("StrictHostKeyChecking=yes"))
+        session.stop()
     }
     func testSessionAuthErrorIsTerminalAndDoesNotLeakRawError() throws {
         let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)

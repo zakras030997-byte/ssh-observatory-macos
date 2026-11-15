@@ -4,7 +4,7 @@ cd "$(dirname "$0")/.."
 sdk="${OBSERVATORY_SDK:-$(xcrun --show-sdk-path)}"
 configuration="${OBSERVATORY_CONFIGURATION:-Release}"
 build="${OBSERVATORY_BUILD_DIR:-$PWD/.build/local-$configuration}"
-app="${OBSERVATORY_APP_DIR:-$PWD/dist/SSHObservatory-0.2.app}"
+app="${OBSERVATORY_APP_DIR:-$PWD/dist/SSH Observatory.app}"
 mkdir -p "$build"
 case "$configuration" in
   Debug) flags=(-Onone -enable-testing) ;;
@@ -23,6 +23,8 @@ xcrun swiftc -swift-version 5 -sdk "$sdk" -target arm64-apple-macosx14.0 -module
   -o "$app/Contents/MacOS/SSHObservatory"
 cp "$build/libTelemetryCore.dylib" "$app/Contents/Frameworks/"
 cp Sources/SSHObservatory/Resources/collector.py "$app/Contents/Resources/"
+mkdir -p "$app/Contents/Resources/vpn-tor"
+cp transport/{route_runtime,tor_recovery,tor_control_health,vpn_association,vpn_socks_probe,bound_dial}.py "$app/Contents/Resources/vpn-tor/"
 cp Sources/SSHObservatory/Resources/AppIcon.icns "$app/Contents/Resources/"
 cat > "$app/Contents/Info.plist" <<'PLIST'
 <?xml version="1.0" encoding="UTF-8"?>
@@ -34,10 +36,22 @@ cat > "$app/Contents/Info.plist" <<'PLIST'
 <key>CFBundleDisplayName</key><string>SSH Observatory</string>
 <key>CFBundleIconFile</key><string>AppIcon</string>
 <key>CFBundlePackageType</key><string>APPL</string>
-<key>CFBundleShortVersionString</key><string>0.3.0</string>
-<key>CFBundleVersion</key><string>3</string>
+<key>CFBundleShortVersionString</key><string>0.7.0</string>
+<key>CFBundleVersion</key><string>7</string>
 <key>LSMinimumSystemVersion</key><string>14.0</string>
 <key>NSHighResolutionCapable</key><true/>
+<!-- The dedicated private CA is evaluated by the HTTPS-only, hostname-pinned mTLS transport.
+     This endpoint-only ATS exception permits that manual evaluation; no global opt-out. -->
+<key>NSAppTransportSecurity</key><dict>
+  <key>NSExceptionDomains</key><dict>
+    <!-- Home UI is loopback-only; transport beyond this Mac remains strict SSH. -->
+    <key>127.0.0.1</key><dict>
+      <key>NSIncludesSubdomains</key><false/>
+      <key>NSExceptionAllowsInsecureHTTPLoads</key><true/>
+    </dict>
+
+  </dict>
+</dict>
 </dict></plist>
 PLIST
 # Private-CA deployments may opt in for one exact host. The client still checks
@@ -58,6 +72,7 @@ data['NSAppTransportSecurity'] = {'NSExceptionDomains': {host: {
 with open(path, 'wb') as f: plistlib.dump(data, f)
 PYATS
 fi
+python3 scripts/package-contour-service.py "$app"
 codesign --force --sign - "$app/Contents/Frameworks/libTelemetryCore.dylib"
 codesign --force --sign - "$app"
 printf '%s\n' "Built $app ($configuration; local signature; not notarized)."

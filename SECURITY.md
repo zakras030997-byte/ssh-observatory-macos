@@ -23,3 +23,16 @@ The code includes tests for excessive input, stalled UI delivery, protocol valid
 No production API endpoint, private key, CA bundle or operational profile is included. API capabilities do not replace server authorization or business checks. Resolve unknown outcomes through the same operation status without automatic replay; expired previews must not grant access.
 
 This package includes only the native client and fictional fixtures, not the private bot/backend, server installation or live payment acceptance. Private-CA ATS exceptions are opt-in for one exact host; the transport still validates HTTPS, CA, hostname and client identity.
+
+## Background service and MCP
+
+The per-user launch agent owns one protected transport. The IPC directory is
+private, the socket is 0600, and both peers validate the local UID. This isolates
+other users, not hostile processes running as the same user. SSH execution,
+interactive input and SFTP upload can change a registered host. Their schema
+annotations do not implement per-command human approval.
+
+VPN loss is covered by an isolated state-loss test and Tor/proxy failure tests;
+that does not certify every external VPN provider or its split routing. Never
+substitute direct SSH after a route failure. The Home LAN path is an explicit
+separately configured exception. Public examples use only fictional hosts.

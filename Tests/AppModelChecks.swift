@@ -16,6 +16,11 @@ private final class FakeSession: SessionControl {
             if value() { print("PASS model: \(text)") } else { failures += 1; print("FAIL model: \(text)") }; checks += 1
         }
         func settle() async { try? await Task.sleep(for: .milliseconds(30)) }
+        let now=Date()
+        check(RouteEvidence(confirmed:true,observedAt:now.addingTimeInterval(-2)).isFresh(at:now),"recent route confirmation is shown")
+        check(!RouteEvidence(confirmed:true,observedAt:now.addingTimeInterval(-16)).isFresh(at:now),"stale route is never shown as confirmed")
+        check(!RouteEvidence(confirmed:false,observedAt:now).isFresh(at:now),"unavailable route is not shown as confirmed")
+        check(!RouteEvidence(confirmed:true,observedAt:nil).isFresh(at:now),"missing observation timestamp is not confirmation")
         let profile = NodeProfile(id:"test",name:"Fixture",region:"",sshAlias:"fixture")
         func sample(_ n: Int) -> TelemetrySample {
             TelemetrySample(nodeID:"test",hostname:"test",bootID:"boot",sequence:n,measuredAt:1_700_000_000+Double(n),uptime:100,cores:1,cpuPercent:10,memory:nil,swap:nil,disk:nil,network:nil,load:nil,units:[],errors:[:])
@@ -67,6 +72,37 @@ private final class FakeSession: SessionControl {
         check(healthyAttempts==6,"ten valid ingress samples reset retries even when UI delivery coalesces")
         healthyNode.stop()
 
+        var availablePort:Int? = nil
+        var protectedSessions:[FakeSession] = []
+        let protectedNode=NodeModel(profile:profile,demo:false,collector:"",history:nil,loadHistory:false,
+            factory:{ _,_,_ in let session=FakeSession(); protectedSessions.append(session); return session },
+            routePort:{ availablePort })
+        protectedNode.connect()
+        check(protectedSessions.isEmpty,"protected node refuses connection without route")
+        availablePort=19082; protectedNode.routeChanged(availablePort)
+        check(protectedSessions.count==1 && protectedSessions[0].starts==1,"protected node starts after route recovery")
+        availablePort=nil; protectedNode.routeChanged(nil)
+        check(protectedSessions[0].stops==1,"protected session stops on route loss")
+        protectedNode.pause(); availablePort=19082; protectedNode.routeChanged(availablePort)
+        check(protectedSessions.count==1,"paused node does not reconnect on route recovery")
+
+        let testRuntime=FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString+".py")
+        defer { try? FileManager.default.removeItem(at:testRuntime) }
+        try "import time,json\nprint(json.dumps({'state':'ready','port':19082,'observed_at':time.time()}),flush=True)\ntime.sleep(0.3)\nprint(json.dumps({'state':'unavailable','observed_at':time.time()}),flush=True)\ntime.sleep(1)\n".write(to:testRuntime,atomically:true,encoding:.utf8)
+        let supervisor=ProtectedRoute(runtimeOverride:testRuntime)
+        var evidence=RouteEvidence.unknown
+        supervisor.evidenceChanged={evidence=$0}
+        supervisor.start()
+        for _ in 0..<100 { if supervisor.port != nil { break }; try? await Task.sleep(for:.milliseconds(10)) }
+        check(evidence.isFresh(at:Date()),"route display receives timestamped confirmation")
+        var cancelled=false
+        let registration=supervisor.register { cancelled=true }
+        check(registration != nil,"supervisor registers active protected operation")
+        for _ in 0..<100 { if cancelled { break }; try? await Task.sleep(for:.milliseconds(10)) }
+        check(cancelled && supervisor.port == nil,"supervisor cancels active operation when route fails")
+        check(!evidence.isFresh(at:Date()),"route display clears confirmation on loss")
+        supervisor.stop()
+
         let root=FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         defer { try? FileManager.default.removeItem(at:root) }
         let model=TelemetryModel(base:root,collectorSource:"fixture",restore:false,observeWorkspace:false)
@@ -103,6 +139,20 @@ private final class FakeSession: SessionControl {
         check(aliasModel.nodes.count==2,"same alias in distinct existing config files remains loadable")
         aliasModel.stopAll()
         model.stopAll(rememberPause:true); restored.stopAll()
+        var clientCalls=[String](),localSSHStarts=0
+        let clientNode=NodeModel(profile:profile,demo:false,collector:"",history:nil,loadHistory:false,
+            factory:{p,c,cb in localSSHStarts+=1;return SSHSession(profile:p,collector:c,onSample:cb.sample,onExit:cb.exit)},
+            clientAction:{clientCalls.append($0)})
+        clientNode.connect();clientNode.pause()
+        check(clientCalls == ["node.connect","node.pause"] && localSSHStarts==0,"GUI client delegates actions and never starts local SSH")
+        clientNode.receiveRemote(["fresh":false,"paused":false])
+        check(!clientNode.fresh,"unconfirmed daemon status never becomes fresh")
+        let firstRemote=DemoSamples.make(profile:profile,index:0).last!
+        var remoteRaw=try JSONSerialization.jsonObject(with:JSONEncoder().encode(firstRemote)) as! [String:Any]
+        clientNode.receiveRemote(["sample":remoteRaw,"fresh":true,"received_at":Date().timeIntervalSince1970])
+        remoteRaw["sequence"]=0;remoteRaw["measuredAt"]=firstRemote.measuredAt+3
+        clientNode.receiveRemote(["sample":remoteRaw,"fresh":true,"received_at":Date().timeIntervalSince1970])
+        check(clientNode.latest?.sample.sequence==0,"GUI accepts newer samples after remote collector sequence reset")
         print("App model checks: \(checks); failures: \(failures)")
         if failures != 0 { exit(1) }
     }
