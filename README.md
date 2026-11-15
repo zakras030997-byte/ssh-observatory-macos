@@ -5,6 +5,15 @@ to administer. SwiftUI and Charts display CPU, memory, disk, network and systemd
 status; system OpenSSH handles pinned SSH authentication. The optional management
 client connects to a separately deployed mutual-TLS API.
 
+## Download the current app
+
+[Download SSH Observatory 0.7.0 for Apple Silicon](https://github.com/zakras030997-byte/ssh-observatory-macos/releases/latest)
+and follow [the installation guide](INSTALL.md). The DMG includes the application,
+its background helper, MCP adapter, examples and a per-user service installer.
+macOS 14+, Apple Silicon; local signature only, no Developer ID or notarization.
+Python / Apple Command Line Tools and Homebrew Tor are required separately.
+No personal node configuration is bundled.
+
 ## Background protected transport — 0.7.0
 
 One per-user background service owns node SSH, interactive sessions, SFTP and
@@ -46,6 +55,7 @@ Developer ID signing, notarization and another physical Mac are not verified.
 
 ```sh
 bash scripts/build-local.sh
+bash scripts/package-dmg.sh
 ```
 
 The output is `dist/SSH Observatory.app`. Copy it to `/Applications`, then register

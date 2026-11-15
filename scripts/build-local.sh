@@ -26,6 +26,11 @@ cp Sources/SSHObservatory/Resources/collector.py "$app/Contents/Resources/"
 mkdir -p "$app/Contents/Resources/vpn-tor"
 cp transport/{route_runtime,tor_recovery,tor_control_health,vpn_association,vpn_socks_probe,bound_dial}.py "$app/Contents/Resources/vpn-tor/"
 cp Sources/SSHObservatory/Resources/AppIcon.icns "$app/Contents/Resources/"
+mkdir -p "$app/Contents/Resources/mcp" "$app/Contents/Resources/setup" "$app/Contents/Resources/examples"
+cp mcp/{server,adapter}.py "$app/Contents/Resources/mcp/"
+cp scripts/install-service.py "$app/Contents/Resources/setup/"
+cp examples/*.json "$app/Contents/Resources/examples/"
+cp README.md INSTALL.md LICENSE "$app/Contents/Resources/setup/"
 cat > "$app/Contents/Info.plist" <<'PLIST'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
